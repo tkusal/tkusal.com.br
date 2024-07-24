@@ -78,7 +78,7 @@ nav ul a:hover {
 }
 
 span {
-  background: linear-gradient(to right, #041d9c, #43C4D7);
+  background: linear-gradient(to right, #34ffc9, #1b8dff);
   background-clip: text;
   color: transparent;
 }
@@ -128,6 +128,11 @@ section {
   font-weight: 200;
 }
 
+#profissao {
+  height: 1.5em;
+  opacity: 0.8;
+}
+
 .info-box p {
   opacity: 0.7;
 }
@@ -137,12 +142,16 @@ section {
   gap: 1em;
 }
 
-.btn-box .btn:nth-last-of-type(2) {
-  background-color: white;
-  color: var(--background);
+.btn-box .btn i {
+  color: white !important;
 }
 
-.btn-box .btn:nth-last-of-type(2):hover {
+.btn-box .btn:hover {
   background-color: var(--background);
-  color: white;
+  border-color: #3CBCE6;
+  color: #3CBCE6 !important;
+}
+
+.btn-box .btn:hover i {
+  color: #3CBCE6 !important;
 }
