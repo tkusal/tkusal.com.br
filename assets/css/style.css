@@ -1,0 +1,8 @@
+      body {
+        background-color: hsla(222, 47%, 11%, 1);
+        color: hsla(217, 24%, 59%, 1);
+        font-family: 'Noto Sans', sans-serif;;
+        font-size: 64px;
+        line-height: 1.5;
+        overflow-y: overlay;
+      }
