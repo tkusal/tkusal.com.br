@@ -5,56 +5,152 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>TKusal - Compartilhando Tecnologia</title>
     <meta name="title" content="TKusal - Compartilhando Tecnologia">
     <meta name="description" content="Blog pessoal mantido por Thiago Kusal, compartilhando conhecimentos técnicos.">
-
+    <meta name="keywords" content="blog, tecnologia, Thiago Kusal">
+    <title>TKusal - Compartilhando Tecnologia</title>
     <link rel="shortcut icon" href="./assets/img/favicon.svg" type="image/svg+xml">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="./assets/css/style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
-    <nav>
-        <a href="#" class="logo"><span>TKusal</span></a>
+    <header>
+        <nav>
+            <a href="#" class="logo" aria-label="Logo TKusal"><span>TKusal</span></a>
+            <ul class="links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#postagens">Postagens Recentes</a></li>
+                <li><a href="./blog/index.html">Blog</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+            <i class='bx bx-menu-alt-right' id="menu" aria-label="Menu"></i>
+            <a href="./prompt/index.html" class="prompt-btn"><i class='bx bxs-terminal' ></i></a>
+        </nav>
+    </header>
 
-        <ul class="links">
-            <a href="#home">Home</a>
-            <a href="#sobre">Sobre</a>
-            <a href="#contato">Contato</a>
-            <a href="./blog/index.html">Blog</a>
-        </ul>
+    <main>
+        <section id="home">
+            <img src="./assets/img/modelo-temp.jpg" alt="Thiago Kusal em ambiente profissional">
+            <div class="info-box">
+                <h1><span>Thiago Kusal</span></h1>
+                <h3 id="profissao"></h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quia, nesciunt adipisci eius cum asperiores minus vel repudiandae aliquid ut?</p>
+            </div>
+            <div class="btn-box">
+                <a href="https://www.linkedin.com/in/tkusal/" class="btn" aria-label="LinkedIn"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://github.com/tkusal" class="btn" aria-label="GitHub"><i class='bx bxl-github'></i></a>
+            </div>
+        </section>
 
-        <i class='bx bx-menu-alt-right' id="menu"></i>
+        <section id="sobre">
+            <div id="box-sobre">
+                <div class="info-sobre">
+                    <h1><span>Sobre Thiago</span></h1>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus itaque neque minus quod, nesciunt exercitationem incidunt, ex aspernatur, iste deserunt doloribus repellat sapiente facere earum illum a corporis laborum praesentium!</p>
+                </div>
+                <h2><span>Habilidades</span></h2>
+                <div class="habilidades">
+                    <ul>
+                        <li><span><i class='bx bx-chevron-right'></i> HTML</span></li>
+                        <li><span><i class='bx bx-chevron-right'></i> CSS</span></li>
+                        <li><span><i class='bx bx-chevron-right'></i> JavaScript</span></li>
+                    </ul>
+                    <ul>
+                        <li><span><i class='bx bx-chevron-right'></i> Python</span></li>
+                        <li><span><i class='bx bx-chevron-right'></i> SQL</span></li>
+                        <li><span><i class='bx bx-chevron-right'></i> AWS</span></li>
+                    </ul>
+                </div>
+            </div>
+            <img src="./assets/img/modelo-temp.jpg" alt="Thiago Kusal em ambiente profissional">
+        </section>
 
-        <a href="#contato" class="btn">Contate-me</a>
-    </nav>
+        <section id="postagens">
+            <h1 class="header"><span>Postagens Recentes</span></h1>
+            <div id="container-post">
+                <article class="box">
+                    <h1><span>Post 1</span></h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem iste consectetur ipsa illo debitis error!</p>
+                    <img src="./assets/img/temp.jpg" alt="Imagem para Post 1">
+                </article>
+                <article class="box">
+                    <h1><span>Post 2</span></h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem iste consectetur ipsa illo debitis error!</p>
+                    <img src="./assets/img/temp.jpg" alt="Imagem para Post 2">
+                </article>
+                <article class="box">
+                    <h1><span>Post 3</span></h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem iste consectetur ipsa illo debitis error!</p>
+                    <img src="./assets/img/temp.jpg" alt="Imagem para Post 3">
+                </article>
+            </div>
+        </section>
 
-    <section id="home">
-        <img src="./assets/img/foto.png" alt="Thiago Kusal">
+        <section id="contato">
+            <h1 class="header"><span>Contato</span></h1>
+            <form action="#" method="post">
+                <div class="input-box">
+                    <span>Nome</span>
+                    <input id="nome" type="text" placeholder="Informe seu nome" required>
+                </div>
+                <div class="input-box">
+                    <span>E-mail</span>
+                    <input id="email" type="email" placeholder="Informe seu e-mail" required>
+                </div>
+                <div class="input-box">
+                    <span>Telefone</span>
+                    <input id="telefone" type="tel" placeholder="Informe seu telefone" required>
+                </div>
+                <div class="input-box">
+                    <span>Mensagem</span>
+                    <textarea id="mensagem" placeholder="Informe seu motivo de contato" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn">Enviar</button>
+            </form>
+        </section>
+    </main>
 
-        <div class="info-box">
-            <h1><span>Thiago Kusal</span></h1>
-            <h3 id="profissao"></h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quia, nesciunt adipisci eius cum
-                asperiores minus vel repudiandae aliquid ut?</p>
+    <footer>
+        <div class="col-esq">
+            <div class="col-box">
+                <a href="https://maps.app.goo.gl/CSCVruCEUAGtt1Jc6" target="_blank" rel="noopener noreferrer">
+                    <span><i class='bx bx-current-location'></i></span>
+                    <span>Brasil | Rio de Janeiro</span>
+                </a>
+            </div>
+            <div class="col-box">
+                <a href="https://api.whatsapp.com/send?phone=5521999999999" target="_blank" rel="noopener noreferrer">
+                    <span><i class='bx bxl-whatsapp'></i></span>
+                    <span>+55 21 99999 9999</span>
+                </a>
+            </div>
+            <div class="col-box">
+                <a href="mailto:contato@tkusal.com.br" target="_blank" rel="noopener noreferrer">
+                    <span><i class='bx bxs-envelope'></i></span>
+                    <span>contato@tkusal.com.br</span>
+                </a>
+            </div>
         </div>
-
-        <div class="btn-box">
-            <div class="btn"><a href="https://www.linkedin.com/in/tkusal/"><i class='bx bxl-linkedin'></i></a></div>
-            <div class="btn"><a href="https://github.com/tkusal"><i class='bx bxl-github' ></i></a></div>
+        <div class="col-dir">
+            <span>Thiago Kusal</span>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, delectus.</p>
         </div>
-    </section>
+        <div class="social-icons">
+            <span>
+                <a href="https://linkedin.com/in/tkusal/" target="_blank" rel="noopener noreferrer"><i class='bx bxl-linkedin-square'></i></a>
+                <a href="https://github.com/tkusal" target="_blank" rel="noopener noreferrer"><i class='bx bxl-github'></i></a>
+                <a href="https://instagram.com/thiagokusal" target="_blank" rel="noopener noreferrer"><i class='bx bxl-instagram-alt'></i></a>
+                <a href="https://tkusal.com.br/blog" target="_blank" rel="noopener noreferrer"><i class='bx bxl-blogger'></i></a>
+            </span>
+        </div>
+    </footer>
 
-
+    <script src="./assets/js/script.js"></script>
 </body>
-
-<script src="./assets/js/script.js"></script>
 
 </html>
