@@ -174,7 +174,7 @@ section {
 }
 
 .btn-box .btn:hover,
-.btn-box .btn:hover i{
+.btn-box .btn:hover i {
   background-color: var(--background);
   border-color: var(--highlight-color);
   color: var(--highlight-color) !important;
@@ -520,6 +520,22 @@ footer {
 
   #home img {
     width: 40vw;
+  }
+
+  #box-sobre {
+    max-width: 100%
+  }
+
+  .habilidades {
+    gap: 1em
+  }
+
+  section {
+    padding: 60px 20px;
+  }
+
+  #sobre img{
+    width: 45vw;
   }
 
   #habilidades {
