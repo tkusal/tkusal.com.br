@@ -1,0 +1,35 @@
+body {
+    background-color: #1e1d1d;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    font-size: 2em;
+    text-align: center;
+}
+
+.dots span {
+    color: #34ffc9;
+    opacity: 0;
+    animation: showDots 1s linear infinite;
+}
+
+.dots span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.dots span:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.dots span:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes showDots {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}

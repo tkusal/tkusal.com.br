@@ -1,19 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const menu = document.querySelector("#menu");
+    const nav = document.querySelector(".links");
+    const professionElement = document.getElementById('profissao');
+
+    menu.addEventListener('click', () => {
+        menu.classList.toggle('bx-x');
+        nav.classList.toggle('active');
+    });
+
     const professions = [
         "Infraestrutura",
         "Sys Admin",
         "Arquitetura Cloud",
-        "DevOps em treinamento",
-        "Dev por hobby"
+        "Futuro DevOps/SRE",
+        "Dev entusiasta"
     ];
 
     let currentProfessionIndex = 0;
     let currentCharIndex = 0;
     let isDeleting = false;
-    const professionElement = document.getElementById('profissao');
     const typingSpeed = 100;
     const erasingSpeed = 50;
-    const newProfessionDelay = 1000; // Tempo de espera entre profissões
+    const newProfessionDelay = 1000;
 
     function typeProfession() {
         const currentProfession = professions[currentProfessionIndex];
