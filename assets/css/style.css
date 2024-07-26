@@ -507,6 +507,10 @@ footer {
   #sobre ul {
     font-size: 1em;
   }
+
+  .info-sobre p {
+    text-align: justify;
+  }
 }
 
 @media(max-width:768px) {
