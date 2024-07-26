@@ -373,6 +373,21 @@ form textarea:focus {
   font-weight: bold;
 }
 
+.success,
+.error {
+  text-align: center;
+}
+
+.success {
+  color: rgb(195, 246, 175);
+  opacity: 0.7;
+  
+}
+
+.error {
+  color: rgb(245, 89, 61);
+}
+
 footer {
   display: flex;
   align-items: center;
@@ -538,7 +553,7 @@ footer {
     padding: 60px 20px;
   }
 
-  #sobre img{
+  #sobre img {
     width: 45vw;
   }
 
