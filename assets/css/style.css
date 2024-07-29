@@ -3,7 +3,7 @@
   --second-background: rgb(21, 21, 21);
   --fontFamily-noto_sans: 'Noto Sans', sans-serif;
   --primary-color: #34ffc9;
-  --secondary-color: #1b8dff;
+  --secondary-color: #1a8cff;
   --highlight-color: #3CBCE6;
   --border-color: rgb(49, 49, 49);
   --hover-border-color: rgb(100, 100, 100);
@@ -33,7 +33,7 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 2em 15%;
+  padding: 1em 15%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -62,9 +62,6 @@ nav ul a:focus {
 }
 
 .logo {
-  font-size: 2em;
-  color: white;
-  font-weight: 800;
   opacity: 0.8;
   transition: 0.2s ease-in-out;
 }
@@ -138,6 +135,13 @@ section {
 }
 
 .info-box h1 {
+  opacity: 0.9;
+  font-size: 3em;
+  font-weight: 800px;
+}
+
+.info-box h1:hover {
+  opacity: 1;
   font-size: 3em;
   font-weight: 800;
 }
