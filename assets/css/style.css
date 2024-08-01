@@ -1,10 +1,10 @@
 :root {
-  --background: rgb(24, 24, 24);
-  --second-background: rgb(21, 21, 21);
+  --background: #181818;
+  --second-background: #151515;
   --fontFamily-noto_sans: 'Noto Sans', sans-serif;
-  --primary-color: #34ffc9;
+  --primary-color: rgb(52, 255, 201);
   --secondary-color: #1a8cff;
-  --highlight-color: #3CBCE6;
+  --highlight-color: #3cbce6;
   --border-color: rgb(49, 49, 49);
   --hover-border-color: rgb(100, 100, 100);
 }
