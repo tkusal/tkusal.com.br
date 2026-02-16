@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmos e Lógica de Programação - Aula 02</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 1. SETUP BASE */
+        body {
+            background-color: #0d1117;
+            margin: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #c9d1d9;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .slide-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-container {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            width: 1280px;
+            height: 720px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transform-origin: center center;
+            overflow: hidden;
+            padding: 50px 70px;
+            border: 1px solid #30363d;
+            box-sizing: border-box;
+        }
+
+        .slide-container.active {
+            display: flex;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide-container::before {
+            content: '● ● ●'; 
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            color: #4b525d;
+            font-size: 14px;
+            letter-spacing: 4px;
+        }
+
+        /* 2. TIPOGRAFIA */
+        h1 { font-size: 60px; color: #58a6ff; margin-bottom: 20px; }
+        h2.slide-title {
+            font-size: 36px;
+            color: #58a6ff;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 12px;
+            width: 100%;
+        }
+        h3 { font-size: 24px; color: #79c0ff; margin-bottom: 10px; }
+        p, li, td, th { font-size: 19px; line-height: 1.5; color: #c9d1d9; }
+
+        /* 3. COMPONENTES VISUAIS */
+        .code-font { 
+            font-family: 'JetBrains Mono', monospace; 
+            font-variant-ligatures: none;
+        }
+        .highlight-c { color: #79c0ff; }
+        .highlight-py { color: #e3b341; }
+        .highlight-port { color: #8b949e; }
+        .keyword { color: #ff7b72; }
+        .string { color: #a5d6ff; }
+        .comment { color: #8b949e; font-style: italic; }
+
+        .content-area { display: flex; flex-direction: column; flex-grow: 1; justify-content: center; width: 100%; }
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+        .three-column { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; align-items: start; }
+        
+        .tile {
+            background-color: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .tile:hover {
+            border-color: #58a6ff;
+            transform: translateY(-3px);
+            background-color: #262c36;
+        }
+
+        table { width: 100%; border-collapse: collapse; background-color: #21262d; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 10px 15px; text-align: left; border-bottom: 1px solid #30363d; }
+        th { background-color: #161b22; color: #58a6ff; }
+
+        .home-credits {
+            margin-top: 50px;
+            font-size: 12px;
+            color: #8b949e;
+            text-align: center;
+            width: 100%;
+        }
+        .home-credits a {
+            color: #58a6ff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .home-credits a:hover {
+            text-decoration: underline;
+        }
+
+        .code-container {
+            background-color: #0d1117;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 5px solid;
+            width: 100%;
+            font-family: 'JetBrains Mono', monospace;
+            font-variant-ligatures: none; 
+            white-space: pre;
+            overflow-x: auto;
+            font-size: 14px;
+            box-sizing: border-box;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        .border-c { border-color: #79c0ff; }
+        .border-py { border-color: #e3b341; }
+        .border-port { border-color: #8b949e; }
+
+        .disclaimer-box {
+            margin-top: 15px;
+            padding: 12px 18px;
+            background-color: rgba(227, 179, 65, 0.08);
+            border: 1px solid #e3b341;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #e3b341;
+        }
+
+        /* 4. PÁGINA DE LIVROS E CONTATOS */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .book-card {
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .book-img {
+            height: 130px;
+            width: auto;
+            object-fit: contain;
+            margin: 0 auto 10px;
+            display: block;
+        }
+        .book-title { font-size: 13px; font-weight: 700; color: #58a6ff; margin-bottom: 4px; height: 32px; overflow: hidden; line-height: 1.2; }
+        .btn-amazon {
+            background: #238636;
+            color: white;
+            text-decoration: none;
+            padding: 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .btn-amazon:hover { background: #2ea043; }
+
+        .final-footer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #30363d;
+        }
+        .inst-info { display: flex; align-items: center; gap: 20px; }
+        .unicesumar-logo { height: 60px; filter: brightness(0) invert(1); }
+        
+        /* CORREÇÃO AQUI: Adicionado efeito hover para links do rodapé */
+        .info-link { color: #8b949e; text-decoration: none; font-size: 14px; display: block; margin-bottom: 4px; transition: color 0.2s; }
+        .info-link:hover { color: #58a6ff; text-decoration: underline; }
+        
+        .info-link i { width: 20px; color: #58a6ff; }
+
+        /* 5. NAVEGAÇÃO */
+        .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(33, 38, 45, 0.4);
+            color: #8b949e;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid transparent;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover { background-color: #58a6ff; color: #0d1117; }
+        .nav-btn:disabled { opacity: 0; pointer-events: none; }
+        #prevBtn { left: 15px; }
+        #nextBtn { right: 15px; }
+        .progress-bar { position: absolute; bottom: 0; left: 0; height: 4px; background-color: #58a6ff; transition: width 0.3s ease; }
+
+        /* --- NOVO FLUXOGRAMA SVG --- */
+        .svg-flowchart {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .flow-shape {
+            fill: #0d1117;
+            stroke: #58a6ff;
+            stroke-width: 2;
+        }
+        .flow-line {
+            stroke: #8b949e;
+            stroke-width: 2;
+            fill: none;
+        }
+        .flow-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            fill: #c9d1d9;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            font-weight: 600;
+        }
+        .label-yes { fill: #7ee787; font-size: 12px; font-weight: bold; }
+        .label-no { fill: #ff7b72; font-size: 12px; font-weight: bold; }
+
+        /* --- FUNCIONALIDADE DE CANETA --- */
+        #drawingCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+            pointer-events: none;
+        }
+        #drawingToolbar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid #30363d;
+            border-radius: 50px;
+            padding: 8px 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            z-index: 9999;
+        }
+        .tool-btn {
+            background: none;
+            border: none;
+            color: #8b949e;
+            cursor: pointer;
+            font-size: 18px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tool-btn.active { color: #0d1117; background: #58a6ff; }
+        .color-dot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #fff; cursor: pointer; }
+
+        ul { list-style: none; padding: 0; }
+        li { margin-bottom: 8px; padding-left: 25px; position: relative; }
+        li::before { content: '>'; position: absolute; left: 0; color: #58a6ff; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <canvas id="drawingCanvas"></canvas>
+
+    <div id="drawingToolbar">
+        <button class="tool-btn" id="togglePen"><i class="fa-solid fa-pen-nib"></i></button>
+        <button class="tool-btn" id="clearCanvas"><i class="fa-solid fa-eraser"></i></button>
+        <div style="width: 1px; height: 20px; background: #30363d;"></div>
+        <div class="color-dot" id="colorCyan" style="background: #00E5FF;"></div>
+        <div class="color-dot" id="colorRed" style="background: #ff7b72;"></div>
+    </div>
+
+    <button id="prevBtn" class="nav-btn" onclick="changeSlide(-1)">❮</button>
+    <button id="nextBtn" class="nav-btn" onclick="changeSlide(1)">❯</button>
+
+    <div class="slide-wrapper">
+        
+        <!-- Slide 1: Capa -->
+        <div class="slide-container active">
+            <div class="content-area" style="text-align: center;">
+                <p style="color: #e3b341; font-weight: 600; letter-spacing: 2px;">&lt;/AULA 02&gt;</p>
+                <h1>Algoritmos e Lógica de Programação</h1>
+                <p style="font-size: 26px; color: #8b949e;">Estruturas Condicionais</p>
+                <div style="margin-top: 40px; display: flex; justify-content: center; gap: 20px;">
+                    <div class="tile"><span class="highlight-port">Portugol</span></div>
+                    <div class="tile"><span class="highlight-c">Linguagem C</span></div>
+                    <div class="tile"><span class="highlight-py">Python</span></div>
+                </div>
+                <div class="home-credits">
+                    Produzido por <a href="https://www.linkedin.com/in/tkusal/" target="_blank">Thiago Kusal</a> | 
+                    <a href="https://sites.google.com/view/programa-ampliar/in%C3%ADcio" target="_blank">Projeto Ampliar - UniCesumar</a> | 
+                    <a href="https://github.com/tkusal/Projeto-Ampliar-Unicesumar-51-2026" target="_blank">GitHub da monitoria</a>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 12.5%;"></div>
+        </div>
+
+        <!-- Slide 2: O que são e pra que servem (FLUXOGRAMA MELHORADO) -->
+        <div class="slide-container">
+            <h2 class="slide-title">O que são Estruturas Condicionais?</h2>
+            <div class="content-area">
+                <div class="two-column">
+                    <div>
+                        <p>São estruturas que permitem ao algoritmo desviar o fluxo de execução baseado em uma <b>condição lógica</b> (Verdadeira ou Falsa).</p>
+                        <ul>
+                            <li>Permitem que o computador "tome decisões".</li>
+                            <li>Baseiam-se em <b>Operadores Relacionais</b> (>, <, ==, !=).</li>
+                            <li>Essenciais para validar dados e criar interatividade.</li>
+                        </ul>
+                    </div>
+                    <div class="tile">
+                        <h3 style="color: #d2a8ff; margin-bottom: 20px;">Fluxo de Decisão</h3>
+                        
+                        <!-- NOVO SVG FLOWCHART -->
+                        <svg class="svg-flowchart" viewBox="0 0 300 320">
+                            <defs>
+                                <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#8b949e" />
+                                </marker>
+                            </defs>
+
+                            <!-- Nó Início -->
+                            <rect x="100" y="10" width="100" height="40" rx="20" ry="20" class="flow-shape" fill="#161b22" />
+                            <text x="150" y="31" class="flow-text">Início</text>
+
+                            <!-- Seta 1 -->
+                            <line x1="150" y1="50" x2="150" y2="80" class="flow-line" marker-end="url(#arrow)" />
+
+                            <!-- Nó Decisão (Losango) -->
+                            <polygon points="150,80 210,120 150,160 90,120" class="flow-shape" stroke="#ff7b72" fill="#161b22" />
+                            <text x="150" y="121" class="flow-text" style="font-size:13px;">Fez Sol?</text>
+
+                            <!-- Caminho SIM (Esquerda) -->
+                            <path d="M90,120 L50,120 L50,180" class="flow-line" marker-end="url(#arrow)" />
+                            <text x="60" y="115" class="label-yes">Sim</text>
+
+                            <!-- Caminho NÃO (Direita) -->
+                            <path d="M210,120 L250,120 L250,180" class="flow-line" marker-end="url(#arrow)" />
+                            <text x="225" y="115" class="label-no">Não</text>
+
+                            <!-- Processo SIM -->
+                            <rect x="10" y="180" width="80" height="40" rx="4" class="flow-shape" />
+                            <text x="50" y="201" class="flow-text" style="font-size:12px;">Ir à Praia</text>
+
+                            <!-- Processo NÃO -->
+                            <rect x="210" y="180" width="80" height="40" rx="4" class="flow-shape" />
+                            <text x="250" y="201" class="flow-text" style="font-size:12px;">Ver Filme</text>
+                            
+                            <!-- Convergência e Fim -->
+                            <path d="M50,220 L50,240 L150,240 M250,220 L250,240 L150,240" class="flow-line" />
+                            <line x1="150" y1="240" x2="150" y2="260" class="flow-line" marker-end="url(#arrow)" />
+
+                            <!-- Nó Fim -->
+                            <rect x="100" y="260" width="100" height="40" rx="20" ry="20" class="flow-shape" fill="#161b22" />
+                            <text x="150" y="281" class="flow-text">Fim</text>
+                        </svg>
+
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 25%;"></div>
+        </div>
+
+        <!-- Slide 3: Condicional Simples -->
+        <div class="slide-container">
+            <h2 class="slide-title">Condicional Simples</h2>
+            <div class="content-area">
+                <p style="margin-bottom: 20px;">Executa um bloco de código <b>apenas</b> se a condição for verdadeira. Se for falsa, o bloco é ignorado.</p>
+                <div class="three-column">
+                    <div>
+                        <h4 class="highlight-port">Portugol</h4>
+                        <div class="code-container border-port">
+<span class="keyword">Se</span> (idade >= 18) <span class="keyword">então</span>
+  Escreva(<span class="string">"Maior de idade"</span>)
+<span class="keyword">Fim_se</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="highlight-c">Linguagem C</h4>
+                        <div class="code-container border-c">
+<span class="keyword">if</span> (idade >= 18) {
+  printf(<span class="string">"Maior de idade"</span>);
+}
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="highlight-py">Python</h4>
+                        <div class="code-container border-py">
+<span class="keyword">if</span> idade >= 18:
+    <span class="keyword">print</span>(<span class="string">"Maior de idade"</span>)
+
+<span class="comment"># Note os ":" e a indentação!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 37.5%;"></div>
+        </div>
+
+        <!-- Slide 4: Condicional Composta -->
+        <div class="slide-container">
+            <h2 class="slide-title">Condicional Composta</h2>
+            <div class="content-area">
+                <p style="margin-bottom: 20px;">Oferece um caminho alternativo (senão) caso a condição inicial seja falsa.</p>
+                <div class="three-column">
+                    <div>
+                        <h4 class="highlight-port">Portugol</h4>
+                        <div class="code-container border-port">
+<span class="keyword">Se</span> (media >= 7) <span class="keyword">então</span>
+  Escreva(<span class="string">"Aprovado"</span>)
+<span class="keyword">Senão</span>
+  Escreva(<span class="string">"Reprovado"</span>)
+<span class="keyword">Fim_se</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="highlight-c">Linguagem C</h4>
+                        <div class="code-container border-c">
+<span class="keyword">if</span> (media >= 7) {
+  printf(<span class="string">"Aprovado"</span>);
+} <span class="keyword">else</span> {
+  printf(<span class="string">"Reprovado"</span>);
+}
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="highlight-py">Python</h4>
+                        <div class="code-container border-py">
+<span class="keyword">if</span> media >= 7:
+    <span class="keyword">print</span>(<span class="string">"Aprovado"</span>)
+<span class="keyword">else</span>:
+    <span class="keyword">print</span>(<span class="string">"Reprovado"</span>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 50%;"></div>
+        </div>
+
+        <!-- Slide 5: Condicional Aninhada -->
+        <div class="slide-container">
+            <h2 class="slide-title">Condicional Aninhada</h2>
+            <div class="content-area">
+                <p style="margin-bottom: 20px;">Utilizada quando precisamos testar múltiplas condições em sequência.</p>
+                <div class="three-column">
+                    <div>
+                        <h4 class="highlight-port">Portugol</h4>
+                        <div class="code-container border-port" style="font-size: 11px;">
+<span class="keyword">Se</span> (n > 0) <span class="keyword">então</span>
+  Escreva(<span class="string">"Positivo"</span>)
+<span class="keyword">Senão Se</span> (n < 0) <span class="keyword">então</span>
+  Escreva(<span class="string">"Negativo"</span>)
+<span class="keyword">Senão</span>
+  Escreva(<span class="string">"Zero"</span>)
+<span class="keyword">Fim_se</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="highlight-c">Linguagem C</h4>
+                        <div class="code-container border-c" style="font-size: 11px;">
+<span class="keyword">if</span> (n > 0) {
+  printf(<span class="string">"Positivo"</span>);
+} <span class="keyword">else if</span> (n < 0) {
+  printf(<span class="string">"Negativo"</span>);
+} <span class="keyword">else</span> {
+  printf(<span class="string">"Zero"</span>);
+}
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="highlight-py">Python</h4>
+                        <div class="code-container border-py" style="font-size: 11px;">
+<span class="keyword">if</span> n > 0:
+    <span class="keyword">print</span>(<span class="string">"Positivo"</span>)
+<span class="keyword">elif</span> n < 0:
+    <span class="keyword">print</span>(<span class="string">"Negativo"</span>)
+<span class="keyword">else</span>:
+    <span class="keyword">print</span>(<span class="string">"Zero"</span>)
+
+<span class="comment"># elif = else + if</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 62.5%;"></div>
+        </div>
+
+        <!-- Slide 6: Condicional de Caso -->
+        <div class="slide-container">
+            <h2 class="slide-title">Estrutura de Decisão Múltipla</h2>
+            <div class="content-area">
+                <p style="margin-bottom: 10px;">Ideal para testar uma única variável contra vários valores fixos (condições de igualdade) e executa o bloco correspondente ao valor que for igual (como um menu).</p>
+                <div class="three-column">
+                    <div>
+                        <h4 class="highlight-port">Portugol</h4>
+                        <div class="code-container border-port" style="font-size: 11px;">
+<span class="keyword">Escolha</span> (opcao)
+  <span class="keyword">Caso</span> 1: 
+    Escreva(<span class="string">"Salvar"</span>)
+  <span class="keyword">Caso</span> 2: 
+    Escreva(<span class="string">"Sair"</span>)
+  <span class="keyword">Outrocaso</span>: 
+    Escreva(<span class="string">"Inválido"</span>)
+<span class="keyword">Fim_escolha</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="highlight-c">Linguagem C</h4>
+                        <div class="code-container border-c" style="font-size: 11px;">
+<span class="keyword">switch</span> (opcao) {
+  <span class="keyword">case</span> 1:
+    printf(<span class="string">"Salvar"</span>); <span class="keyword">break</span>;
+  <span class="keyword">case</span> 2:
+    printf(<span class="string">"Sair"</span>); <span class="keyword">break</span>;
+  <span class="keyword">default</span>:
+    printf(<span class="string">"Inválido"</span>);
+}
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="highlight-py">Python (3.10+)</h4>
+                        <div class="code-container border-py" style="font-size: 11px;">
+<span class="keyword">match</span> opcao:
+    <span class="keyword">case</span> 1:
+        <span class="keyword">print</span>(<span class="string">"Salvar"</span>)
+    <span class="keyword">case</span> 2:
+        <span class="keyword">print</span>(<span class="string">"Sair"</span>)
+    <span class="keyword">case</span> _:
+        <span class="keyword">print</span>(<span class="string">"Inválido"</span>)
+
+<span class="comment"># _ funciona como default</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 75%;"></div>
+        </div>
+
+        <!-- Slide 8: Referências -->
+        <div class="slide-container">
+            <h2 class="slide-title">Referências</h2>
+            <div class="content-area">
+                <div class="books-grid">
+                    <div class="book-card">
+                        <img src="https://m.media-amazon.com/images/I/517I6z9QK4L._SY445_SX342_ML2_.jpg" class="book-img">
+                        <div class="book-title">Entendendo Algoritmos</div>
+                        <a href="https://amzn.to/4rKYxOq" target="_blank" class="btn-amazon">Comprar</a>
+                    </div>
+                    <div class="book-card">
+                        <img src="https://m.media-amazon.com/images/I/61TTIqA77QL._SL1008_.jpg" class="book-img">
+                        <div class="book-title">Algoritmos e Lógica</div>
+                        <a href="https://amzn.to/4avtpv9" target="_blank" class="btn-amazon">Comprar</a>
+                    </div>
+                    <div class="book-card">
+                        <img src="https://m.media-amazon.com/images/I/718hLqm6snL._SL1500_.jpg" class="book-img">
+                        <div class="book-title">C - Completa e Descomplicada</div>
+                        <a href="https://amzn.to/466p28K" target="_blank" class="btn-amazon">Comprar</a>
+                    </div>
+                    <div class="book-card">
+                        <img src="https://m.media-amazon.com/images/I/61OKqJ+8AzL._SL1000_.jpg" class="book-img">
+                        <div class="book-title">Introdução ao Python</div>
+                        <a href="https://amzn.to/4qGcM6b" target="_blank" class="btn-amazon">Comprar</a>
+                    </div>
+                </div>
+
+                <div class="final-footer">
+                    <div class="inst-info">
+                        <img src="https://sistemasead.unicesumar.edu.br/portal/login/img/unicesumar_logo.png" class="unicesumar-logo">
+                        <div>
+                            <a href="https://www.unicesumar.edu.br/" class="info-link" target="_blank"><i class="fa-solid fa-globe"></i> Site Oficial</a>
+                            <a href="https://sites.google.com/view/programa-ampliar/in%C3%ADcio" class="info-link" target="_blank"><i class="fa-solid fa-graduation-cap"></i> Programa Ampliar</a>
+                        </div>
+                    </div>
+                    <div class="monitor-info">
+                        <h4 style="color:#79c0ff; margin-bottom: 5px;">Monitor Thiago Kusal</h4>
+                        <a href="https://www.linkedin.com/in/tkusal/" class="info-link" target="_blank"><i class="fa-brands fa-linkedin"></i> linkedin.com/in/tkusal</a>
+                        <a href="https://tkusal.com.br" class="info-link" target="_blank"><i class="fa-solid fa-link"></i> tkusal.com.br</a>
+                        <a href="https://www.youtube.com/@thiagokusal" class="info-link" target="_blank"><i class="fa-brands fa-youtube"></i> @thiagokusal</a>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 100%;"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- LÓGICA DOS SLIDES ---
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide-container');
+        const totalSlides = slides.length;
+
+        function updateSlidePosition() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            currentSlide = Math.max(0, Math.min(totalSlides - 1, currentSlide + direction));
+            updateSlidePosition();
+        }
+
+        function scaleSlides() {
+            const containerWidth = 1280, containerHeight = 720;
+            const windowWidth = window.innerWidth, windowHeight = window.innerHeight;
+            const scale = Math.min(windowWidth / containerWidth, windowHeight / containerHeight) * 0.95; 
+            slides.forEach(slide => slide.style.transform = `translate(-50%, -50%) scale(${scale})`);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (drawingActive) return; 
+            if (e.key === 'ArrowRight' || e.key === ' ') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+        });
+
+        // --- LÓGICA DE DESENHO ---
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        let drawingActive = false, isDrawing = false, currentColor = '#00E5FF';
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            ctx.lineCap = 'round'; ctx.lineWidth = 3; ctx.strokeStyle = currentColor;
+        }
+
+        function startDrawing(e) { if (!drawingActive) return; isDrawing = true; draw(e); }
+        function stopDrawing() { isDrawing = false; ctx.beginPath(); }
+        function draw(e) {
+            if (!isDrawing || !drawingActive) return;
+            const x = e.clientX || (e.touches && e.touches[0].clientX);
+            const y = e.clientY || (e.touches && e.touches[0].clientY);
+            ctx.lineTo(x, y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y);
+        }
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        window.addEventListener('mouseup', stopDrawing);
+        
+        document.getElementById('togglePen').addEventListener('click', function() {
+            drawingActive = !drawingActive; 
+            this.classList.toggle('active');
+            canvas.style.pointerEvents = drawingActive ? 'auto' : 'none';
+        });
+        
+        document.getElementById('clearCanvas').addEventListener('click', () => ctx.clearRect(0,0,canvas.width,canvas.height));
+        document.getElementById('colorCyan').addEventListener('click', () => { currentColor = '#00E5FF'; ctx.strokeStyle = currentColor; });
+        document.getElementById('colorRed').addEventListener('click', () => { currentColor = '#ff7b72'; ctx.strokeStyle = currentColor; });
+
+        window.onload = () => { resizeCanvas(); scaleSlides(); updateSlidePosition(); };
+        window.addEventListener('resize', () => { scaleSlides(); resizeCanvas(); });
+    </script>
+</body>
+</html>

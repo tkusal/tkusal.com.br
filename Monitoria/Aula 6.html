@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmos e Lógica de Programação - Aula 06</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 1. SETUP BASE */
+        body {
+            background-color: #0d1117;
+            margin: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #c9d1d9;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .slide-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-container {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            width: 1280px;
+            height: 720px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transform-origin: center center;
+            overflow: hidden;
+            padding: 40px 70px; /* Reduzido padding vertical */
+            border: 1px solid #30363d;
+            box-sizing: border-box;
+        }
+
+        .slide-container.active {
+            display: flex;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide-container::before {
+            content: '● ● ●'; 
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            color: #4b525d;
+            font-size: 14px;
+            letter-spacing: 4px;
+        }
+
+        /* 2. TIPOGRAFIA */
+        h1 { font-size: 60px; color: #58a6ff; margin-bottom: 20px; }
+        h2.slide-title {
+            font-size: 36px;
+            color: #58a6ff;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 10px;
+            width: 100%;
+        }
+        h3 { font-size: 24px; color: #79c0ff; margin-bottom: 10px; }
+        h4 { margin-top: 0; margin-bottom: 10px; color: #c9d1d9; font-weight: 600; }
+        p, li, td, th { font-size: 19px; line-height: 1.5; color: #c9d1d9; }
+
+        /* 3. COMPONENTES VISUAIS */
+        .code-font { 
+            font-family: 'JetBrains Mono', monospace; 
+            font-variant-ligatures: none;
+        }
+        .highlight-c { color: #79c0ff; }
+        .highlight-py { color: #e3b341; }
+        .highlight-port { color: #8b949e; }
+        .keyword { color: #ff7b72; }
+        .string { color: #a5d6ff; }
+        .number { color: #79c0ff; }
+        .comment { color: #8b949e; font-style: italic; }
+        .type { color: #d2a8ff; }
+
+        .content-area { display: flex; flex-direction: column; flex-grow: 1; justify-content: center; width: 100%; }
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .three-column { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; align-items: start; }
+        
+        .tile {
+            background-color: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tile:hover {
+            border-color: #58a6ff;
+            transform: translateY(-3px);
+            background-color: #262c36;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .home-credits {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #8b949e;
+            text-align: center;
+            width: 100%;
+            border-top: 1px solid rgba(48, 54, 61, 0.5);
+            padding-top: 20px;
+        }
+        .home-credits a {
+            color: #58a6ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .home-credits a:hover {
+            color: #79c0ff;
+            text-decoration: underline;
+        }
+
+        .code-container {
+            background-color: #0d1117;
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 5px solid;
+            width: 100%;
+            font-family: 'JetBrains Mono', monospace;
+            font-variant-ligatures: none; 
+            white-space: pre;
+            overflow-x: auto;
+            font-size: 13px;
+            box-sizing: border-box;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        .border-c { border-color: #79c0ff; }
+        .border-py { border-color: #e3b341; }
+        .border-port { border-color: #8b949e; }
+
+        /* 4. LIVROS - AJUSTADOS PARA CABER NO RODAPÉ */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .book-card {
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 370px; 
+            transition: all 0.3s ease;
+        }
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            border-color: #58a6ff;
+        }
+        .book-img {
+            height: 120px;
+            width: auto;
+            object-fit: contain;
+            margin: 0 auto 10px;
+            display: block;
+            border-radius: 4px;
+        }
+        .book-title { 
+            font-size: 13px;
+            font-weight: 700; 
+            color: #58a6ff; 
+            margin-bottom: 4px; 
+            line-height: 1.2; 
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .book-desc {
+            font-size: 10px;
+            color: #c9d1d9;
+            margin-bottom: 8px;
+            flex-grow: 1;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 4; 
+            -webkit-box-orient: vertical;
+            line-height: 1.3;
+            text-align: left;
+        }
+        .btn-amazon {
+            background: #238636;
+            color: white;
+            text-decoration: none;
+            padding: 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: auto;
+            transition: background 0.2s ease;
+        }
+        .btn-amazon:hover { background: #2ea043; }
+
+        /* 5. NAVEGAÇÃO E RODAPÉ */
+        .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(33, 38, 45, 0.4);
+            color: #8b949e;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            border: 1px solid transparent;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000;
+            transition: all 0.2s ease;
+        }
+        .nav-btn:hover { background-color: #58a6ff; color: #0d1117; transform: translateY(-50%) scale(1.1); }
+        .nav-btn:disabled { opacity: 0; pointer-events: none; }
+        .progress-bar { position: absolute; bottom: 0; left: 0; height: 4px; background-color: #58a6ff; transition: width 0.3s ease; }
+
+        .final-footer { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding-top: 15px; border-top: 1px solid #30363d; margin-top: auto; }
+        .inst-info { display: flex; align-items: center; gap: 15px; }
+        .unicesumar-logo { height: 45px; filter: brightness(0) invert(1); }
+        .info-link { color: #8b949e; text-decoration: none; font-size: 13px; display: block; margin-bottom: 4px; transition: color 0.2s; }
+        .info-link:hover { color: #58a6ff; text-decoration: underline; }
+        .info-link i { width: 20px; color: #58a6ff; }
+
+        /* CANETA */
+        #drawingCanvas { position: fixed; top: 0; left: 0; z-index: 9998; pointer-events: none; }
+        #drawingToolbar {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(30, 30, 30, 0.9); border: 1px solid #30363d; border-radius: 50px;
+            padding: 8px 20px; display: flex; gap: 15px; align-items: center; z-index: 9999;
+        }
+        .tool-btn { background: none; border: none; color: #8b949e; cursor: pointer; font-size: 18px; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+        .tool-btn.active { color: #0d1117; background: #58a6ff; }
+        .color-dot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #fff; cursor: pointer; }
+
+        /* SVG ESCOPO */
+        .svg-scope-container { width: 100%; max-width: 450px; margin: 0 auto; }
+        .scope-rect { fill: #161b22; stroke-width: 2; rx: 12; }
+        .scope-global-border { stroke: #58a6ff; }
+        .scope-local-border { stroke: #79c0ff; fill: #1c2128; stroke-dasharray: 6; }
+        .scope-text-svg { font-family: 'JetBrains Mono'; font-size: 14px; font-weight: bold; }
+
+        /* TABELA COMPARATIVA */
+        .compare-table { width: 100%; border-collapse: collapse; margin-top: 5px; font-size: 13px; }
+        .compare-table th { color: #58a6ff; text-align: left; padding: 6px 10px; border-bottom: 1px solid #30363d; }
+        .compare-table td { padding: 6px 10px; border-bottom: 1px solid #30363d; color: #c9d1d9; line-height: 1.3; }
+        .tag-local { color: #79c0ff; font-weight: bold; }
+        .tag-global { color: #58a6ff; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <canvas id="drawingCanvas"></canvas>
+    <div id="drawingToolbar">
+        <button class="tool-btn" id="togglePen"><i class="fa-solid fa-pen-nib"></i></button>
+        <button class="tool-btn" id="clearCanvas"><i class="fa-solid fa-eraser"></i></button>
+        <div class="color-dot" id="colorCyan" style="background: #00E5FF;"></div>
+        <div class="color-dot" id="colorRed" style="background: #ff7b72;"></div>
+    </div>
+
+    <button id="prevBtn" class="nav-btn" onclick="changeSlide(-1)" style="left:15px">❮</button>
+    <button id="nextBtn" class="nav-btn" onclick="changeSlide(1)" style="right:15px">❯</button>
+
+    <div class="slide-wrapper">
+        
+        <!-- Slide 1: Capa -->
+        <div class="slide-container active">
+            <div class="content-area" style="text-align: center;">
+                <p style="color: #e3b341; font-weight: 600; letter-spacing: 2px;">&lt;/AULA 06&gt;</p>
+                <h1>Algoritmos e Lógica de Programação</h1>
+                <p style="font-size: 26px; color: #8b949e;">Sub-rotinas: Procedimentos e Funções</p>
+                
+                <div style="margin-top: 45px; display: flex; justify-content: center; gap: 25px;">
+                    <div class="tile" style="width: 180px;"><span class="highlight-port">Portugol</span></div>
+                    <div class="tile" style="width: 180px;"><span class="highlight-c">Linguagem C</span></div>
+                    <div class="tile" style="width: 180px;"><span class="highlight-py">Python</span></div>
+                </div>
+
+                <div class="home-credits">
+                    Produzido por <a href="https://www.linkedin.com/in/tkusal/" target="_blank">Thiago Kusal</a> | 
+                    <a href="https://sites.google.com/view/programa-ampliar/in%C3%ADcio" target="_blank">Projeto Ampliar - UniCesumar</a> | 
+                    <a href="https://github.com/tkusal/Projeto-Ampliar-Unicesumar-51-2026" target="_blank">GitHub da monitoria</a>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 11%;"></div>
+        </div>
+
+        <!-- Slide 2: O que são -->
+        <div class="slide-container">
+            <h2 class="slide-title">Sub-rotinas: O que são e para que servem?</h2>
+            <div class="content-area">
+                <div class="two-column">
+                    <div>
+                        <p>Sub-rotinas são blocos de código isolados que realizam uma tarefa específica. Elas são a base da <b>Modularização</b>.</p>
+                        <ul style="list-style: none; padding: 0;">
+                            <li><i class="fa-solid fa-check" style="color:#58a6ff"></i> <b>Reutilização:</b> Escreva uma vez, use várias vezes.</li>
+                            <li><i class="fa-solid fa-check" style="color:#58a6ff"></i> <b>Organização:</b> Divide um problema grande em partes menores.</li>
+                            <li><i class="fa-solid fa-check" style="color:#58a6ff"></i> <b>Manutenção:</b> Facilita encontrar e corrigir erros.</li>
+                        </ul>
+                    </div>
+                    <div class="tile">
+                        <h3 style="color:#79c0ff">Analogia</h3>
+                        <p>Imagine o controle remoto de uma TV. Cada botão (sub-rotina) executa uma função específica (mudar canal, volume) sem que você precise saber como o circuito interno funciona.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 22%;"></div>
+        </div>
+
+        <!-- Slide 3: Diferenças -->
+        <div class="slide-container">
+            <h2 class="slide-title">Função vs. Procedimento</h2>
+            <div class="content-area">
+                <div class="two-column">
+                    <div class="tile">
+                        <i class="fa-solid fa-gears" style="font-size:40px; color:#58a6ff; margin-bottom:15px;"></i>
+                        <h3>Procedimento</h3>
+                        <p>Executa uma tarefa e <b>não retorna</b> nenhum valor para o chamador.</p>
+                        <p class="highlight-c" style="font-size:16px;">Em C: usa o tipo <code>void</code>.</p>
+                    </div>
+                    <div class="tile">
+                        <i class="fa-solid fa-calculator" style="font-size:40px; color:#79c0ff; margin-bottom:15px;"></i>
+                        <h3>Função</h3>
+                        <p>Executa uma tarefa e <b>obrigatoriamente retorna</b> um valor ao final.</p>
+                        <p class="highlight-c" style="font-size:16px;">Em C: usa tipos como <code>int</code>, <code>float</code>, etc.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 33%;"></div>
+        </div>
+
+        <!-- Slide 4: Escopo Detalhado -->
+        <div class="slide-container">
+            <h2 class="slide-title">Escopo de Variáveis: Entendendo as Diferenças</h2>
+            <div class="content-area">
+                <div class="two-column" style="gap: 20px;">
+                    <div>
+                        <table class="compare-table">
+                            <thead>
+                                <tr>
+                                    <th>Característica</th>
+                                    <th><span class="tag-global">Global</span></th>
+                                    <th><span class="tag-local">Local</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>Onde nasce?</b></td>
+                                    <td>Fora de todas funções.</td>
+                                    <td>Dentro de uma função.</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Onde vive?</b></td>
+                                    <td>Em todo o programa.</td>
+                                    <td>Apenas naquela função.</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Quando morre?</b></td>
+                                    <td>Ao fechar o programa.</td>
+                                    <td>Ao fim da função.</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Vantagem</b></td>
+                                    <td>Dados compartilhados.</td>
+                                    <td>Economiza memória.</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Risco</b></td>
+                                    <td>Difícil de rastrear.</td>
+                                    <td>Nenhum (isolada).</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div style="margin-top:15px; padding:12px; background:rgba(88, 166, 255, 0.08); border-radius:10px; border-left: 5px solid #58a6ff;">
+                            <p style="font-size:15px; color:#c9d1d9; margin: 0;">
+                                <b style="color:#58a6ff">Regra de Ouro:</b><br>
+                                O principal nunca vê o que está "dentro" (Local), mas a função vê o que está "fora" (Global).
+                            </p>
+                        </div>
+                    </div>
+                    <div class="svg-scope-container">
+                        <svg viewBox="0 0 400 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <marker id="arrow-g" markerWidth="10" markerHeight="10" refX="9" refY="5" orientation="auto">
+                                    <path d="M0 0 L10 5 L0 10 Z" fill="#238636" />
+                                </marker>
+                                <marker id="cross-r" markerWidth="10" markerHeight="10" refX="5" refY="5" orientation="auto">
+                                    <path d="M0 0 L10 10 M10 0 L0 10" stroke="#ff7b72" stroke-width="2.5"/>
+                                </marker>
+                            </defs>
+                            <rect x="20" y="20" width="360" height="310" class="scope-rect scope-global-border" />
+                            <text x="40" y="50" fill="#58a6ff" class="scope-text-svg">PROGRAMA (GLOBAL)</text>
+                            <circle cx="70" cy="90" r="10" fill="#238636" />
+                            <text x="90" y="95" fill="#c9d1d9" font-family="JetBrains Mono" font-size="13">Var_Global</text>
+                            <rect x="140" y="130" width="220" height="180" class="scope-rect scope-local-border" />
+                            <text x="160" y="160" fill="#79c0ff" class="scope-text-svg">FUNÇÃO (LOCAL)</text>
+                            <circle cx="180" cy="240" r="10" fill="#79c0ff" />
+                            <text x="200" y="245" fill="#c9d1d9" font-family="JetBrains Mono" font-size="13">Var_Local</text>
+                            <path d="M 170 190 Q 120 170 85 115" stroke="#238636" stroke-width="2" fill="none" marker-end="url(#arrow-g)" />
+                            <text x="45" y="200" fill="#238636" font-size="11" font-weight="bold">Visível dentro</text>
+                            <path d="M 100 280 L 135 270" stroke="#ff7b72" stroke-width="2" fill="none" marker-end="url(#cross-r)" />
+                            <text x="35" y="305" fill="#ff7b72" font-size="11" font-weight="bold">Invisível fora</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 44%;"></div>
+        </div>
+
+        <!-- Slide 5: Procedimentos Completos -->
+        <div class="slide-container">
+            <h2 class="slide-title">Procedimentos (Programas Completos)</h2>
+            <div class="content-area">
+                <div style="margin-bottom: 15px; padding: 10px 15px; background: rgba(121, 192, 255, 0.05); border-left: 4px solid #79c0ff; border-radius: 4px;">
+                    <p style="font-size: 15px; margin: 0; color: #c9d1d9;">
+                        <b>Relembrando:</b> Procedimentos realizam uma ação mas <b>não devolvem</b> valor ao programa chamador.
+                    </p>
+                </div>
+                <div class="three-column">
+                    <div>
+                        <h4 class="highlight-port">Portugol</h4>
+                        <div class="code-container border-port" style="font-size: 11px;">
+<span class="keyword">Algoritmo</span> exemplo_proc
+
+<span class="keyword">Procedimento</span> saudar()
+<span class="keyword">Início</span>
+  Escreva(<span class="string">"Olá, Aluno!"</span>)
+<span class="keyword">Fim_procedimento</span>
+
+<span class="keyword">Início</span>
+  saudar()
+<span class="keyword">Fim</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="highlight-c">Linguagem C</h4>
+                        <div class="code-container border-c" style="font-size: 11px;">
+<span class="type">#include</span> &lt;stdio.h&gt;
+
+<span class="type">void</span> saudar() {
+  printf(<span class="string">"Olá, Aluno!\n"</span>);
+}
+
+<span class="type">int</span> main() {
+  saudar();
+  <span class="keyword">return</span> <span class="number">0</span>;
+}
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="highlight-py">Python</h4>
+                        <div class="code-container border-py" style="font-size: 11px;">
+<span class="keyword">def</span> saudar():
+    <span class="comment">"""Procedimento"""</span>
+    <span class="keyword">print</span>(<span class="string">"Olá, Aluno!"</span>)
+
+
+<span class="comment"># Chamada</span>
+saudar()
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 55%;"></div>
+        </div>
+
+        <!-- Slide 6: Funções Completos -->
+        <div class="slide-container">
+            <h2 class="slide-title">Funções (Programas Completos)</h2>
+            <div class="content-area">
+                <div style="margin-bottom: 15px; padding: 10px 15px; background: rgba(121, 192, 255, 0.05); border-left: 4px solid #79c0ff; border-radius: 4px;">
+                    <p style="font-size: 15px; margin: 0; color: #c9d1d9;">
+                        <b>Relembrando:</b> Funções são sub-rotinas que processam dados e <b>sempre retornam</b> um resultado ao chamador.
+                    </p>
+                </div>
+                <div class="three-column">
+                    <div>
+                        <h4 class="highlight-port">Portugol</h4>
+                        <div class="code-container border-port" style="font-size: 11px;">
+<span class="keyword">Algoritmo</span> exemplo_func
+
+<span class="keyword">Função</span> soma(a: <span class="keyword">inteiro</span>, b: <span class="keyword">inteiro</span>): <span class="keyword">inteiro</span>
+<span class="keyword">Início</span>
+  <span class="keyword">Retorne</span> a + b
+<span class="keyword">Fim_função</span>
+
+<span class="keyword">Var</span>
+  res: <span class="keyword">inteiro</span>
+
+<span class="keyword">Início</span>
+  res <- soma(<span class="number">5</span>, <span class="number">3</span>)
+  Escreva(res)
+<span class="keyword">Fim</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="highlight-c">Linguagem C</h4>
+                        <div class="code-container border-c" style="font-size: 11px;">
+<span class="type">#include</span> &lt;stdio.h&gt;
+
+<span class="comment">// Definição</span>
+<span class="type">int</span> soma(<span class="type">int</span> a, <span class="type">int</span> b) {
+  <span class="keyword">return</span> a + b;
+}
+
+<span class="type">int</span> main() {
+  <span class="type">int</span> res = soma(<span class="number">5</span>, <span class="number">3</span>);
+  printf(<span class="string">"Soma: %d"</span>, res);
+  <span class="keyword">return</span> <span class="number">0</span>;
+}
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="highlight-py">Python</h4>
+                        <div class="code-container border-py" style="font-size: 11px;">
+<span class="keyword">def</span> soma(a, b):
+    <span class="keyword">return</span> a + b
+
+
+<span class="comment"># Chamada</span>
+res = soma(<span class="number">5</span>, <span class="number">3</span>)
+<span class="keyword">print</span>(<span class="string">f"Soma: {res}"</span>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 66%;"></div>
+        </div>
+
+        <!-- Slide 7: Passagem por Valor -->
+        <div class="slide-container">
+            <h2 class="slide-title">Passagem de Parâmetro por Valor</h2>
+            <div class="content-area">
+                <div style="margin-bottom: 10px; padding: 10px 15px; background: rgba(88, 166, 255, 0.05); border-left: 4px solid #58a6ff; border-radius: 4px;">
+                    <p style="font-size: 14px; margin: 0; color: #c9d1d9;">
+                        <b>Conceito:</b> A sub-rotina recebe uma <b>cópia</b>. Alterar o parâmetro não afeta a variável original.
+                    </p>
+                </div>
+                <div class="three-column">
+                    <div>
+                        <h4 class="highlight-port">Portugol</h4>
+                        <div class="code-container border-port" style="font-size: 10px;">
+<span class="keyword">Algoritmo</span> por_valor
+
+<span class="keyword">Procedimento</span> teste(n: <span class="keyword">inteiro</span>)
+<span class="keyword">Início</span>
+  n <- <span class="number">10</span>
+<span class="keyword">Fim_procedimento</span>
+
+<span class="keyword">Var</span>
+  x: <span class="keyword">inteiro</span>
+
+<span class="keyword">Início</span>
+  x <- <span class="number">5</span>
+  teste(x)
+  Escreva(x) <span class="comment">// 5</span>
+<span class="keyword">Fim</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="highlight-c">Linguagem C</h4>
+                        <div class="code-container border-c" style="font-size: 10px;">
+<span class="type">#include</span> &lt;stdio.h&gt;
+
+<span class="type">void</span> teste(<span class="type">int</span> n) {
+  n = <span class="number">10</span>;
+}
+
+<span class="type">int</span> main() {
+  <span class="type">int</span> x = <span class="number">5</span>;
+  teste(x);
+  printf(<span class="string">"%d"</span>, x); <span class="comment">// 5</span>
+  <span class="keyword">return</span> <span class="number">0</span>;
+}
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="highlight-py">Python</h4>
+                        <div class="code-container border-py" style="font-size: 10px;">
+<span class="keyword">def</span> teste(n):
+    n = <span class="number">10</span>
+
+<span class="comment"># Principal</span>
+x = <span class="number">5</span>
+teste(x)
+<span class="keyword">print</span>(x) <span class="comment"># 5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 77%;"></div>
+        </div>
+
+        <!-- Slide 8: Passagem por Referência -->
+        <div class="slide-container">
+            <h2 class="slide-title">Passagem de Parâmetro por Referência</h2>
+            <div class="content-area">
+                <div style="margin-bottom: 10px; padding: 10px 15px; background: rgba(121, 192, 255, 0.05); border-left: 4px solid #79c0ff; border-radius: 4px;">
+                    <p style="font-size: 14px; margin: 0; color: #c9d1d9;">
+                        <b>Conceito:</b> A sub-rotina acessa o <b>endereço real</b> da variável. Alterações afetam o dado original.
+                    </p>
+                </div>
+                
+                <div class="two-column" style="grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;">
+                    <div>
+                        <h4 class="highlight-port">Portugol</h4>
+                        <div class="code-container border-port" style="font-size: 10px;">
+<span class="keyword">Algoritmo</span> por_ref
+
+<span class="keyword">Procedimento</span> teste(<span class="keyword">ref</span> n: <span class="keyword">inteiro</span>)
+<span class="keyword">Início</span>
+  n <- <span class="number">10</span>
+<span class="keyword">Fim_procedimento</span>
+
+<span class="keyword">Var</span>
+  x: <span class="keyword">inteiro</span>
+
+<span class="keyword">Início</span>
+  x <- <span class="number">5</span>
+  teste(x)
+  Escreva(x) <span class="comment">// 10</span>
+<span class="keyword">Fim</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="highlight-c">Linguagem C</h4>
+                        <div class="code-container border-c" style="font-size: 10px;">
+<span class="type">#include</span> &lt;stdio.h&gt;
+
+<span class="comment">// Uso de Ponteiros (*)</span>
+<span class="type">void</span> teste(<span class="type">int</span> *n) {
+  *n = <span class="number">10</span>; <span class="comment">// Altera o conteúdo</span>
+}
+
+<span class="type">int</span> main() {
+  <span class="type">int</span> x = <span class="number">5</span>;
+  teste(&x); <span class="comment">// Envia endereço (&)</span>
+  printf(<span class="string">"%d"</span>, x); <span class="comment">// Imprime 10</span>
+  <span class="keyword">return</span> <span class="number">0</span>;
+}
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="tile" style="padding: 15px; border-color: #e3b341; text-align: left;">
+                        <h4 class="highlight-py" style="margin-bottom: 5px;"><i class="fa-brands fa-python"></i> Observação: Python</h4>
+                        <p style="font-size: 13px; line-height: 1.4; color: #c9d1d9;">
+                            Em Python, <b>não existem ponteiros</b> manuais. A linguagem gerencia tudo como <b>referências de objetos</b>. 
+                            Tipos simples (int, float) agem como "valor", enquanto listas e dicionários agem como "referência".
+                        </p>
+                    </div>
+                    <div class="tile" style="padding: 15px; border-color: #d29922; text-align: left;">
+                        <h4 style="color: #d29922; margin-bottom: 5px;"><i class="fa-solid fa-microchip"></i> Nota para C</h4>
+                        <p style="font-size: 13px; line-height: 1.4; color: #c9d1d9;">
+                            Em C, a passagem por referência usa <b>Ponteiros</b> (* e &). Este tema será o foco de uma aula <b>dedicada exclusivamente</b> em breve!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 88%;"></div>
+        </div>
+
+        <!-- Slide 9: Referências -->
+        <div class="slide-container">
+            <h2 class="slide-title">Referências de Estudo</h2>
+            <div class="content-area">
+                <div class="books-grid">
+                    <!-- Livro 1 -->
+                    <div class="book-card">
+                        <img src="https://m.media-amazon.com/images/I/61hewOW+8zL._SL1500_.jpg" class="book-img">
+                        <div class="book-title">O Programador Pragmático</div>
+                        <div class="book-desc">Andrew Hunt & David Thomas. Um guia indispensável para ser um profissional completo, abordando ética, automação e refatoração de código.</div>
+                        <a href="https://amzn.to/4bRoqr8" target="_blank" class="btn-amazon">Ver na Amazon</a>
+                    </div>
+                    <!-- Livro 2 -->
+                    <div class="book-card">
+                        <img src="https://m.media-amazon.com/images/I/71dH97FwGbL._SL1500_.jpg" class="book-img">
+                        <div class="book-title">Código Limpo</div>
+                        <div class="book-desc">Robert C. Martin. O clássico sobre escrever códigos legíveis, focando na importância de sub-rotinas pequenas e bem nomeadas.</div>
+                        <a href="https://amzn.to/4tF1uSq" target="_blank" class="btn-amazon">Ver na Amazon</a>
+                    </div>
+                    <!-- Livro 3 -->
+                    <div class="book-card">
+                        <img src="https://m.media-amazon.com/images/I/815d9tE7jSL._SL1500_.jpg" class="book-img">
+                        <div class="book-title">Arquitetura Limpa</div>
+                        <div class="book-desc">Robert C. Martin. Explica como estruturar sistemas para que sejam fáceis de manter e escaláveis, aplicando os princípios fundamentais do SOLID.</div>
+                        <a href="https://amzn.to/4aBlRHx" target="_blank" class="btn-amazon">Ver na Amazon</a>
+                    </div>
+                    <!-- Livro 4 -->
+                    <div class="book-card">
+                        <img src="https://m.media-amazon.com/images/I/81fGrAy3AYL._SL1500_.jpg" class="book-img">
+                        <div class="book-title">Fundamentos de Arquitetura</div>
+                        <div class="book-desc">Mark Richards & Neal Ford (O'Reilly). Uma visão moderna sobre padrões de design e as decisões técnicas que definem softwares de sucesso.</div>
+                        <a href="https://amzn.to/3ZE1TH6" target="_blank" class="btn-amazon">Ver na Amazon</a>
+                    </div>
+                </div>
+                
+                <div class="final-footer">
+                    <div class="inst-info">
+                        <img src="https://sistemasead.unicesumar.edu.br/portal/login/img/unicesumar_logo.png" class="unicesumar-logo">
+                        <div>
+                            <a href="https://www.unicesumar.edu.br/" class="info-link" target="_blank"><i class="fa-solid fa-globe"></i> Site Oficial</a>
+                            <a href="https://sites.google.com/view/programa-ampliar/in%C3%ADcio" class="info-link" target="_blank"><i class="fa-solid fa-graduation-cap"></i> Programa Ampliar</a>
+                        </div>
+                    </div>
+                    <div class="monitor-info">
+                        <h4 style="color:#79c0ff; margin-bottom: 2px; font-size: 14px;">Monitor Thiago Kusal</h4>
+                        <a href="https://www.linkedin.com/in/tkusal/" class="info-link" target="_blank"><i class="fa-brands fa-linkedin"></i> linkedin.com/in/tkusal</a>
+                        <a href="https://tkusal.com.br" class="info-link" target="_blank"><i class="fa-solid fa-link"></i> tkusal.com.br</a>
+                        <a href="https://www.youtube.com/@thiagokusal" class="info-link" target="_blank"><i class="fa-brands fa-youtube"></i> @thiagokusal</a>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 100%;"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide-container');
+        const totalSlides = slides.length;
+
+        function updateSlidePosition() {
+            slides.forEach((slide, index) => slide.classList.toggle('active', index === currentSlide));
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            currentSlide = Math.max(0, Math.min(totalSlides - 1, currentSlide + direction));
+            updateSlidePosition();
+        }
+
+        function scaleSlides() {
+            const containerWidth = 1280, containerHeight = 720;
+            const windowWidth = window.innerWidth, windowHeight = window.innerHeight;
+            const scale = Math.min(windowWidth / containerWidth, windowHeight / containerHeight) * 0.95; 
+            slides.forEach(slide => slide.style.transform = `translate(-50%, -50%) scale(${scale})`);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (drawingActive) return; 
+            if (e.key === 'ArrowRight' || e.key === ' ') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+        });
+
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        let drawingActive = false, isDrawing = false, currentColor = '#00E5FF';
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            ctx.lineCap = 'round'; ctx.lineWidth = 3; ctx.strokeStyle = currentColor;
+        }
+
+        function startDrawing(e) { if (!drawingActive) return; isDrawing = true; draw(e); }
+        function stopDrawing() { isDrawing = false; ctx.beginPath(); }
+        function draw(e) {
+            if (!isDrawing || !drawingActive) return;
+            const x = e.clientX || (e.touches && e.touches[0].clientX);
+            const y = e.clientY || (e.touches && e.touches[0].clientY);
+            ctx.lineTo(x, y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y);
+        }
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        window.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchmove', draw);
+        canvas.addEventListener('touchend', stopDrawing);
+
+        document.getElementById('togglePen').addEventListener('click', function() {
+            drawingActive = !drawingActive; 
+            this.classList.toggle('active');
+            canvas.style.pointerEvents = drawingActive ? 'auto' : 'none';
+        });
+        
+        document.getElementById('clearCanvas').addEventListener('click', () => ctx.clearRect(0,0,canvas.width,canvas.height));
+        document.getElementById('colorCyan').addEventListener('click', () => { currentColor = '#00E5FF'; ctx.strokeStyle = currentColor; });
+        document.getElementById('colorRed').addEventListener('click', () => { currentColor = '#ff7b72'; ctx.strokeStyle = currentColor; });
+
+        window.onload = () => { resizeCanvas(); scaleSlides(); updateSlidePosition(); };
+        window.addEventListener('resize', () => { scaleSlides(); resizeCanvas(); });
+    </script>
+</body>
+</html>

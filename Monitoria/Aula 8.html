@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmos e Lógica de Programação - Aula 08</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 1. SETUP BASE */
+        body {
+            background-color: #0d1117;
+            margin: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #c9d1d9;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .slide-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-container {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            width: 1280px;
+            height: 720px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transform-origin: center center;
+            overflow: hidden;
+            padding: 40px 70px;
+            border: 1px solid #30363d;
+            box-sizing: border-box;
+        }
+
+        .slide-container.active {
+            display: flex;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide-container::before {
+            content: '● ● ●'; 
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            color: #4b525d;
+            font-size: 14px;
+            letter-spacing: 4px;
+        }
+
+        /* 2. TIPOGRAFIA */
+        h1 { font-size: 60px; color: #58a6ff; margin-bottom: 20px; }
+        h2.slide-title {
+            font-size: 36px;
+            color: #58a6ff;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 10px;
+            width: 100%;
+        }
+        h3 { font-size: 24px; color: #79c0ff; margin-bottom: 10px; }
+        h4 { margin-top: 0; margin-bottom: 10px; color: #c9d1d9; font-weight: 600; }
+        p, li, td, th { font-size: 19px; line-height: 1.5; color: #c9d1d9; }
+
+        /* 3. COMPONENTES VISUAIS */
+        .code-font { font-family: 'JetBrains Mono', monospace; font-variant-ligatures: none; }
+        .highlight-c { color: #79c0ff; }
+        .highlight-py { color: #e3b341; }
+        .highlight-port { color: #8b949e; }
+        .keyword { color: #ff7b72; }
+        .string { color: #a5d6ff; }
+        .number { color: #79c0ff; }
+        .comment { color: #8b949e; font-style: italic; }
+        .type { color: #d2a8ff; }
+
+        .content-area { display: flex; flex-direction: column; flex-grow: 1; justify-content: center; width: 100%; }
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
+        
+        .tile {
+            background-color: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tile:hover {
+            border-color: #58a6ff;
+            transform: translateY(-3px);
+            background-color: #262c36;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .home-credits {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #8b949e;
+            text-align: center;
+            width: 100%;
+            border-top: 1px solid rgba(48, 54, 61, 0.5);
+            padding-top: 20px;
+        }
+        .home-credits a {
+            color: #58a6ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .home-credits a:hover {
+            color: #79c0ff;
+            text-decoration: underline;
+        }
+
+        .code-container {
+            background-color: #0d1117;
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 5px solid;
+            width: 100%;
+            font-family: 'JetBrains Mono', monospace;
+            white-space: pre;
+            overflow-x: auto;
+            font-size: 12px; /* Reduzido para caber lado a lado */
+            box-sizing: border-box;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        .border-c { border-color: #79c0ff; }
+        .border-py { border-color: #e3b341; }
+
+        /* TABELAS */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 15px; }
+        th { background-color: #161b22; color: #58a6ff; padding: 10px; border: 1px solid #30363d; text-align: left; }
+        td { padding: 8px 12px; border: 1px solid #30363d; color: #c9d1d9; }
+
+        /* NAVEGAÇÃO */
+        .nav-btn {
+            position: fixed; top: 50%; transform: translateY(-50%);
+            background-color: rgba(33, 38, 45, 0.4); color: #8b949e;
+            width: 50px; height: 50px; border-radius: 50%; border: 1px solid transparent;
+            cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center;
+            z-index: 1000; transition: all 0.2s ease;
+        }
+        .nav-btn:hover { background-color: #58a6ff; color: #0d1117; transform: translateY(-50%) scale(1.1); }
+        .nav-btn:disabled { opacity: 0; pointer-events: none; }
+        #prevBtn { left: 15px; }
+        #nextBtn { right: 15px; }
+        .progress-bar { position: absolute; bottom: 0; left: 0; height: 4px; background-color: #58a6ff; transition: width 0.3s ease; }
+
+        /* CANETA */
+        #drawingCanvas { position: fixed; top: 0; left: 0; z-index: 9998; pointer-events: none; }
+        #drawingToolbar {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(30, 30, 30, 0.9); border: 1px solid #30363d; border-radius: 50px;
+            padding: 8px 20px; display: flex; gap: 15px; align-items: center; z-index: 9999;
+        }
+        .tool-btn { background: none; border: none; color: #8b949e; cursor: pointer; font-size: 18px; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+        .tool-btn.active { color: #0d1117; background: #58a6ff; }
+        .color-dot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #fff; cursor: pointer; }
+
+        /* LIVROS */
+        .books-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 20px; }
+        .book-card { background: #21262d; border: 1px solid #30363d; border-radius: 8px; padding: 12px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; height: 370px; transition: all 0.3s ease; }
+        .book-card:hover { transform: translateY(-5px); border-color: #58a6ff; box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+        .book-img { height: 120px; width: auto; object-fit: contain; margin: 0 auto 10px; display: block; border-radius: 4px; }
+        .book-title { font-size: 13px; font-weight: 700; color: #58a6ff; margin-bottom: 4px; line-height: 1.2; min-height: 32px; display: flex; align-items: center; justify-content: center; }
+        .book-desc { font-size: 10px; color: #c9d1d9; margin-bottom: 8px; flex-grow: 1; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; line-height: 1.3; text-align: left; }
+        .btn-amazon { background: #238636; color: white; text-decoration: none; padding: 6px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-top: auto; }
+        
+        .final-footer { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding-top: 15px; border-top: 1px solid #30363d; margin-top: auto; }
+        .inst-info { display: flex; align-items: center; gap: 15px; }
+        .unicesumar-logo { height: 45px; filter: brightness(0) invert(1); }
+        .info-link { color: #8b949e; text-decoration: none; font-size: 13px; display: block; margin-bottom: 4px; transition: color 0.2s; }
+        .info-link:hover { color: #58a6ff; text-decoration: underline; }
+        .info-link i { width: 20px; color: #58a6ff; }
+    </style>
+</head>
+<body>
+
+    <canvas id="drawingCanvas"></canvas>
+    <div id="drawingToolbar">
+        <button class="tool-btn" id="togglePen"><i class="fa-solid fa-pen-nib"></i></button>
+        <button class="tool-btn" id="clearCanvas"><i class="fa-solid fa-eraser"></i></button>
+        <div style="width: 1px; height: 20px; background: #30363d;"></div>
+        <div class="color-dot" id="colorCyan" style="background: #00E5FF;"></div>
+        <div class="color-dot" id="colorRed" style="background: #ff7b72;"></div>
+    </div>
+
+    <button id="prevBtn" class="nav-btn" onclick="changeSlide(-1)">❮</button>
+    <button id="nextBtn" class="nav-btn" onclick="changeSlide(1)">❯</button>
+
+    <div class="slide-wrapper">
+        
+        <!-- Slide 1: Capa -->
+        <div class="slide-container active">
+            <div class="content-area" style="text-align: center;">
+                <p style="color: #e3b341; font-weight: 600; letter-spacing: 2px;">&lt;/AULA 08&gt;</p>
+                <h1>Algoritmos e Lógica de Programação</h1>
+                <p style="font-size: 26px; color: #8b949e;">Persistência e Manipulação de Arquivos</p>
+                
+                <div style="margin-top: 45px; display: flex; justify-content: center; gap: 25px;">
+                    <div class="tile" style="width: 180px;"><span class="highlight-port">Portugol</span></div>
+                    <div class="tile" style="width: 180px;"><span class="highlight-c">Linguagem C</span></div>
+                    <div class="tile" style="width: 180px;"><span class="highlight-py">Python</span></div>
+                </div>
+
+                <div class="home-credits">
+                    Produzido por <a href="https://www.linkedin.com/in/tkusal/" target="_blank">Thiago Kusal</a> | 
+                    <a href="https://sites.google.com/view/programa-ampliar/in%C3%ADcio" target="_blank">Projeto Ampliar - UniCesumar</a> | 
+                    <a href="https://github.com/tkusal/Projeto-Ampliar-Unicesumar-51-2026" target="_blank">GitHub da monitoria</a>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 14%;"></div>
+        </div>
+
+        <!-- Slide 2: Introdução -->
+        <div class="slide-container">
+            <h2 class="slide-title">O que é Manipulação de Arquivos?</h2>
+            <div class="content-area">
+                <div class="two-column">
+                    <div>
+                        <p>Até agora, nossos dados viviam apenas na <b>RAM</b> (volátil). Quando o programa fechava, os dados sumiam.</p>
+                        <ul style="margin-top:20px;">
+                            <li><i class="fa-solid fa-save" style="color:#58a6ff"></i> <b>Persistência:</b> Salvar dados de variáveis em arquivos de texto (.txt).</li>
+                            <li><i class="fa-solid fa-file-import" style="color:#58a6ff"></i> <b>Recuperação:</b> Ler informações do disco para a memória do programa.</li>
+                        </ul>
+                        <div style="margin-top:20px; padding:15px; background:rgba(255, 123, 114, 0.1); border-radius:8px; border-left:4px solid #ff7b72;">
+                            <p style="font-size:16px; color:#ff7b72;"><i class="fa-solid fa-triangle-exclamation"></i> <b>Nota Importante:</b> A sintaxe de Portugol (UniCesumar) <b>não possui</b> recursos para manipular arquivos de sistema.</p>
+                        </div>
+                    </div>
+                    <div class="tile">
+                        <h3 style="color:#79c0ff">Analogia</h3>
+                        <p>A memória RAM é sua mesa de trabalho (rápida, mas limpa ao fim do dia). O arquivo de texto é o <b>armário de arquivos</b> (guarda tudo permanentemente).</p>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 28%;"></div>
+        </div>
+
+        <!-- Slide 3: Foco em C - Comandos -->
+        <div class="slide-container">
+            <h2 class="slide-title">Manipulação de Arquivos em C</h2>
+            <div class="content-area">
+                <p>Em C, tratamos arquivos através de um ponteiro especial chamado <code>FILE *</code>.</p>
+                <table>
+                    <thead><tr><th>Comando</th><th>Função</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>FILE *ptr;</code></td><td>Cria um ponteiro para identificar o arquivo.</td></tr>
+                        <tr><td><code>fopen()</code></td><td>Abre o arquivo e define a permissão.</td></tr>
+                        <tr><td><code>fclose()</code></td><td>Fecha o arquivo (fundamental para salvar os dados no disco).</td></tr>
+                        <tr><td><code>fprintf()</code></td><td>Escreve dados formatados no arquivo.</td></tr>
+                        <tr><td><code>fgets()</code></td><td>Lê uma linha completa do arquivo para uma variável.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="progress-bar" style="width: 42%;"></div>
+        </div>
+
+        <!-- Slide 4: Foco em C - Permissões -->
+        <div class="slide-container">
+            <h2 class="slide-title">C: Modos de Abertura</h2>
+            <div class="content-area">
+                <div class="two-column">
+                    <table>
+                        <thead><tr><th>Modo</th><th>Comportamento</th></tr></thead>
+                        <tbody>
+                            <tr><td><b style="color:#58a6ff">"r"</b> (Read)</td><td>Apenas leitura. O arquivo deve existir.</td></tr>
+                            <tr><td><b style="color:#79c0ff">"w"</b> (Write)</td><td>Cria se não existir. <b>Sobrescreve</b> se já existir.</td></tr>
+                            <tr><td><b style="color:#2ea043">"a"</b> (Append)</td><td>Cria se não existir. Adiciona ao <b>final</b> do arquivo.</td></tr>
+                            <tr><td><b style="color:#d2a8ff">"r+"</b></td><td>Leitura e escrita (início do arquivo).</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="tile" style="text-align: left;">
+                        <h4 style="color:#ff7b72">Cuidado!</h4>
+                        <p style="font-size:16px;">Sempre verifique se o ponteiro é <code>NULL</code> após o <code>fopen</code>. Se for NULL, o arquivo não pôde ser aberto por falta de permissão ou caminho inexistente.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 57%;"></div>
+        </div>
+
+        <!-- Slide 5: Foco em Python -->
+        <div class="slide-container">
+            <h2 class="slide-title">Manipulação de Arquivos em Python</h2>
+            <div class="content-area">
+                <p>Python utiliza a função global <code>open()</code> e os mesmos modos de C (r, w, a).</p>
+                <div class="two-column">
+                    <div class="tile" style="text-align: left;">
+                        <h4 style="color:#e3b341">Comandos Principais</h4>
+                        <ul style="font-size:16px;">
+                            <li><code>f = open("arq.txt", "w")</code>: Abre.</li>
+                            <li><code>f.write("texto")</code>: Escreve.</li>
+                            <li><code>f.read()</code>: Lê tudo.</li>
+                            <li><code>f.close()</code>: Fecha.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="highlight-py">O Jeito Pythonico (with)</h4>
+                        <div class="code-container border-py">
+<span class="keyword">with</span> <span class="type">open</span>(<span class="string">"aula.txt"</span>, <span class="string">"w"</span>) <span class="keyword">as</span> arquivo:
+    arquivo.write(<span class="string">"Olá!"</span>)
+<span class="comment"># O arquivo fecha automaticamente aqui!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 71%;"></div>
+        </div>
+
+        <!-- Slide 6: Exemplos Práticos Lado a Lado -->
+        <div class="slide-container">
+            <h2 class="slide-title">Exemplos Práticos: Criação e Leitura</h2>
+            <div class="content-area">
+                <div class="two-column">
+                    <div>
+                        <h4 class="highlight-c"><i class="fa-solid fa-c"></i> Linguagem C</h4>
+                        <div class="code-container border-c" style="height: 420px;">
+<span class="type">#include</span> &lt;stdio.h&gt;
+
+<span class="type">int</span> main() {
+    <span class="comment">// 1. Escrita</span>
+    <span class="type">FILE</span> *arquivo = fopen(<span class="string">"monitoria.txt"</span>, <span class="string">"w"</span>);
+    <span class="keyword">if</span> (arquivo != <span class="number">NULL</span>) {
+        fprintf(arquivo, <span class="string">"Estamos chegando ao fim da monitoria."</span>);
+        fclose(arquivo);
+    }
+
+    <span class="comment">// 2. Leitura</span>
+    <span class="type">char</span> frase[<span class="number">100</span>];
+    arquivo = fopen(<span class="string">"monitoria.txt"</span>, <span class="string">"r"</span>);
+    <span class="keyword">if</span> (arquivo != <span class="number">NULL</span>) {
+        fgets(frase, <span class="number">100</span>, arquivo);
+        printf(<span class="string">"Lido do C: %s\n"</span>, frase);
+        fclose(arquivo);
+    }
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="highlight-py"><i class="fa-brands fa-python"></i> Python</h4>
+                        <div class="code-container border-py" style="height: 420px;">
+<span class="comment"># 1. Escrita</span>
+<span class="keyword">with</span> <span class="type">open</span>(<span class="string">"monitoria.txt"</span>, <span class="string">"w"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    f.write(<span class="string">"Estamos chegando ao fim da monitoria."</span>)
+
+
+<span class="comment"># 2. Leitura</span>
+<span class="keyword">with</span> <span class="type">open</span>(<span class="string">"monitoria.txt"</span>, <span class="string">"r"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    frase_na_memoria = f.read()
+
+<span class="keyword">print</span>(<span class="string">f"Lido do Python: {frase_na_memoria}"</span>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 85%;"></div>
+        </div>
+
+        <!-- Slide 7: Referências -->
+        <div class="slide-container">
+            <h2 class="slide-title">Referências de Estudo</h2>
+            <div class="content-area">
+                <div class="books-grid">
+                    <div class="book-card">
+                        <img src="https://m.media-amazon.com/images/I/61hewOW+8zL._SL1500_.jpg" class="book-img">
+                        <div class="book-title">O Programador Pragmático</div>
+                        <div class="book-desc">Andrew Hunt & David Thomas. Um guia indispensável para ser um profissional completo, abordando ética, automação e refatoração.</div>
+                        <a href="https://amzn.to/4bRoqr8" target="_blank" class="btn-amazon">Ver na Amazon</a>
+                    </div>
+                    <div class="book-card">
+                        <img src="https://m.media-amazon.com/images/I/71dH97FwGbL._SL1500_.jpg" class="book-img">
+                        <div class="book-title">Código Limpo</div>
+                        <div class="book-desc">Robert C. Martin. O clássico sobre escrever códigos legíveis e sustentáveis, focando na importância de sub-rotinas pequenas e bem nomeadas.</div>
+                        <a href="https://amzn.to/4tF1uSq" target="_blank" class="btn-amazon">Ver na Amazon</a>
+                    </div>
+                    <div class="book-card">
+                        <img src="https://m.media-amazon.com/images/I/815d9tE7jSL._SL1500_.jpg" class="book-img">
+                        <div class="book-title">Arquitetura Limpa</div>
+                        <div class="book-desc">Robert C. Martin. Explica como estruturar sistemas para que sejam fáceis de manter e escaláveis, aplicando os princípios fundamentais do SOLID.</div>
+                        <a href="https://amzn.to/4aBlRHx" target="_blank" class="btn-amazon">Ver na Amazon</a>
+                    </div>
+                    <div class="book-card">
+                        <img src="https://m.media-amazon.com/images/I/81fGrAy3AYL._SL1500_.jpg" class="book-img">
+                        <div class="book-title">Fundamentos de Arquitetura</div>
+                        <div class="book-desc">Mark Richards & Neal Ford (O'Reilly). Uma visão moderna sobre padrões de design e as decisões técnicas que definem softwares de sucesso.</div>
+                        <a href="https://amzn.to/3ZE1TH6" target="_blank" class="btn-amazon">Ver na Amazon</a>
+                    </div>
+                </div>
+                
+                <div class="final-footer">
+                    <div class="inst-info">
+                        <img src="https://sistemasead.unicesumar.edu.br/portal/login/img/unicesumar_logo.png" class="unicesumar-logo">
+                        <div>
+                            <a href="https://www.unicesumar.edu.br/" class="info-link" target="_blank"><i class="fa-solid fa-globe"></i> Site Oficial</a>
+                            <a href="https://sites.google.com/view/programa-ampliar/in%C3%ADcio" class="info-link" target="_blank"><i class="fa-solid fa-graduation-cap"></i> Programa Ampliar</a>
+                        </div>
+                    </div>
+                    <div class="monitor-info">
+                        <h4 style="color:#79c0ff; margin-bottom: 2px; font-size: 14px;">Monitor Thiago Kusal</h4>
+                        <a href="https://www.linkedin.com/in/tkusal/" class="info-link" target="_blank"><i class="fa-brands fa-linkedin"></i> linkedin.com/in/tkusal</a>
+                        <a href="https://tkusal.com.br" class="info-link" target="_blank"><i class="fa-solid fa-link"></i> tkusal.com.br</a>
+                        <a href="https://www.youtube.com/@thiagokusal" class="info-link" target="_blank"><i class="fa-brands fa-youtube"></i> @thiagokusal</a>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar" style="width: 100%;"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide-container');
+        const totalSlides = slides.length;
+
+        function updateSlidePosition() {
+            slides.forEach((slide, index) => slide.classList.toggle('active', index === currentSlide));
+        }
+
+        function changeSlide(direction) {
+            currentSlide = Math.max(0, Math.min(totalSlides - 1, currentSlide + direction));
+            updateSlidePosition();
+        }
+
+        function scaleSlides() {
+            const containerWidth = 1280, containerHeight = 720;
+            const windowWidth = window.innerWidth, windowHeight = window.innerHeight;
+            const scale = Math.min(windowWidth / containerWidth, windowHeight / containerHeight) * 0.95; 
+            slides.forEach(slide => slide.style.transform = `translate(-50%, -50%) scale(${scale})`);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (drawingActive) return; 
+            if (e.key === 'ArrowRight' || e.key === ' ') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+        });
+
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        let drawingActive = false, isDrawing = false, currentColor = '#00E5FF';
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            ctx.lineCap = 'round'; ctx.lineWidth = 3; ctx.strokeStyle = currentColor;
+        }
+
+        function startDrawing(e) { if (!drawingActive) return; isDrawing = true; draw(e); }
+        function stopDrawing() { isDrawing = false; ctx.beginPath(); }
+        function draw(e) {
+            if (!isDrawing || !drawingActive) return;
+            const x = e.clientX; const y = e.clientY;
+            ctx.lineTo(x, y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y);
+        }
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        window.addEventListener('mouseup', stopDrawing);
+
+        document.getElementById('togglePen').addEventListener('click', function() {
+            drawingActive = !drawingActive; 
+            this.classList.toggle('active');
+            canvas.style.pointerEvents = drawingActive ? 'auto' : 'none';
+        });
+        
+        document.getElementById('clearCanvas').addEventListener('click', () => ctx.clearRect(0,0,canvas.width,canvas.height));
+        document.getElementById('colorCyan').addEventListener('click', () => { currentColor = '#00E5FF'; ctx.strokeStyle = currentColor; });
+        document.getElementById('colorRed').addEventListener('click', () => { currentColor = '#ff7b72'; ctx.strokeStyle = currentColor; });
+
+        window.onload = () => { resizeCanvas(); scaleSlides(); updateSlidePosition(); };
+        window.addEventListener('resize', () => { scaleSlides(); resizeCanvas(); });
+    </script>
+</body>
+</html>
