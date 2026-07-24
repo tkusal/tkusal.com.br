@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tkusal.com.br/sitemap.xml
