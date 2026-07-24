@@ -103,7 +103,7 @@ async function fetchRSS() {
 
     try {
         const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error('Falha na rede');
+        if (!response.ok) throw new Error('Network request failed.');
 
         const data = await response.json();
 
