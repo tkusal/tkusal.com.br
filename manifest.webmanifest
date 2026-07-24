@@ -1,0 +1,30 @@
+{
+  "id": "/",
+  "name": "Thiago Kusal | Cloud, Infraestrutura e DevOps",
+  "short_name": "TKusal",
+  "description": "Especialista em Infraestrutura, Microsoft Azure, Active Directory, Kubernetes, DevOps e automação. Criador do RookieOps.",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "start_url": "/?utm_source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#181818",
+  "theme_color": "#181818",
+  "categories": [
+    "technology",
+    "education",
+    "productivity",
+    "utilities",
+    "security"
+  ],
+  "icons": [
+    {
+      "src": "/assets/img/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
