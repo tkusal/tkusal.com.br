@@ -83,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToTopBtn = document.getElementById("backToTop");
     if (backToTopBtn) {
         window.addEventListener("scroll", () => {
-            // Se rolar mais de 300px para baixo, mostra o botão
             if (window.scrollY > 300) {
                 backToTopBtn.classList.add("show");
             } else {
