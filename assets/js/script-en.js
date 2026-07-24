@@ -21,13 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const professionElement = document.getElementById('profissao');
     if (professionElement) {
         const professions = [
-            "Infraestrutura",
-            "Sys Admin",
-            "Arquitetura Cloud",
+            "Infrastructure",
+            "SysAdmin",
+            "Cloud Architecture",
             "DevOps/SRE",
-            "Automação",
-            "Aspirante a Microsoft MVP",
-            "Dev entusiasta"
+            "Automation",
+            "Aspiring Microsoft MVP",
+            "Dev Enthusiast"
         ];
 
         let currentProfessionIndex = 0;
@@ -77,10 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     } catch (error) {
-        console.error("Erro ao carregar o fundo de partículas:", error);
+        console.error("Error loading particles background:", error);
     }
 
-const backToTopBtn = document.getElementById("backToTop");
+    const backToTopBtn = document.getElementById("backToTop");
     if (backToTopBtn) {
         window.addEventListener("scroll", () => {
             // Se rolar mais de 300px para baixo, mostra o botão
@@ -104,7 +104,7 @@ async function fetchRSS() {
 
     try {
         const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error('Falha na rede');
+        if (!response.ok) throw new Error('Network failure');
 
         const data = await response.json();
 
@@ -114,7 +114,8 @@ async function fetchRSS() {
 
             posts.forEach(post => {
                 const pubDate = new Date(post.pubDate);
-                const formattedDate = pubDate.toLocaleDateString('pt-BR');
+                // Formatado para o padrão americano no arquivo em inglês
+                const formattedDate = pubDate.toLocaleDateString('en-US');
 
                 const card = document.createElement('div');
                 card.className = 'post-card';
@@ -122,21 +123,21 @@ async function fetchRSS() {
                     <div>
                         <div class="post-date">${formattedDate}</div>
                         <h3 class="post-title">${post.title}</h3>
-                        <p class="post-desc">${post.description ? post.description.substring(0, 120) + '...' : 'Leia o artigo completo no blog.'}</p>
+                        <p class="post-desc">${post.description ? post.description.substring(0, 120) + '...' : 'Read the full article on the blog.'}</p>
                     </div>
-                    <a href="${post.link}" target="_blank" rel="noopener noreferrer" class="post-link">Ler artigo <i class='bx bx-right-arrow-alt'></i></a>
+                    <a href="${post.link}" target="_blank" rel="noopener noreferrer" class="post-link">Read article <i class='bx bx-right-arrow-alt'></i></a>
                 `;
                 carousel.appendChild(card);
             });
         } else {
-            throw new Error('Sem artigos');
+            throw new Error('No articles found');
         }
     } catch (error) {
         carousel.innerHTML = `
             <div class="post-card" style="min-width: 100%; text-align: center; border-style: dashed; border-color: rgba(255,255,255,0.2);">
                 <div>
-                    <h3 class="post-title" style="color: var(--primary-color); font-size: 1.8em;"><i class='bx bx-code-alt'></i> Blog em Construção</h3>
-                    <p class="post-desc" style="font-size: 1.1em;">A infraestrutura do RookieOps está sendo configurada.<br>Em breve, muito conteúdo sobre Cloud, Kubernetes, Terraform e DevOps!</p>
+                    <h3 class="post-title" style="color: var(--primary-color); font-size: 1.8em;"><i class='bx bx-code-alt'></i> Blog Under Construction</h3>
+                    <p class="post-desc" style="font-size: 1.1em;">The RookieOps infrastructure is currently being provisioned.<br>Coming soon: deep dives into Cloud, Kubernetes, Terraform, and DevOps!</p>
                 </div>
             </div>
         `;
