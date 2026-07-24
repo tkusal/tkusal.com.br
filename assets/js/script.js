@@ -116,16 +116,41 @@ async function fetchRSS() {
                 const pubDate = new Date(post.pubDate);
                 const formattedDate = pubDate.toLocaleDateString('pt-BR');
 
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(post.description, 'text/html');
+                const cleanDescription = doc.body.textContent || "";
+                const truncatedDesc = cleanDescription ? cleanDescription.substring(0, 120) + '...' : 'Leia o artigo completo no blog.';
+
                 const card = document.createElement('div');
                 card.className = 'post-card';
-                card.innerHTML = `
-                    <div>
-                        <div class="post-date">${formattedDate}</div>
-                        <h3 class="post-title">${post.title}</h3>
-                        <p class="post-desc">${post.description ? post.description.substring(0, 120) + '...' : 'Leia o artigo completo no blog.'}</p>
-                    </div>
-                    <a href="${post.link}" target="_blank" rel="noopener noreferrer" class="post-link">Ler artigo <i class='bx bx-right-arrow-alt'></i></a>
-                `;
+
+                const contentWrapper = document.createElement('div');
+
+                const dateDiv = document.createElement('div');
+                dateDiv.className = 'post-date';
+                dateDiv.textContent = formattedDate;
+
+                const titleH3 = document.createElement('h3');
+                titleH3.className = 'post-title';
+                titleH3.textContent = post.title;
+
+                const descP = document.createElement('p');
+                descP.className = 'post-desc';
+                descP.textContent = truncatedDesc;
+
+                const linkA = document.createElement('a');
+                linkA.className = 'post-link';
+                linkA.href = post.link;
+                linkA.target = '_blank';
+                linkA.rel = 'noopener noreferrer';
+                linkA.innerHTML = `Ler artigo <i class='bx bx-right-arrow-alt'></i>`;
+
+                contentWrapper.appendChild(dateDiv);
+                contentWrapper.appendChild(titleH3);
+                contentWrapper.appendChild(descP);
+                card.appendChild(contentWrapper);
+                card.appendChild(linkA);
+
                 carousel.appendChild(card);
             });
         } else {

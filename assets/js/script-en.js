@@ -104,7 +104,7 @@ async function fetchRSS() {
 
     try {
         const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error('Network failure');
+        if (!response.ok) throw new Error('Falha na rede');
 
         const data = await response.json();
 
@@ -114,30 +114,54 @@ async function fetchRSS() {
 
             posts.forEach(post => {
                 const pubDate = new Date(post.pubDate);
-                // Formatado para o padrão americano no arquivo em inglês
                 const formattedDate = pubDate.toLocaleDateString('en-US');
+
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(post.description, 'text/html');
+                const cleanDescription = doc.body.textContent || "";
+                const truncatedDesc = cleanDescription ? cleanDescription.substring(0, 120) + '...' : 'Read the full article on the blog.';
 
                 const card = document.createElement('div');
                 card.className = 'post-card';
-                card.innerHTML = `
-                    <div>
-                        <div class="post-date">${formattedDate}</div>
-                        <h3 class="post-title">${post.title}</h3>
-                        <p class="post-desc">${post.description ? post.description.substring(0, 120) + '...' : 'Read the full article on the blog.'}</p>
-                    </div>
-                    <a href="${post.link}" target="_blank" rel="noopener noreferrer" class="post-link">Read article <i class='bx bx-right-arrow-alt'></i></a>
-                `;
+
+                const contentWrapper = document.createElement('div');
+
+                const dateDiv = document.createElement('div');
+                dateDiv.className = 'post-date';
+                dateDiv.textContent = formattedDate;
+
+                const titleH3 = document.createElement('h3');
+                titleH3.className = 'post-title';
+                titleH3.textContent = post.title;
+
+                const descP = document.createElement('p');
+                descP.className = 'post-desc';
+                descP.textContent = truncatedDesc;
+
+                const linkA = document.createElement('a');
+                linkA.className = 'post-link';
+                linkA.href = post.link;
+                linkA.target = '_blank';
+                linkA.rel = 'noopener noreferrer';
+                linkA.innerHTML = `Read article <i class="bx bx-right-arrow-alt"></i>`;
+
+                contentWrapper.appendChild(dateDiv);
+                contentWrapper.appendChild(titleH3);
+                contentWrapper.appendChild(descP);
+                card.appendChild(contentWrapper);
+                card.appendChild(linkA);
+
                 carousel.appendChild(card);
             });
         } else {
-            throw new Error('No articles found');
+            throw new Error('No posts found in the RSS feed.');
         }
     } catch (error) {
         carousel.innerHTML = `
             <div class="post-card" style="min-width: 100%; text-align: center; border-style: dashed; border-color: rgba(255,255,255,0.2);">
                 <div>
-                    <h3 class="post-title" style="color: var(--primary-color); font-size: 1.8em;"><i class='bx bx-code-alt'></i> Blog Under Construction</h3>
-                    <p class="post-desc" style="font-size: 1.1em;">The RookieOps infrastructure is currently being provisioned.<br>Coming soon: deep dives into Cloud, Kubernetes, Terraform, and DevOps!</p>
+                    <h3 class="post-title" style="color: var(--primary-color); font-size: 1.8em;"><i class='bx bx-code-alt'></i> Blog em Construção</h3>
+                    <p class="post-desc" style="font-size: 1.1em;">A infraestrutura do RookieOps está sendo configurada.<br>Em breve, muito conteúdo sobre Cloud, Kubernetes, Terraform e DevOps!</p>
                 </div>
             </div>
         `;
