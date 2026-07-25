@@ -6,7 +6,7 @@
     <url>
         <loc>https://tkusal.com.br/</loc>
         <lastmod>2026-07-24</lastmod>
-        <changefreq>annual</changefreq>
+        <changefreq>yearly</changefreq>
         <priority>1.0</priority>
 
         <xhtml:link
@@ -23,7 +23,7 @@
     <url>
         <loc>https://tkusal.com.br/en/</loc>
         <lastmod>2026-07-24</lastmod>
-        <changefreq>annual</changefreq>
+        <changefreq>yearly</changefreq>
         <priority>0.9</priority>
 
         <xhtml:link
