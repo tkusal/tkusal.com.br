@@ -99,6 +99,10 @@ Antes de reutilizar este projeto, remova ou substitua:
 O crédito exigido pela licença deve permanecer. A menção ao nome de Thiago
 Kusal usada exclusivamente para fornecer esse crédito é permitida.
 
+A fotografia, o logotipo e o banner `assets/img/og-banner-1200x630.png`
+fazem parte da identidade pessoal de Thiago Kusal e não estão licenciados
+para reutilização.
+
 ## Componentes de terceiros
 
 Bibliotecas, fontes e ícones de terceiros continuam sujeitos às licenças de
