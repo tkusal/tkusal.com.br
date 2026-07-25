@@ -58,6 +58,42 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    const profilePicture = document.querySelector(".profile-picture");
+    const supportsPrecisePointer = window.matchMedia("(pointer: fine)").matches;
+
+    if (profilePicture && supportsPrecisePointer && !reducedMotion) {
+        let spotlightFrame;
+        let spotlightResetTimer;
+
+        const updateSpotlight = (event) => {
+            const bounds = profilePicture.getBoundingClientRect();
+            const x = ((event.clientX - bounds.left) / bounds.width) * 100;
+            const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+
+            window.cancelAnimationFrame(spotlightFrame);
+            spotlightFrame = window.requestAnimationFrame(() => {
+                profilePicture.style.setProperty("--spot-x", `${x}%`);
+                profilePicture.style.setProperty("--spot-y", `${y}%`);
+            });
+        };
+
+        profilePicture.addEventListener("pointerenter", (event) => {
+            window.clearTimeout(spotlightResetTimer);
+            profilePicture.classList.add("spotlight-active");
+            updateSpotlight(event);
+        });
+
+        profilePicture.addEventListener("pointermove", updateSpotlight, { passive: true });
+
+        profilePicture.addEventListener("pointerleave", () => {
+            profilePicture.classList.remove("spotlight-active");
+            spotlightResetTimer = window.setTimeout(() => {
+                profilePicture.style.setProperty("--spot-x", "50%");
+                profilePicture.style.setProperty("--spot-y", "42%");
+            }, 260);
+        });
+    }
+
     const professionElement = document.getElementById("profissao");
     if (professionElement) {
         professionElement.textContent = copy.professions[0];

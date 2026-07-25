@@ -248,17 +248,78 @@ section {
 }
 
 .profile-picture {
+  --spot-x: 50%;
+  --spot-y: 42%;
+  position: relative;
   display: block;
+  width: 380px;
+  height: 380px;
+  overflow: hidden;
   flex: 0 0 auto;
+  isolation: isolate;
+  border: 1px solid rgba(60, 188, 230, 0.24);
+  border-radius: 1.6rem;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(26, 140, 255, 0.2), transparent 42%),
+    radial-gradient(circle at 82% 82%, rgba(52, 255, 201, 0.17), transparent 44%),
+    linear-gradient(145deg, #111a23 0%, #17191d 48%, #10221f 100%);
+  box-shadow:
+    var(--shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.profile-picture::before,
+.profile-picture::after {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+}
+
+.profile-picture::before {
+  background-image:
+    linear-gradient(rgba(60, 188, 230, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(52, 255, 201, 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent 92%);
+}
+
+.profile-picture::after {
+  background: radial-gradient(
+    circle 155px at var(--spot-x) var(--spot-y),
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(60, 188, 230, 0.18) 24%,
+    rgba(52, 255, 201, 0.11) 48%,
+    transparent 76%
+  );
+  opacity: 0.34;
+  transition: opacity 240ms ease;
+}
+
+.profile-picture.spotlight-active {
+  border-color: rgba(52, 255, 201, 0.48);
+  box-shadow:
+    0 22px 58px rgba(0, 0, 0, 0.34),
+    0 0 34px rgba(26, 140, 255, 0.11),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.profile-picture.spotlight-active::after {
+  opacity: 1;
 }
 
 .profile-image {
+  position: relative;
+  z-index: 1;
   width: 380px;
   height: 380px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1.6rem;
+  border-radius: inherit;
   object-fit: cover;
-  box-shadow: var(--shadow);
+  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.2));
 }
 
 .info-box {
@@ -760,6 +821,7 @@ footer a:hover {
     min-height: 100vh;
   }
 
+  .profile-picture,
   .profile-image {
     width: 250px;
     height: 250px;
@@ -842,5 +904,9 @@ footer a:hover {
 
   .profile-image {
     transform: none !important;
+  }
+
+  .profile-picture::after {
+    opacity: 0.42;
   }
 }
