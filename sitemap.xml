@@ -18,6 +18,11 @@
             rel="alternate"
             hreflang="en"
             href="https://tkusal.com.br/en/" />
+
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://tkusal.com.br/" />
     </url>
 
     <url>
@@ -34,6 +39,11 @@
         <xhtml:link
             rel="alternate"
             hreflang="pt-BR"
+            href="https://tkusal.com.br/" />
+
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
             href="https://tkusal.com.br/" />
     </url>
 

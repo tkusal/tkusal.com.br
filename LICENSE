@@ -1,0 +1,101 @@
+TKUSAL CODE REUSE LICENSE 1.0
+
+Copyright (c) 2026 Thiago Kusal
+
+1. DEFINITIONS
+
+"Code" means the original HTML, CSS, JavaScript, automation scripts,
+configuration files, and other software code authored by Thiago Kusal and
+included in this repository.
+
+"Personal Content" means any personal, professional, biographical, or
+identifying material related to Thiago Kusal or another person, including,
+without limitation:
+
+- names, photographs, likenesses, biographies, and professional history;
+- job titles, education, certifications, skills, and achievements;
+- email addresses, social profiles, contact information, and account
+  identifiers;
+- personal statements, testimonials, and curriculum information;
+- the TKusal and RookieOps names, logos, branding, artwork, and visual
+  identity; and
+- any material that may reasonably suggest authorship, affiliation,
+  sponsorship, or endorsement by Thiago Kusal.
+
+"Third-Party Materials" means software, fonts, icons, images, or other
+materials owned or licensed by parties other than Thiago Kusal.
+
+2. PERMISSION TO USE THE CODE
+
+Subject to the conditions in this license, permission is granted, free of
+charge, to any person obtaining a copy of the Code to use, copy, modify,
+adapt, merge, publish, and distribute the Code, including in commercial and
+non-commercial projects.
+
+3. CONDITIONS
+
+Any use or distribution of the Code must comply with all of the following:
+
+a. Attribution
+
+The following copyright notice and credit must be retained in the source
+code, documentation, README, credits page, or another location reasonably
+visible to recipients of the reused Code:
+
+    Based on code by Thiago Kusal
+    https://github.com/tkusal/tkusal.com.br
+
+b. License notice
+
+A copy of this license, or a link to the complete license in the original
+repository, must accompany any substantial copy or distribution of the Code.
+
+c. Removal of Personal Content
+
+Personal Content is not licensed for reuse. Before publishing, distributing,
+or deploying a copy or derivative work, the user must remove or replace all
+Personal Content.
+
+The name "Thiago Kusal" may be used only as necessary to provide the
+attribution required by Section 3(a), to identify the original repository, or
+as otherwise permitted in writing by Thiago Kusal.
+
+d. No implied endorsement
+
+The Code and attribution may not be used in a way that states or implies that
+Thiago Kusal endorses, sponsors, maintains, or is affiliated with a derivative
+work.
+
+e. Third-party rights
+
+This license does not grant rights to Third-Party Materials. Those materials
+remain subject to the notices and licenses supplied by their respective
+owners. Users are responsible for complying with those terms.
+
+4. OWNERSHIP
+
+Thiago Kusal retains all copyright and other applicable rights in the Code
+and Personal Content. No trademark, personality, publicity, privacy, or image
+rights are granted under this license.
+
+5. TERMINATION
+
+The rights granted by this license terminate automatically if its conditions
+are violated. Rights are restored when the violation is fully corrected
+within 30 days after discovery, unless Thiago Kusal provides written notice
+that restoration is denied because of a repeated or intentional violation.
+
+6. DISCLAIMER OF WARRANTY
+
+THE CODE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL
+THIAGO KUSAL BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN
+AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN
+CONNECTION WITH THE CODE OR THE USE OR OTHER DEALINGS IN THE CODE.
+
+7. COMPLETE TERMS
+
+This document states the complete permission granted by Thiago Kusal for the
+Code. Additional permission for Personal Content, branding, or uses outside
+these terms must be obtained in writing from Thiago Kusal.

@@ -1,168 +1,154 @@
-document.addEventListener('DOMContentLoaded', () => {
-
-    const menu = document.querySelector("#menu");
-    const nav = document.querySelector(".links");
-    const navLinks = document.querySelectorAll(".links li a");
-
-    if (menu && nav) {
-        menu.addEventListener('click', () => {
-            menu.classList.toggle('bx-x');
-            nav.classList.toggle('active');
-        });
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                menu.classList.remove('bx-x');
-                nav.classList.remove('active');
-            });
-        });
-    }
-
-    const professionElement = document.getElementById('profissao');
-    if (professionElement) {
-        const professions = [
-            "Infraestrutura",
-            "Sys Admin",
-            "Arquitetura Cloud",
-            "DevOps/SRE",
-            "Automação",
-            "Aspirante a Microsoft MVP",
-            "Dev entusiasta"
-        ];
-
-        let currentProfessionIndex = 0;
-        let currentCharIndex = 0;
-        let isDeleting = false;
-        const typingSpeed = 100;
-        const erasingSpeed = 50;
-        const newProfessionDelay = 1000;
-
-        function typeProfession() {
-            const currentProfession = professions[currentProfessionIndex];
-            if (!isDeleting) {
-                professionElement.textContent = currentProfession.slice(0, currentCharIndex++);
-                if (currentCharIndex > currentProfession.length) {
-                    isDeleting = true;
-                    setTimeout(typeProfession, newProfessionDelay);
-                } else {
-                    setTimeout(typeProfession, typingSpeed);
-                }
-            } else {
-                professionElement.textContent = currentProfession.slice(0, currentCharIndex--);
-                if (currentCharIndex === 0) {
-                    isDeleting = false;
-                    currentProfessionIndex = (currentProfessionIndex + 1) % professions.length;
-                    setTimeout(typeProfession, typingSpeed);
-                } else {
-                    setTimeout(typeProfession, erasingSpeed);
-                }
-            }
+document.addEventListener("DOMContentLoaded", () => {
+    const isPortuguese = document.documentElement.lang.toLowerCase().startsWith("pt");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const assetPrefix = isPortuguese ? "assets" : "../assets";
+    const copy = isPortuguese
+        ? {
+            professions: [
+                "Sys Admin",
+                "Infraestrutura, Segurança e Cloud",
+                "Microsoft 365, Azure e AWS",
+                "Automação, IaC e Containerização",
+                "Aspirante a Microsoft MVP",
+                "Dev por Diversão"
+            ],
+            openMenu: "Abrir menu",
+            closeMenu: "Fechar menu"
         }
-        typeProfession();
+        : {
+            professions: [
+                "System Admin",
+                "Infrastructure, Security & Cloud",
+                "Microsoft 365, Azure & AWS",
+                "Automation, IaC & Containerization",
+                "Aspiring Microsoft MVP",
+                "Dev for Fun"
+            ],
+            openMenu: "Open menu",
+            closeMenu: "Close menu"
+        };
+
+    const menu = document.getElementById("menu");
+    const menuIcon = menu?.querySelector("img");
+    const nav = document.querySelector(".links");
+    const navLinks = document.querySelectorAll(".links a");
+
+    const closeMenu = () => {
+        if (!menu || !nav || !menuIcon) return;
+        nav.classList.remove("active");
+        menu.setAttribute("aria-expanded", "false");
+        menu.setAttribute("aria-label", copy.openMenu);
+        menuIcon.src = `${assetPrefix}/vendor/boxicons/bx-menu-alt-right.svg`;
+    };
+
+    if (menu && nav && menuIcon) {
+        menu.addEventListener("click", () => {
+            const willOpen = !nav.classList.contains("active");
+            nav.classList.toggle("active", willOpen);
+            menu.setAttribute("aria-expanded", String(willOpen));
+            menu.setAttribute("aria-label", willOpen ? copy.closeMenu : copy.openMenu);
+            menuIcon.src = willOpen
+                ? `${assetPrefix}/vendor/boxicons/bx-x.svg`
+                : `${assetPrefix}/vendor/boxicons/bx-menu-alt-right.svg`;
+        });
+
+        navLinks.forEach((link) => link.addEventListener("click", closeMenu));
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") closeMenu();
+        });
     }
 
-    try {
-        tsParticles.load("tsparticles", {
+    const professionElement = document.getElementById("profissao");
+    if (professionElement) {
+        professionElement.textContent = copy.professions[0];
+
+        if (!reducedMotion) {
+            let professionIndex = 0;
+            let characterIndex = copy.professions[0].length;
+            let deleting = true;
+            const typingSpeed = 75;
+            const erasingSpeed = 38;
+            const pause = 1500;
+
+            const typeProfession = () => {
+                const profession = copy.professions[professionIndex];
+
+                if (deleting) {
+                    characterIndex -= 1;
+                    professionElement.textContent = profession.slice(0, Math.max(characterIndex, 0));
+
+                    if (characterIndex <= 0) {
+                        deleting = false;
+                        professionIndex = (professionIndex + 1) % copy.professions.length;
+                        window.setTimeout(typeProfession, 250);
+                        return;
+                    }
+
+                    window.setTimeout(typeProfession, erasingSpeed);
+                    return;
+                }
+
+                characterIndex += 1;
+                const nextProfession = copy.professions[professionIndex];
+                professionElement.textContent = nextProfession.slice(0, characterIndex);
+
+                if (characterIndex >= nextProfession.length) {
+                    deleting = true;
+                    window.setTimeout(typeProfession, pause);
+                    return;
+                }
+
+                window.setTimeout(typeProfession, typingSpeed);
+            };
+
+            window.setTimeout(typeProfession, pause);
+        }
+    }
+
+    if (!reducedMotion && window.tsParticles) {
+        const particleCount = window.innerWidth < 768 ? 24 : 48;
+
+        window.tsParticles.load("tsparticles", {
             background: { color: { value: "transparent" } },
             particles: {
                 color: { value: ["#34ffc9", "#1a8cff"] },
-                links: { color: "#3cbce6", distance: 150, enable: true, opacity: 0.3, width: 1 },
-                move: { enable: true, speed: 1 },
-                number: { value: 60 },
-                size: { value: 3 }
+                links: {
+                    color: "#3cbce6",
+                    distance: 150,
+                    enable: true,
+                    opacity: 0.24,
+                    width: 1
+                },
+                move: { enable: true, speed: 0.75 },
+                number: { value: particleCount },
+                opacity: { value: 0.7 },
+                size: { value: 2.5 }
             },
             interactivity: {
-                events: { onHover: { enable: true, mode: "repulse" } },
-                modes: { repulse: { distance: 100, duration: 0.4 } }
+                events: {
+                    onHover: { enable: true, mode: "repulse" }
+                },
+                modes: {
+                    repulse: { distance: 90, duration: 0.4 }
+                }
             }
-        });
-    } catch (error) {
-        console.error("Erro ao carregar o fundo de partículas:", error);
-    }
-
-const backToTopBtn = document.getElementById("backToTop");
-    if (backToTopBtn) {
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 300) {
-                backToTopBtn.classList.add("show");
-            } else {
-                backToTopBtn.classList.remove("show");
-            }
+        }).catch((error) => {
+            console.warn("Particle background could not be initialized.", error);
         });
     }
 
-    fetchRSS();
+    const backToTop = document.getElementById("backToTop");
+    if (backToTop) {
+        const updateBackToTop = () => {
+            backToTop.classList.toggle("show", window.scrollY > 320);
+        };
+
+        window.addEventListener("scroll", updateBackToTop, { passive: true });
+        updateBackToTop();
+    }
+
+    const currentYear = document.getElementById("currentYear");
+    if (currentYear) {
+        currentYear.textContent = String(new Date().getFullYear());
+    }
 });
-
-async function fetchRSS() {
-    const carousel = document.getElementById('rss-carousel');
-    if(!carousel) return;
-
-    const rssUrl = 'https://rookieops.dev/rss.xml';
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-
-    try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error('Falha na rede');
-
-        const data = await response.json();
-
-        if (data.status === 'ok' && data.items.length > 0) {
-            carousel.innerHTML = '';
-            const posts = data.items.slice(0, 6);
-
-            posts.forEach(post => {
-                const pubDate = new Date(post.pubDate);
-                const formattedDate = pubDate.toLocaleDateString('pt-BR');
-
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(post.description, 'text/html');
-                const cleanDescription = doc.body.textContent || "";
-                const truncatedDesc = cleanDescription ? cleanDescription.substring(0, 120) + '...' : 'Leia o artigo completo no blog.';
-
-                const card = document.createElement('div');
-                card.className = 'post-card';
-
-                const contentWrapper = document.createElement('div');
-
-                const dateDiv = document.createElement('div');
-                dateDiv.className = 'post-date';
-                dateDiv.textContent = formattedDate;
-
-                const titleH3 = document.createElement('h3');
-                titleH3.className = 'post-title';
-                titleH3.textContent = post.title;
-
-                const descP = document.createElement('p');
-                descP.className = 'post-desc';
-                descP.textContent = truncatedDesc;
-
-                const linkA = document.createElement('a');
-                linkA.className = 'post-link';
-                linkA.href = post.link;
-                linkA.target = '_blank';
-                linkA.rel = 'noopener noreferrer';
-                linkA.innerHTML = `Ler artigo <i class='bx bx-right-arrow-alt'></i>`;
-
-                contentWrapper.appendChild(dateDiv);
-                contentWrapper.appendChild(titleH3);
-                contentWrapper.appendChild(descP);
-                card.appendChild(contentWrapper);
-                card.appendChild(linkA);
-
-                carousel.appendChild(card);
-            });
-        } else {
-            throw new Error('Sem artigos');
-        }
-    } catch (error) {
-        carousel.innerHTML = `
-            <div class="post-card" style="min-width: 100%; text-align: center; border-style: dashed; border-color: rgba(255,255,255,0.2);">
-                <div>
-                    <h3 class="post-title" style="color: var(--primary-color); font-size: 1.8em;"><i class='bx bx-code-alt'></i> Blog em Construção</h3>
-                    <p class="post-desc" style="font-size: 1.1em;">A infraestrutura do RookieOps está sendo configurada.<br>Em breve, muito conteúdo sobre Cloud, Kubernetes, Terraform e DevOps!</p>
-                </div>
-            </div>
-        `;
-    }
-}

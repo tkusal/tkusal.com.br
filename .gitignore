@@ -1,2 +1,5 @@
 .vscode/
 bkp/
+tmp/
+desktop.ini
+.DS_Store

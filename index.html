@@ -1,123 +1,269 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="Thiago Kusal | Cloud, Infraestrutura e DevOps">
-    <meta name="description" content="Especialista em Infraestrutura, Microsoft Azure, Active Directory, Kubernetes, DevOps e automação. Criador do RookieOps, compartilhando conteúdo técnico sobre Cloud e arquitetura moderna.">
-    <meta name="keywords" content="Blog, Tecnologia, Automação, Virtualização, Microsoft Entra, Microsoft Azure, Azure AD, Active Directory, Windows Server, Linux, Kubernetes, Terraform, Docker, DevOps, Infrastructure, Cloud Architecture, Cloud Engineer, PowerShell, Microsoft 365, Identity, IAM, Hybrid Cloud, Multicloud, Cloud Security, Cloud Migration, Cloud Solutions, Cloud Computing, IT Infrastructure, IT Automation, IT Management, IT Operations, IT Security, IT Support, IT Services, IT Consulting, ">
-    <meta property="og:image" content="./assets/img/og-banner.png">
-    <meta name="theme-color" content="#181818">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Thiago Kusal">
-    <meta name="twitter:description" content="Especialista em Cloud, Infraestrutura, Azure e DevOps">
-    <meta name="twitter:image" content="https://tkusal.com.br/assets/img/og-banner.png">
+    <meta name="title" content="Thiago Kusal | Infraestrutura, Identidade e Cloud">
+    <meta name="description" content="Thiago Kusal é especialista em infraestrutura, identidade, Microsoft 365, Azure e automação, com foco em segurança, governança e continuidade.">
     <meta name="robots" content="index, follow">
-    <title>TKusal - Cloud, Infraestrutura e DevOps</title>
-    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#181818">
+
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Thiago Kusal | Infraestrutura, Identidade e Cloud">
+    <meta property="og:description" content="Especialista em infraestrutura, IAM, Microsoft 365, Azure e automação. Criador do RookieOps e aspirante a Microsoft MVP.">
+    <meta property="og:url" content="https://tkusal.com.br/">
+    <meta property="og:site_name" content="TKusal">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:image" content="https://tkusal.com.br/assets/img/og-banner.png">
+    <meta property="og:image:secure_url" content="https://tkusal.com.br/assets/img/og-banner.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="511">
+    <meta property="og:image:height" content="364">
+    <meta property="og:image:alt" content="Thiago Kusal - Infraestrutura, Identidade e Cloud">
+    <meta property="profile:first_name" content="Thiago">
+    <meta property="profile:last_name" content="Kusal">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Thiago Kusal | Infraestrutura, Identidade e Cloud">
+    <meta name="twitter:description" content="Especialista em infraestrutura, IAM, Microsoft 365, Azure e automação. Criador do RookieOps.">
+    <meta name="twitter:image" content="https://tkusal.com.br/assets/img/og-banner.png">
+    <meta name="twitter:image:alt" content="Thiago Kusal - Infraestrutura, Identidade e Cloud">
+
+    <title>Thiago Kusal | Infraestrutura, Identidade e Cloud</title>
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="canonical" href="https://tkusal.com.br/">
-    <link rel="manifest" href="/manifest.webmanifest">
-    <link rel="alternate" hreflang="pt-br" href="https://tkusal.com.br/">
+    <link rel="alternate" hreflang="pt-BR" href="https://tkusal.com.br/">
     <link rel="alternate" hreflang="en" href="https://tkusal.com.br/en/">
-    <link rel="alternate" hreflang="x-default" href="https://tkusal.com.br/en/">
+    <link rel="alternate" hreflang="x-default" href="https://tkusal.com.br/">
 
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5KGEH58XB"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-F5KGEH58XB');
-    </script>
+    <script defer src="assets/js/analytics.js"></script>
 
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Thiago Kusal",
-        "jobTitle": "Especialista em Infraestrutura, Cloud e DevOps",
-        "url": "https://tkusal.com.br",
-        "image": "https://tkusal.com.br/assets/img/tk1.png",
-        "description": "Especialista em infraestrutura de TI com ênfase em servidores Windows e Linux. Experiência em virtualização, automação e arquitetura Cloud (Microsoft Azure).",
-        "sameAs": [
-            "https://www.linkedin.com/in/tkusal/",
-            "https://github.com/tkusal",
-            "https://www.youtube.com/@thiagokusal",
-            "https://rookieops.dev"
-        ],
-        "knowsAbout": [
-            "Microsoft Azure",
-            "AWS",
-            "DevOps",
-            "Infraestrutura de TI",
-            "Windows Server",
-            "Linux",
-            "Docker",
-            "Kubernetes",
-            "Terraform",
-            "Automação",
-            "Virtualização",
-            "Cloud Computing"
+        "@graph": [
+            {
+                "@type": "WebSite",
+                "@id": "https://tkusal.com.br/#website",
+                "url": "https://tkusal.com.br/",
+                "name": "TKusal",
+                "alternateName": "Thiago Kusal",
+                "inLanguage": ["pt-BR", "en"]
+            },
+            {
+                "@type": "ProfilePage",
+                "@id": "https://tkusal.com.br/#profile",
+                "url": "https://tkusal.com.br/",
+                "name": "Thiago Kusal | Infraestrutura, Identidade e Cloud",
+                "description": "Perfil profissional de Thiago Kusal, especialista em infraestrutura, identidade, cloud, segurança e automação.",
+                "dateModified": "2026-07-24",
+                "inLanguage": "pt-BR",
+                "isPartOf": {
+                    "@id": "https://tkusal.com.br/#website"
+                },
+                "mainEntity": {
+                    "@id": "https://tkusal.com.br/#person"
+                }
+            },
+            {
+                "@type": "Person",
+                "@id": "https://tkusal.com.br/#person",
+                "name": "Thiago Kusal",
+                "url": "https://tkusal.com.br/",
+                "jobTitle": "Analista de Infraestrutura Sênior",
+                "description": "Especialista em infraestrutura, gestão de identidades e acessos, Microsoft 365, Azure, segurança, governança e automação.",
+                "image": {
+                    "@type": "ImageObject",
+                    "url": "https://tkusal.com.br/assets/img/tk1-960.webp",
+                    "width": 960,
+                    "height": 960
+                },
+                "sameAs": [
+                    "https://www.linkedin.com/in/tkusal/",
+                    "https://github.com/tkusal",
+                    "https://www.youtube.com/@thiagokusal",
+                    "https://rookieops.dev"
+                ],
+                "knowsAbout": [
+                    "Microsoft Entra ID",
+                    "Microsoft 365",
+                    "Microsoft Azure",
+                    "Active Directory",
+                    "Identity and Access Management",
+                    "PowerShell",
+                    "Power Automate",
+                    "Microsoft Purview",
+                    "Microsoft Defender",
+                    "Zero Trust",
+                    "Windows Server",
+                    "Linux",
+                    "Docker",
+                    "Kubernetes",
+                    "Terraform",
+                    "Ansible",
+                    "Virtualização",
+                    "Cloud Computing"
+                ],
+                "alumniOf": [
+                    {
+                        "@type": "CollegeOrUniversity",
+                        "name": "UniCesumar"
+                    },
+                    {
+                        "@type": "CollegeOrUniversity",
+                        "name": "PUC Minas"
+                    },
+                    {
+                        "@type": "CollegeOrUniversity",
+                        "name": "Descomplica Faculdade Digital"
+                    }
+                ],
+                "hasCredential": [
+                    {
+                        "@type": "EducationalOccupationalCredential",
+                        "name": "Microsoft Certified: Identity and Access Administrator Associate (SC-300)",
+                        "credentialCategory": "Certification"
+                    },
+                    {
+                        "@type": "EducationalOccupationalCredential",
+                        "name": "Microsoft Azure Fundamentals (AZ-900)",
+                        "credentialCategory": "Certification"
+                    },
+                    {
+                        "@type": "EducationalOccupationalCredential",
+                        "name": "Microsoft Security, Compliance, and Identity Fundamentals (SC-900)",
+                        "credentialCategory": "Certification"
+                    },
+                    {
+                        "@type": "EducationalOccupationalCredential",
+                        "name": "Microsoft 365 Fundamentals (MS-900)",
+                        "credentialCategory": "Certification"
+                    },
+                    {
+                        "@type": "EducationalOccupationalCredential",
+                        "name": "ITIL 4 Foundation",
+                        "credentialCategory": "Certification"
+                    }
+                ]
+            }
         ]
     }
     </script>
 </head>
 
 <body>
-    <div id="tsparticles"></div>
+    <div id="tsparticles" aria-hidden="true"></div>
 
     <header>
-        <nav>
-            <a href="#" class="logo" aria-label="Logo TKusal"><img src="./assets/img/favicon.svg" alt="TKusal" width="70" height="70"></a>
-            <ul class="links">
-                <li><a href="#home">Home</a></li>
+        <nav aria-label="Navegação principal">
+            <a href="#home" class="logo" aria-label="TKusal - início">
+                <img src="assets/img/logo.svg" alt="TKusal" width="110" height="55">
+            </a>
+            <ul class="links" id="primary-links">
+                <li><a href="#home">Início</a></li>
                 <li><a href="#sobre">Sobre</a></li>
                 <li><a href="#blog">Blog</a></li>
             </ul>
             <div class="nav-actions">
-                <a href="en/index.html" class="lang-btn" aria-label="Mudar para Inglês" title="English Version">
-                    <img src="https://flagcdn.com/w40/us.png" alt="English" width="30" style="border-radius: 4px;">
-                </a>
-                <i class='bx bx-menu-alt-right' id="menu" aria-label="Menu"></i>
+                <a href="en/index.html" class="lang-btn" lang="en" hreflang="en" aria-label="View this page in English" title="English version">EN</a>
+                <button type="button" class="menu-btn" id="menu" aria-label="Abrir menu" aria-expanded="false" aria-controls="primary-links">
+                    <img src="assets/vendor/boxicons/bx-menu-alt-right.svg" alt="" width="40" height="40" aria-hidden="true">
+                </button>
             </div>
         </nav>
     </header>
 
     <main>
         <section id="home">
-            <img src="./assets/img/tk1.png" alt="Thiago Kusal - Especialista em Infraestrutura e Cloud" data-tilt data-tilt-max="10" data-tilt-speed="400">
-            <div class="info-box">
-                <p class="sr-only">Especialista atuando com Microsoft Azure, Windows Server, Linux, Docker, Kubernetes, Terraform, Automação, Virtualização e práticas DevOps.</p>
-                <h1><span>Thiago Kusal</span></h1>
-                <h3 id="profissao"></h3>
-                <p>Especialista em Infraestrutura, Cloud e Automação. Transformando ambientes Microsoft em plataformas modernas e ajudando na formação da próxima geração de profissionais através do RookieOps.</p>
+            <picture class="profile-picture">
+                <source
+                    type="image/webp"
+                    srcset="assets/img/tk1-320.webp 320w, assets/img/tk1-640.webp 640w, assets/img/tk1-960.webp 960w"
+                    sizes="(max-width: 768px) 250px, 380px">
+                <img
+                    class="profile-image"
+                    src="assets/img/tk1.png"
+                    alt="Thiago Kusal, especialista em infraestrutura, identidade e cloud"
+                    width="380"
+                    height="380"
+                    fetchpriority="high"
+                    decoding="async"
+                    data-tilt
+                    data-tilt-max="8"
+                    data-tilt-speed="400">
+            </picture>
 
-                <div class="btn-box">
-                    <a href="https://www.linkedin.com/in/tkusal/" class="btn" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class='bx bxl-linkedin'></i></a>
-                    <a href="https://github.com/tkusal" class="btn" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class='bx bxl-github'></i></a>
-                    <a href="https://www.youtube.com/@thiagokusal" class="btn" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><i class='bx bxl-youtube'></i></a>
+            <div class="info-box">
+                <h1><span class="accent">Thiago Kusal</span></h1>
+                <h2 class="profession" id="profissao">Infraestrutura, Identidade e Cloud</h2>
+                <p>Transformo infraestruturas complexas em operações seguras, previsíveis e automatizadas, conectando ambientes híbridos, IAM, governança e continuidade do negócio.</p>
+
+                <div class="btn-box" aria-label="Redes profissionais">
+                    <a href="https://www.linkedin.com/in/tkusal/" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/vendor/boxicons/bxl-linkedin.svg" alt="" width="30" height="30" aria-hidden="true">
+                    </a>
+                    <a href="https://github.com/tkusal" class="social-btn" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/vendor/boxicons/bxl-github.svg" alt="" width="30" height="30" aria-hidden="true">
+                    </a>
+                    <a href="https://www.youtube.com/@thiagokusal" class="social-btn" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/vendor/boxicons/bxl-youtube.svg" alt="" width="30" height="30" aria-hidden="true">
+                    </a>
                 </div>
 
-                <a href="#blog" class="cta-btn">Explorar o RookieOps <i class='bx bx-right-arrow-alt'></i></a>
+                <div class="hero-actions">
+                    <a href="https://rookieops.dev" class="cta-btn" target="_blank" rel="noopener noreferrer">
+                        Explorar o RookieOps
+                        <img src="assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="24" height="24" aria-hidden="true">
+                    </a>
+                    <a href="https://www.linkedin.com/in/tkusal/" class="cta-btn secondary compact" target="_blank" rel="noopener noreferrer">
+                        Falar pelo LinkedIn
+                        <img src="assets/vendor/boxicons/bx-link-external.svg" alt="" width="20" height="20" aria-hidden="true">
+                    </a>
+                </div>
             </div>
         </section>
 
         <section id="sobre">
             <div class="sobre-content">
-                <h2>Sobre <span>Mim</span></h2>
-                <p class="sobre-texto highlight">"Mais do que manter a infraestrutura rodando, meu foco é garantir que o negócio nunca pare."</p>
-                <p class="sobre-texto">Atuo unindo o mundo da Infraestrutura, Identidade (IAM) e Automação. Minha missão é tornar o ambiente seguro e previsível, substituindo tarefas manuais repetitivas por automações. Com experiência em ambientes híbridos, Microsoft Entra ID e Microsoft 365, busco sempre a agilidade da automação sem perder a robustez da infraestrutura clássica.</p>
+                <h2>Sobre <span class="accent">Mim</span></h2>
+                <p class="sobre-texto highlight">Mais do que manter a infraestrutura funcionando, meu foco é construir ambientes seguros, automatizados e preparados para sustentar o crescimento e a continuidade do seu negócio.</p>
+                <p class="sobre-texto">Há mais de 15 anos construo minha trajetória em infraestrutura de TI. Comecei na administração de servidores tradicionais e evoluí até a liderança de equipes e projetos estratégicos em ambientes de nuvem e híbridos. É essa base sólida que me permite traduzir as necessidades da operação em decisões inteligentes de arquitetura, segurança e alta disponibilidade.</p>
+                <p class="sobre-texto">Meu trabalho no dia a dia é guiar a transição de ambientes legados para infraestruturas modernas e escaláveis. Utilizando práticas DevOps e Infraestrutura como Código, meu objetivo é claro: padronizar configurações, automatizar tarefas exaustivas e reduzir intervenções manuais. O resultado são entregas mais ágeis e mudanças totalmente previsíveis e rastreáveis.</p>
+                <p class="sobre-texto">Para que tudo isso funcione com excelência, a segurança precisa ser o alicerce. Tenho forte atuação na gestão de identidades e acessos (IAM), garantindo a proteção de ambientes complexos. É essa competência que amarra todas as pontas do meu trabalho, conectando servidores, redes, nuvem e governança em uma visão única e integrada da TI.</p>
+
+                <div class="about-pillars">
+                    <article class="pillar-card">
+                        <img src="assets/vendor/boxicons/bx-shield-alt-2.svg" alt="" width="34" height="34" aria-hidden="true">
+                        <h3>Identidade e Segurança</h3>
+                        <p>IAM, Entra ID, Active Directory, Purview, Defender, Zero Trust, SAML, LDAP e OAuth.</p>
+                    </article>
+                    <article class="pillar-card">
+                        <img src="assets/vendor/boxicons/bx-cloud.svg" alt="" width="34" height="34" aria-hidden="true">
+                        <h3>Infraestrutura, Servidores e Cloud</h3>
+                        <p>Windows Server, Linux, Hyper-V, VMware, storage, ambientes híbridos, Azure, Microsoft 365, AWS e Oracle Cloud.</p>
+                    </article>
+                    <article class="pillar-card">
+                        <img src="assets/vendor/boxicons/bx-cog.svg" alt="" width="34" height="34" aria-hidden="true">
+                        <h3>Automação, IaC e DevOps</h3>
+                        <p>PowerShell, Power Automate, Python, Shell Script, Terraform, Ansible, Docker, Kubernetes, Git, pipelines, padronização e melhoria contínua.</p>
+                    </article>
+                </div>
+
+                <p class="sobre-texto community-note">Acredito que o conhecimento ganha força quando é compartilhado. Por isso, divido minhas experiências, desafios e aprendizados no RookieOps e em meus outros canais. Essa contribuição para a comunidade é o que conecta toda a minha bagagem prática à minha jornada para me tornar Microsoft MVP.</p>
 
                 <div class="sobre-secoes">
-                    <h3><i class='bx bx-certification'></i> Certificações Ativas</h3>
-                    <div class="cards-grid">
+                    <h3 class="section-heading">
+                        <img src="assets/vendor/boxicons/bx-certification.svg" alt="" width="28" height="28" aria-hidden="true">
+                        Certificações Ativas
+                    </h3>
+                    <div class="cards-grid certifications-grid">
                         <div class="mini-card">Microsoft 365 Fundamentals (MS-900)</div>
                         <div class="mini-card">Identity and Access Administrator (SC-300)</div>
                         <div class="mini-card">Security, Compliance, and Identity (SC-900)</div>
@@ -126,20 +272,23 @@
                         <div class="mini-card">ITIL 4 Foundation</div>
                     </div>
 
-                    <h3><i class='bx bx-layer'></i> Tecnologias e Ferramentas</h3>
+                    <h3 class="section-heading">
+                        <img src="assets/vendor/boxicons/bx-layer.svg" alt="" width="28" height="28" aria-hidden="true">
+                        Tecnologias e Ferramentas
+                    </h3>
                     <div class="cards-grid tech-grid">
-                        <div class="mini-card tech">Windows Server</div>
-                        <div class="mini-card tech">Linux</div>
-                        <div class="mini-card tech">Scripting</div>
-                        <div class="mini-card tech">Azure</div>
-                        <div class="mini-card tech">AWS</div>
-                        <div class="mini-card tech">Oracle Cloud</div>
-                        <div class="mini-card tech">Terraform</div>
-                        <div class="mini-card tech">Docker</div>
-                        <div class="mini-card tech">Kubernetes</div>
-                        <div class="mini-card tech">Ansible</div>
-                        <div class="mini-card tech">Microsoft 365</div>
-                        <div class="mini-card tech">Outros</div>
+                        <div class="mini-card tech"><img src="assets/vendor/boxicons/bxl-windows.svg" alt="" aria-hidden="true">Windows Server</div>
+                        <div class="mini-card tech"><img src="assets/vendor/boxicons/bx-terminal.svg" alt="" aria-hidden="true">Linux</div>
+                        <div class="mini-card tech"><img src="assets/vendor/boxicons/bx-code-alt.svg" alt="" aria-hidden="true">PowerShell</div>
+                        <div class="mini-card tech"><img src="assets/vendor/boxicons/bxl-microsoft.svg" alt="" aria-hidden="true">Microsoft Azure</div>
+                        <div class="mini-card tech"><img src="assets/vendor/boxicons/bxl-aws.svg" alt="" aria-hidden="true">AWS</div>
+                        <div class="mini-card tech"><img src="assets/vendor/boxicons/bx-cloud.svg" alt="" aria-hidden="true">Oracle Cloud</div>
+                        <div class="mini-card tech"><img src="assets/vendor/boxicons/bx-layer.svg" alt="" aria-hidden="true">Terraform</div>
+                        <div class="mini-card tech"><img src="assets/vendor/boxicons/bxl-docker.svg" alt="" aria-hidden="true">Docker</div>
+                        <div class="mini-card tech"><img src="assets/vendor/boxicons/bxl-kubernetes.svg" alt="" aria-hidden="true">Kubernetes</div>
+                        <div class="mini-card tech"><img src="assets/vendor/boxicons/bx-cog.svg" alt="" aria-hidden="true">Ansible</div>
+                        <div class="mini-card tech"><img src="assets/vendor/boxicons/bxl-microsoft.svg" alt="" aria-hidden="true">Microsoft 365</div>
+                        <div class="mini-card tech"><img src="assets/vendor/boxicons/bx-lock-alt.svg" alt="" aria-hidden="true">Microsoft Entra ID</div>
                     </div>
                 </div>
             </div>
@@ -147,25 +296,46 @@
 
         <section id="blog">
             <div class="blog-header">
-                <h2>Últimas do <span>RookieOps</span></h2>
-                <p>Confira meus artigos mais recentes sobre Cloud, DevOps e Infraestrutura.</p>
+                <h2>Últimas do <span class="accent">RookieOps</span></h2>
+                <p>Conteúdo sobre infraestrutura, identidade, cloud, segurança, automação e carreira em tecnologia.</p>
             </div>
 
             <div class="carousel-container">
-                <div class="carousel" id="rss-carousel">
-                    <p style="text-align:center; width:100%;">Carregando postagens...</p>
+                <div class="carousel" id="rss-carousel" aria-label="Artigos recentes do RookieOps">
+                    <!-- POSTS_START -->
+                    <article class="post-card post-fallback">
+                        <div>
+                            <h3 class="post-title">Novos artigos em breve</h3>
+                            <p class="post-desc">O feed do RookieOps ainda não está disponível. Enquanto isso, visite o blog para acompanhar as novidades.</p>
+                        </div>
+                        <a href="https://rookieops.dev" class="post-link" target="_blank" rel="noopener noreferrer">
+                            Acessar o RookieOps
+                            <img src="assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="20" height="20" aria-hidden="true">
+                        </a>
+                    </article>
+                    <!-- POSTS_END -->
                 </div>
             </div>
 
-            <a href="https://rookieops.dev" target="_blank" rel="noopener noreferrer" class="cta-btn secondary">Acessar o Blog Completo <i class='bx bx-link-external'></i></a>
+            <a href="https://rookieops.dev" target="_blank" rel="noopener noreferrer" class="cta-btn secondary">
+                Acessar o Blog Completo
+                <img src="assets/vendor/boxicons/bx-link-external.svg" alt="" width="20" height="20" aria-hidden="true">
+            </a>
         </section>
+
         <a href="#home" class="back-to-top" id="backToTop" aria-label="Voltar ao início">
-            <i class='bx bx-up-arrow-alt'></i>
+            <img src="assets/vendor/boxicons/bx-up-arrow-alt.svg" alt="" width="26" height="26" aria-hidden="true">
         </a>
     </main>
 
-    <script src="./assets/js/vanilla-tilt.min.js"></script>
-    <script src="./assets/js/tsparticles.bundle.min.js"></script>
-    <script src="./assets/js/script.js"></script>
+    <footer>
+        <p>&copy; <span id="currentYear">2026</span> Thiago Kusal. Conteúdo e tecnologia com propósito.</p>
+        <a href="https://www.linkedin.com/in/tkusal/" target="_blank" rel="noopener noreferrer">Contato profissional</a>
+    </footer>
+
+    <script src="assets/js/vanilla-tilt.min.js"></script>
+    <script src="assets/js/tsparticles.bundle.min.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
+
 </html>
