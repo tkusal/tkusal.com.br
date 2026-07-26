@@ -142,7 +142,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (!reducedMotion && window.tsParticles) {
-        const particleCount = window.innerWidth < 768 ? 24 : 48;
+        const isMobileViewport = window.innerWidth < 768;
+        const particleCount = isMobileViewport
+            ? 36
+            : window.innerWidth >= 1920
+                ? 80
+                : window.innerWidth >= 1440
+                    ? 68
+                    : 56;
 
         window.tsParticles.load("tsparticles", {
             background: { color: { value: "transparent" } },
@@ -150,13 +157,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 color: { value: ["#34ffc9", "#1a8cff"] },
                 links: {
                     color: "#3cbce6",
-                    distance: 150,
+                    distance: isMobileViewport ? 180 : 160,
                     enable: true,
-                    opacity: 0.24,
+                    opacity: isMobileViewport ? 0.32 : 0.24,
                     width: 1
                 },
                 move: { enable: true, speed: 0.75 },
-                number: { value: particleCount },
+                number: {
+                    density: { enable: false },
+                    value: particleCount
+                },
                 opacity: { value: 0.7 },
                 size: { value: 2.5 }
             },
