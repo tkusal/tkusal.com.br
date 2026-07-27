@@ -1,0 +1,4 @@
+Contact: mailto:security@tkusal.com.br
+Expires: 2027-07-26T23:59:59Z
+Preferred-Languages: pt-BR, en
+Canonical: https://tkusal.com.br/.well-known/security.txt
