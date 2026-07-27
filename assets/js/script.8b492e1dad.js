@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const isPortuguese = document.documentElement.lang.toLowerCase().startsWith("pt");
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const assetPrefix = isPortuguese ? "assets" : "../assets";
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const copy = isPortuguese
         ? {
             professions: [
@@ -32,29 +32,98 @@ document.addEventListener("DOMContentLoaded", () => {
     const menuIcon = menu?.querySelector("img");
     const nav = document.querySelector(".links");
     const navLinks = document.querySelectorAll(".links a");
+    const menuBackdrop = document.getElementById("menuBackdrop");
+    const backgroundElements = document.querySelectorAll("#tsparticles, .logo, .lang-btn, main, footer");
+    let focusBeforeMenu = null;
 
-    const closeMenu = () => {
+    const setBackgroundInert = (isInert) => {
+        backgroundElements.forEach((element) => {
+            element.inert = isInert;
+        });
+    };
+
+    const closeMenu = ({ restoreFocus = true } = {}) => {
         if (!menu || !nav || !menuIcon) return;
+
+        const wasOpen = nav.classList.contains("active");
         nav.classList.remove("active");
+        document.body.classList.remove("menu-open");
         menu.setAttribute("aria-expanded", "false");
         menu.setAttribute("aria-label", copy.openMenu);
-        menuIcon.src = `${assetPrefix}/vendor/boxicons/bx-menu-alt-right.svg`;
+        menuIcon.src = assetPrefix + "/vendor/boxicons/bx-menu-alt-right.svg";
+
+        if (menuBackdrop) {
+            menuBackdrop.hidden = true;
+        }
+
+        setBackgroundInert(false);
+
+        if (wasOpen && restoreFocus && focusBeforeMenu instanceof HTMLElement) {
+            focusBeforeMenu.focus();
+        }
+
+        focusBeforeMenu = null;
+    };
+
+    const openMenu = () => {
+        if (!menu || !nav || !menuIcon) return;
+
+        focusBeforeMenu = document.activeElement;
+        nav.classList.add("active");
+        document.body.classList.add("menu-open");
+        menu.setAttribute("aria-expanded", "true");
+        menu.setAttribute("aria-label", copy.closeMenu);
+        menuIcon.src = assetPrefix + "/vendor/boxicons/bx-x.svg";
+
+        if (menuBackdrop) {
+            menuBackdrop.hidden = false;
+        }
+
+        setBackgroundInert(true);
+        navLinks[0]?.focus();
     };
 
     if (menu && nav && menuIcon) {
         menu.addEventListener("click", () => {
-            const willOpen = !nav.classList.contains("active");
-            nav.classList.toggle("active", willOpen);
-            menu.setAttribute("aria-expanded", String(willOpen));
-            menu.setAttribute("aria-label", willOpen ? copy.closeMenu : copy.openMenu);
-            menuIcon.src = willOpen
-                ? `${assetPrefix}/vendor/boxicons/bx-x.svg`
-                : `${assetPrefix}/vendor/boxicons/bx-menu-alt-right.svg`;
+            if (nav.classList.contains("active")) {
+                closeMenu();
+                return;
+            }
+
+            openMenu();
         });
 
-        navLinks.forEach((link) => link.addEventListener("click", closeMenu));
+        menuBackdrop?.addEventListener("click", closeMenu);
+        navLinks.forEach((link) => link.addEventListener("click", () => closeMenu({ restoreFocus: false })));
+
         document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") closeMenu();
+            if (!nav.classList.contains("active")) return;
+
+            if (event.key === "Escape") {
+                event.preventDefault();
+                closeMenu();
+                return;
+            }
+
+            if (event.key !== "Tab") return;
+
+            const focusableElements = [...navLinks, menu];
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (event.shiftKey && document.activeElement === firstElement) {
+                event.preventDefault();
+                lastElement.focus();
+            } else if (!event.shiftKey && document.activeElement === lastElement) {
+                event.preventDefault();
+                firstElement.focus();
+            }
+        });
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 768 && nav.classList.contains("active")) {
+                closeMenu({ restoreFocus: false });
+            }
         });
     }
 

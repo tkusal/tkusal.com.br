@@ -5,6 +5,7 @@ import path from "node:path";
 const rootDirectory = fileURLToPath(new URL("../", import.meta.url));
 const feedUrl = "https://rookieops.dev/rss.xml";
 const jsonPath = path.join(rootDirectory, "assets", "data", "posts.json");
+const sitemapPath = path.join(rootDirectory, "sitemap.xml");
 const pages = [
     {
         path: path.join(rootDirectory, "index.html"),
@@ -140,6 +141,12 @@ function formatPostCard(post, locale, linkLabel, assetPrefix) {
 
 async function updatePage(page, posts) {
     const html = await readFile(page.path, "utf8");
+    const postsPattern = /\s*<!-- POSTS_START -->[\s\S]*?<!-- POSTS_END -->/;
+
+    if (!postsPattern.test(html)) {
+        throw new Error(`Post markers were not found in ${page.path}`);
+    }
+
     const cards = posts
         .map((post) => formatPostCard(post, page.locale, page.linkLabel, page.assetPrefix))
         .join("\n");
@@ -148,16 +155,23 @@ async function updatePage(page, posts) {
         cards,
         "                    <!-- POSTS_END -->"
     ].join("\n");
-    const updatedHtml = html.replace(
-        /\s*<!-- POSTS_START -->[\s\S]*?<!-- POSTS_END -->/,
-        `\n${replacement}`
-    );
+    const updatedHtml = html.replace(postsPattern, `\n${replacement}`);
 
     if (updatedHtml === html) {
-        throw new Error(`Post markers were not found in ${page.path}`);
+        return false;
     }
 
     await writeFile(page.path, updatedHtml, "utf8");
+    return true;
+}
+
+async function updateSitemapLastModified(date) {
+    const sitemap = await readFile(sitemapPath, "utf8");
+    const updatedSitemap = sitemap.replace(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/g, `<lastmod>${date}</lastmod>`);
+
+    if (updatedSitemap !== sitemap) {
+        await writeFile(sitemapPath, updatedSitemap, "utf8");
+    }
 }
 
 async function main() {
@@ -185,24 +199,33 @@ async function main() {
         existingPosts = [];
     }
 
-    if (JSON.stringify(existingPosts) === JSON.stringify(posts)) {
-        console.log("RookieOps posts are already up to date.");
+    const postsChanged = JSON.stringify(existingPosts) !== JSON.stringify(posts);
+    let pagesChanged = false;
+
+    for (const page of pages) {
+        pagesChanged = (await updatePage(page, posts)) || pagesChanged;
+    }
+
+    if (postsChanged) {
+        const now = new Date();
+        const json = {
+            source: feedUrl,
+            updatedAt: now.toISOString(),
+            posts
+        };
+
+        await writeFile(jsonPath, `${JSON.stringify(json, null, 2)}\n`, "utf8");
+        await updateSitemapLastModified(now.toISOString().slice(0, 10));
+        console.log(`Updated ${posts.length} RookieOps posts.`);
         return;
     }
 
-    for (const page of pages) {
-        await updatePage(page, posts);
-    }
-
-    const json = {
-        source: feedUrl,
-        updatedAt: new Date().toISOString(),
-        posts
-    };
-    await writeFile(jsonPath, `${JSON.stringify(json, null, 2)}\n`, "utf8");
-    console.log(`Updated ${posts.length} RookieOps posts.`);
+    console.log(pagesChanged
+        ? `Repaired the static cards for ${posts.length} RookieOps posts.`
+        : "RookieOps posts are already up to date.");
 }
 
 main().catch((error) => {
-    console.warn(`RookieOps update skipped: ${error.message}`);
+    console.error(`RookieOps update failed: ${error.message}`);
+    process.exitCode = 1;
 });

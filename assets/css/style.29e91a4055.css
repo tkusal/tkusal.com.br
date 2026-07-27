@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Noto Sans";
+  src: url("../fonts/noto-sans-latin-variable.51ca196f49.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+}
+
 :root {
   --background: #181818;
   --surface: #202020;
@@ -36,6 +44,10 @@ body {
   color: var(--text);
   font-family: var(--font-family);
   line-height: 1.5;
+}
+
+body.menu-open {
+  overflow: hidden;
 }
 
 a {
@@ -86,6 +98,24 @@ img {
   border: 0 !important;
 }
 
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1100;
+  padding: 0.75rem 1rem;
+  border-radius: 0.65rem;
+  background: var(--primary);
+  color: #101010;
+  font-weight: 800;
+  transform: translateY(calc(-100% - 1rem));
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 #tsparticles {
   position: fixed;
   inset: 0;
@@ -116,6 +146,20 @@ img {
 header {
   position: relative;
   z-index: 1000;
+}
+
+.menu-backdrop {
+  position: fixed;
+  z-index: 999;
+  inset: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.68);
+  backdrop-filter: blur(3px);
+  cursor: pointer;
+}
+
+.menu-backdrop[hidden] {
+  display: none;
 }
 
 nav {
@@ -815,11 +859,17 @@ footer a:hover {
     border-left: 1px solid var(--border);
     background: #111;
     box-shadow: -20px 0 50px rgba(0, 0, 0, 0.35);
-    transition: right 220ms ease;
+    pointer-events: none;
+    transition: right 220ms ease, visibility 0s linear 220ms;
+    visibility: hidden;
+    z-index: 1001;
   }
 
   .links.active {
     right: 0;
+    pointer-events: auto;
+    transition-delay: 0s;
+    visibility: visible;
   }
 
   .links a {
@@ -833,12 +883,65 @@ footer a:hover {
 
   #home {
     min-height: 100vh;
+    padding-top: 7rem;
+    gap: 1.8rem;
   }
 
   .profile-picture,
   .profile-image {
-    width: 250px;
-    height: 250px;
+    width: 220px;
+    height: 220px;
+  }
+
+  .info-box {
+    gap: 0.75rem;
+  }
+
+  .info-box h1 {
+    order: 1;
+  }
+
+  .profession {
+    order: 2;
+  }
+
+  .info-box > p {
+    order: 3;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .info-box .hero-actions {
+    order: 4;
+    margin-top: 0.25rem;
+  }
+
+  .info-box .btn-box {
+    order: 5;
+    margin-top: 0.1rem;
+  }
+
+  .sobre-texto {
+    margin-bottom: 0.9rem;
+    font-size: 0.98rem;
+    line-height: 1.68;
+  }
+
+  .sobre-texto.highlight {
+    font-size: 1.13rem;
+    line-height: 1.6;
+  }
+
+  .about-pillars {
+    margin: 1.6rem 0;
+  }
+
+  .pillar-card {
+    padding: 1.25rem;
+  }
+
+  .section-heading {
+    margin-top: 2rem;
   }
 
   .sobre-content > h2,

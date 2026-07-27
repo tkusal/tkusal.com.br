@@ -14,7 +14,8 @@ estática no Cloudflare Pages.
 - Layout responsivo para desktop, tablet e celular.
 - Conteúdo em português (`pt-BR`) e inglês.
 - Open Graph, Twitter Cards e dados estruturados JSON-LD.
-- Imagens WebP responsivas com fallback em PNG.
+- Imagens AVIF e WebP responsivas com fallback em PNG otimizado.
+- Fonte variável Noto Sans armazenada localmente.
 - Navegação acessível por teclado.
 - Suporte a `prefers-reduced-motion`.
 - Ícones do Boxicons armazenados localmente.
@@ -45,6 +46,7 @@ hospedagem estática.
 ├── assets/
 │   ├── css/                 # Estilos
 │   ├── data/                # Dados estáticos dos posts
+│   ├── fonts/               # Fonte local e respectiva licença
 │   ├── img/                 # Logos, fotografias e imagens responsivas
 │   ├── js/                  # Scripts do site
 │   └── vendor/boxicons/     # Ícones de terceiros armazenados localmente
@@ -77,7 +79,9 @@ O script `scripts/update-posts.mjs`:
 2. normaliza os artigos mais recentes;
 3. atualiza `assets/data/posts.json`;
 4. atualiza os cards nas páginas em português e inglês;
-5. só gera um commit quando o conteúdo muda.
+5. atualiza o `lastmod` do sitemap quando o conteúdo muda;
+6. encerra com erro se o feed estiver indisponível ou for bloqueado;
+7. só gera um commit quando o conteúdo muda.
 
 O workflow precisa de permissão de escrita no conteúdo do repositório para
 publicar a atualização automática.
@@ -107,7 +111,8 @@ para reutilização.
 
 Bibliotecas, fontes e ícones de terceiros continuam sujeitos às licenças de
 seus respectivos autores. A licença do Boxicons incluído localmente está em
-`assets/vendor/boxicons/LICENSE`.
+`assets/vendor/boxicons/LICENSE`, e a licença da Noto Sans está em
+`assets/fonts/OFL.txt`.
 
 ## Licença
 

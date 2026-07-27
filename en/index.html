@@ -33,17 +33,19 @@
 
     <title>Thiago Kusal | Infrastructure, Identity & Cloud</title>
     <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="preload" href="../assets/fonts/noto-sans-latin-variable.51ca196f49.woff2" as="font" type="font/woff2" crossorigin>
+    <link
+        rel="preload"
+        as="image"
+        type="image/avif"
+        imagesrcset="../assets/img/profile/thiago-kusal-220.b29bc268ea.avif 220w, ../assets/img/profile/thiago-kusal-380.5586cf5ce2.avif 380w, ../assets/img/profile/thiago-kusal-440.b5e248596d.avif 440w, ../assets/img/profile/thiago-kusal-760.3415ea1b86.avif 760w"
+        imagesizes="(max-width: 768px) 220px, 380px"
+        fetchpriority="high">
+    <link rel="stylesheet" href="../assets/css/style.29e91a4055.css">
     <link rel="canonical" href="https://tkusal.com.br/en/">
     <link rel="alternate" hreflang="en" href="https://tkusal.com.br/en/">
     <link rel="alternate" hreflang="pt-BR" href="https://tkusal.com.br/">
     <link rel="alternate" hreflang="x-default" href="https://tkusal.com.br/">
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5KGEH58XB"></script>
-    <script defer src="../assets/js/analytics.js"></script>
 
     <script type="application/ld+json">
     {
@@ -63,7 +65,7 @@
                 "url": "https://tkusal.com.br/en/",
                 "name": "Thiago Kusal | Infrastructure, Identity & Cloud",
                 "description": "Professional profile of Thiago Kusal, an infrastructure, identity, cloud, security, and automation specialist.",
-                "dateModified": "2026-07-24T23:39:50-03:00",
+                "dateModified": "2026-07-27T00:00:00-03:00",
                 "inLanguage": "en",
                 "isPartOf": {
                     "@id": "https://tkusal.com.br/#website"
@@ -81,7 +83,7 @@
                 "description": "Infrastructure, identity and access management, Microsoft 365, Azure, security, governance, and automation specialist.",
                 "image": {
                     "@type": "ImageObject",
-                    "url": "https://tkusal.com.br/assets/img/tk1-960.webp",
+                    "url": "https://tkusal.com.br/assets/img/profile/thiago-kusal-960.2a3ce393b9.webp",
                     "width": 960,
                     "height": 960
                 },
@@ -159,6 +161,7 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <div id="tsparticles" aria-hidden="true"></div>
 
     <header>
@@ -180,16 +183,22 @@
         </nav>
     </header>
 
-    <main>
+    <div class="menu-backdrop" id="menuBackdrop" hidden aria-hidden="true"></div>
+
+    <main id="main-content" tabindex="-1">
         <section id="home">
             <picture class="profile-picture">
                 <source
+                    type="image/avif"
+                    srcset="../assets/img/profile/thiago-kusal-220.b29bc268ea.avif 220w, ../assets/img/profile/thiago-kusal-380.5586cf5ce2.avif 380w, ../assets/img/profile/thiago-kusal-440.b5e248596d.avif 440w, ../assets/img/profile/thiago-kusal-760.3415ea1b86.avif 760w"
+                    sizes="(max-width: 768px) 220px, 380px">
+                <source
                     type="image/webp"
-                    srcset="../assets/img/tk1-320.webp 320w, ../assets/img/tk1-640.webp 640w, ../assets/img/tk1-960.webp 960w"
-                    sizes="(max-width: 768px) 250px, 380px">
+                    srcset="../assets/img/profile/thiago-kusal-220.287374a53a.webp 220w, ../assets/img/profile/thiago-kusal-380.7c9679bb24.webp 380w, ../assets/img/profile/thiago-kusal-440.c6ba15c5e5.webp 440w, ../assets/img/profile/thiago-kusal-760.4175cc7b1e.webp 760w"
+                    sizes="(max-width: 768px) 220px, 380px">
                 <img
                     class="profile-image"
-                    src="../assets/img/tk1.png"
+                    src="../assets/img/profile/thiago-kusal-380.4a1b36ccf3.png"
                     alt="Thiago Kusal, infrastructure, identity, and cloud specialist"
                     width="380"
                     height="380"
@@ -234,9 +243,8 @@
             <div class="sobre-content">
                 <h2>About <span class="accent">Me</span></h2>
                 <p class="sobre-texto highlight">More than just keeping the infrastructure running, my focus is on building secure, automated environments designed to support your business growth and continuity.</p>
-                <p class="sobre-texto">For over 15 years, I've been building my career in IT infrastructure. Starting with traditional server administration, I have evolved into leading teams and strategic projects across cloud and hybrid environments. This solid foundation enables me to translate operational needs into smart decisions regarding architecture, security, and high availability.</p>
-                <p class="sobre-texto">My day-to-day work revolves around guiding the transition from legacy environments to modern, scalable infrastructures. By leveraging DevOps practices and Infrastructure as Code (IaC), my goal is clear: to standardize configurations, automate repetitive tasks, and reduce manual intervention. This results in faster, more agile deliveries and changes that are fully predictable and traceable.</p>
-                <p class="sobre-texto">For all of this to run flawlessly, security must be the foundation. I have a strong background in Identity and Access Management (IAM), ensuring the protection of complex environments. This expertise is what ties everything together, connecting servers, networks, cloud, and governance into a single, integrated vision of IT.</p>
+                <p class="sobre-texto">I have worked in IT infrastructure for more than 15 years, from server administration to leading teams and projects across hybrid and cloud environments. This experience helps me connect business needs with architecture, security, and high-availability decisions.</p>
+                <p class="sobre-texto">Today I modernize legacy environments with DevOps, Infrastructure as Code, and automation, reducing manual work and making changes more predictable and traceable. Identity and security are the foundation: I connect IAM, servers, networks, cloud, and governance in one integrated view.</p>
 
                 <div class="about-pillars">
                     <article class="pillar-card">
@@ -303,13 +311,14 @@
             <div class="carousel-container">
                 <div class="carousel" id="rss-carousel" aria-label="Latest RookieOps articles">
                     <!-- POSTS_START -->
-                    <article class="post-card post-fallback">
+                    <article class="post-card">
                         <div>
-                            <h3 class="post-title">New articles coming soon</h3>
-                            <p class="post-desc">The RookieOps feed is not available yet. In the meantime, visit the blog to follow the latest updates.</p>
+                            <p class="post-date">Jul 25, 2026</p>
+                            <h3 class="post-title">Bem-vindo ao RookieOps</h3>
+                            <p class="post-desc">Um espaço para compartilhar operações de TI com contexto, decisões claras e soluções que funcionam fora do laboratório.</p>
                         </div>
-                        <a href="https://rookieops.dev" class="post-link" target="_blank" rel="noopener noreferrer">
-                            Visit RookieOps
+                        <a href="https://rookieops.dev/posts/bem-vindo-ao-rookieops/" class="post-link" target="_blank" rel="noopener noreferrer">
+                            Read article
                             <img src="../assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="20" height="20" aria-hidden="true">
                         </a>
                     </article>
@@ -333,9 +342,9 @@
         <a href="https://www.linkedin.com/in/tkusal/" target="_blank" rel="noopener noreferrer">Professional contact</a>
     </footer>
 
-    <script src="../assets/js/vanilla-tilt.min.js"></script>
-    <script src="../assets/js/tsparticles.bundle.min.js"></script>
-    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/vanilla-tilt.min.e90708afa3.js"></script>
+    <script src="../assets/js/tsparticles.bundle.min.cc18159a97.js"></script>
+    <script src="../assets/js/script.8b492e1dad.js"></script>
 </body>
 
 </html>
