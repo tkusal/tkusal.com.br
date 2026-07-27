@@ -5,8 +5,7 @@ on:
     - cron: "23 10 * * *"
   workflow_dispatch:
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
   group: update-rookieops-posts
@@ -15,6 +14,8 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
@@ -39,3 +40,78 @@ jobs:
           git add index.html en/index.html assets/data/posts.json sitemap.xml
           git commit -m "Atualiza posts do RookieOps"
           git push
+
+  notify:
+    name: Notify workflow result
+    needs: update
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Create, update, or close the failure alert
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const marker = "<!-- update-rookieops-workflow-alert -->";
+            const issueTitle = "[Alert] RookieOps post update failed";
+            const result = "${{ needs.update.result }}";
+            const runUrl =
+              `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}` +
+              `/actions/runs/${context.runId}`;
+
+            const openIssues = await github.paginate(
+              github.rest.issues.listForRepo,
+              {
+                ...context.repo,
+                state: "open",
+                per_page: 100
+              }
+            );
+            const alertIssue = openIssues.find(
+              (issue) =>
+                !issue.pull_request &&
+                issue.title === issueTitle &&
+                issue.body?.includes(marker)
+            );
+
+            if (result === "failure") {
+              const failureBody = [
+                marker,
+                "The RookieOps post update workflow failed.",
+                "",
+                `- Run: [#${context.runNumber} (attempt ${context.runAttempt})](${runUrl})`,
+                `- Event: \`${context.eventName}\``,
+                `- Commit: \`${context.sha.slice(0, 7)}\``
+              ].join("\n");
+
+              if (alertIssue) {
+                await github.rest.issues.createComment({
+                  ...context.repo,
+                  issue_number: alertIssue.number,
+                  body: failureBody
+                });
+              } else {
+                await github.rest.issues.create({
+                  ...context.repo,
+                  title: issueTitle,
+                  body: failureBody,
+                  assignees: [context.repo.owner]
+                });
+              }
+              return;
+            }
+
+            if (result === "success" && alertIssue) {
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: alertIssue.number,
+                body: `The workflow recovered successfully in [run #${context.runNumber}](${runUrl}).`
+              });
+              await github.rest.issues.update({
+                ...context.repo,
+                issue_number: alertIssue.number,
+                state: "closed",
+                state_reason: "completed"
+              });
+            }
