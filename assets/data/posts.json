@@ -1,12 +1,30 @@
 {
   "source": "https://rookieops.dev/rss.xml",
-  "updatedAt": "2026-07-27T03:23:26.310Z",
+  "updatedAt": "2026-07-31T12:23:26.402Z",
   "posts": [
     {
-      "title": "Bem-vindo ao RookieOps",
-      "link": "https://rookieops.dev/posts/bem-vindo-ao-rookieops/",
-      "publishedAt": "2026-07-25T00:00:00.000Z",
-      "description": "Um espaço para compartilhar operações de TI com contexto, decisões claras e soluções que funcionam fora do laboratório."
+      "title": "Do reconhecimento ao hardening no Microsoft Entra ID",
+      "link": "https://rookieops.dev/posts/do-reconhecimento-ao-hardening-no-microsoft-entra-id/",
+      "publishedAt": "2026-07-30T00:00:00.000Z",
+      "description": "Transforme o reconhecimento do Microsoft Entra ID em um plano de proteção com menor privilégio, PIM e Acesso Condicional."
+    },
+    {
+      "title": "Git para quem está começando em DevOps",
+      "link": "https://rookieops.dev/posts/git-para-quem-esta-comecando-em-devops/",
+      "publishedAt": "2026-07-29T00:00:00.000Z",
+      "description": "Aprenda o fluxo essencial do Git para versionar automações, colaborar com segurança e recuperar mudanças sem medo no dia a dia de DevOps."
+    },
+    {
+      "title": "Identidade na nuvem: Microsoft Entra ID para iniciantes",
+      "link": "https://rookieops.dev/posts/identidade-na-nuvem-microsoft-entra-id-para-iniciantes/",
+      "publishedAt": "2026-07-28T00:00:00.000Z",
+      "description": "Entenda locatário, autenticação, autorização e tokens e faça um reconhecimento seguro do Microsoft Entra ID."
+    },
+    {
+      "title": "Tenant, assinatura e grupo de recursos no Azure: quem é quem",
+      "link": "https://rookieops.dev/posts/tenant-assinatura-grupo-de-recursos/",
+      "publishedAt": "2026-07-27T00:00:00.000Z",
+      "description": "Entenda como tenant, assinatura e grupo de recursos se relacionam e use cada limite para organizar identidade, custos e operações."
     }
   ]
 }
