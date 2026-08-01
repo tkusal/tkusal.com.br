@@ -252,6 +252,91 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    const carousel = document.getElementById("rss-carousel");
+    if (carousel && !reducedMotion) {
+        const cards = [...carousel.querySelectorAll(".post-card")];
+        const pixelsPerSecond = 60;
+        let animationFrame;
+        let previousTimestamp;
+        let focusPaused = false;
+        let pointerPaused = false;
+
+        const stopAutoplay = () => {
+            window.cancelAnimationFrame(animationFrame);
+            animationFrame = undefined;
+            previousTimestamp = undefined;
+        };
+
+        const advanceCarousel = (timestamp) => {
+            const firstClone = carousel.querySelector(".carousel-clone");
+            const cycleWidth = firstClone
+                ? firstClone.offsetLeft - cards[0].offsetLeft
+                : 0;
+
+            if (previousTimestamp !== undefined && cycleWidth > 0) {
+                const elapsedSeconds = Math.min(timestamp - previousTimestamp, 100) / 1000;
+                carousel.scrollLeft += pixelsPerSecond * elapsedSeconds;
+
+                if (carousel.scrollLeft >= cycleWidth) {
+                    carousel.scrollLeft -= cycleWidth;
+                }
+            }
+
+            previousTimestamp = timestamp;
+            animationFrame = window.requestAnimationFrame(advanceCarousel);
+        };
+
+        const startAutoplay = () => {
+            if (cards.length < 2 || animationFrame || document.hidden || focusPaused || pointerPaused) return;
+            animationFrame = window.requestAnimationFrame(advanceCarousel);
+        };
+
+        carousel.addEventListener("pointerover", (event) => {
+            if (event.target.closest?.(".post-card")) {
+                pointerPaused = true;
+                stopAutoplay();
+            }
+        });
+        carousel.addEventListener("pointerout", (event) => {
+            if (!event.relatedTarget?.closest?.(".post-card")) {
+                pointerPaused = false;
+                startAutoplay();
+            }
+        });
+        carousel.addEventListener("focusin", () => {
+            focusPaused = true;
+            stopAutoplay();
+        });
+        carousel.addEventListener("focusout", (event) => {
+            if (!carousel.contains(event.relatedTarget)) {
+                focusPaused = false;
+                startAutoplay();
+            }
+        });
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                stopAutoplay();
+                return;
+            }
+
+            startAutoplay();
+        });
+
+        if (cards.length > 1 && carousel.scrollWidth > carousel.clientWidth + 1) {
+            cards.forEach((card) => {
+                const clone = card.cloneNode(true);
+                clone.classList.add("carousel-clone");
+                clone.setAttribute("aria-hidden", "true");
+                clone.querySelectorAll("a, button, [tabindex]").forEach((element) => {
+                    element.setAttribute("tabindex", "-1");
+                });
+                carousel.append(clone);
+            });
+            carousel.classList.add("is-autoplaying");
+            startAutoplay();
+        }
+    }
+
     const backToTop = document.getElementById("backToTop");
     if (backToTop) {
         const updateBackToTop = () => {

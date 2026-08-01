@@ -645,7 +645,18 @@ section {
   gap: 1.25rem;
   overflow-x: auto;
   padding: 0.5rem 0.25rem 1.5rem;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
+}
+
+.carousel.is-autoplaying {
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
 }
 
 .post-card {
@@ -663,7 +674,8 @@ section {
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
-.post-card:hover {
+.post-card:hover,
+.post-card:focus-within {
   border-color: rgba(255, 255, 255, 0.2);
   background: rgba(34, 34, 34, 0.88);
   transform: translateY(-4px);

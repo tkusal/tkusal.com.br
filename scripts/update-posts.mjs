@@ -4,6 +4,7 @@ import path from "node:path";
 
 const rootDirectory = fileURLToPath(new URL("../", import.meta.url));
 const feedUrl = "https://rookieops.dev/rss.xml";
+const maximumPosts = 6;
 const jsonPath = path.join(rootDirectory, "assets", "data", "posts.json");
 const sitemapPath = path.join(rootDirectory, "sitemap.xml");
 const pages = [
@@ -104,7 +105,7 @@ function parseFeed(xml) {
         })
         .filter(Boolean)
         .sort((left, right) => right.publishedAt.localeCompare(left.publishedAt))
-        .slice(0, 6);
+        .slice(0, maximumPosts);
 }
 
 function escapeHtml(value) {
