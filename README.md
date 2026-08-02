@@ -21,6 +21,7 @@ estática no Cloudflare Pages.
 - Ícones do Boxicons armazenados localmente.
 - Página 404 personalizada.
 - Cabeçalhos de segurança e cache para Cloudflare Pages.
+- Canal de reporte de vulnerabilidades publicado em `security.txt`.
 - Atualização estática dos artigos do RookieOps por GitHub Actions.
 
 ## Tecnologias
@@ -43,6 +44,7 @@ hospedagem estática.
 ```text
 .
 ├── .github/workflows/       # Automação de atualização do blog
+├── .well-known/security.txt # Canal para reporte de vulnerabilidades
 ├── assets/
 │   ├── css/                 # Estilos
 │   ├── data/                # Dados estáticos dos posts
@@ -65,26 +67,45 @@ O repositório foi preparado para ser conectado ao Cloudflare Pages sem
 framework e sem etapa de build. O diretório raiz do repositório contém os
 arquivos que devem ser publicados.
 
-Alterações enviadas para a branch configurada como produção no Cloudflare
-Pages geram um novo deploy.
+Quando a integração de produção do Cloudflare Pages está configurada,
+alterações enviadas para a branch de produção geram um novo deploy. A
+automação dos artigos também aciona explicitamente um Deploy Hook depois de
+publicar mudanças, evitando que a atualização dependa apenas da integração com
+a branch.
+
+## Reporte de vulnerabilidades
+
+As instruções para comunicar uma vulnerabilidade estão publicadas em
+`.well-known/security.txt`. Esse arquivo informa o contato de segurança, os
+idiomas aceitos, sua URL canônica e a data de expiração da política.
 
 ## Atualização do RookieOps
 
 O workflow `.github/workflows/update-posts.yml` é executado diariamente e
-também pode ser iniciado manualmente no GitHub.
+também pode ser iniciado manualmente no GitHub. Na execução manual, a opção
+`force_deploy` permite publicar novamente o conteúdo atual mesmo quando o feed
+não mudou.
 
 O script `scripts/update-posts.mjs`:
 
 1. consulta o feed `https://rookieops.dev/rss.xml`;
-2. normaliza os artigos mais recentes;
+2. normaliza os seis artigos mais recentes;
 3. atualiza `assets/data/posts.json`;
 4. atualiza os cards nas páginas em português e inglês;
 5. atualiza o `lastmod` do sitemap quando o conteúdo muda;
-6. encerra com erro se o feed estiver indisponível ou for bloqueado;
-7. só gera um commit quando o conteúdo muda.
+6. encerra com erro se o feed estiver indisponível ou for bloqueado.
 
-O workflow precisa de permissão de escrita no conteúdo do repositório para
-publicar a atualização automática.
+Depois da execução do script, o workflow:
+
+1. cria um commit e faz `push` somente quando os arquivos gerados mudam;
+2. aciona o Deploy Hook da Cloudflare quando há mudanças ou quando
+   `force_deploy` é solicitado;
+3. cria ou atualiza uma issue se a automação falhar;
+4. comenta e encerra a issue de alerta quando o workflow volta a funcionar.
+
+Para isso, o job de atualização precisa de permissão `contents: write`, o job de
+notificação precisa de `issues: write` e o repositório deve possuir o secret
+`CLOUDFLARE_PAGES_DEPLOY_HOOK` com a URL do Deploy Hook.
 
 ## Conteúdo pessoal e identidade
 
