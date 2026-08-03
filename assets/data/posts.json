@@ -1,7 +1,13 @@
 {
   "source": "https://rookieops.dev/rss.xml",
-  "updatedAt": "2026-07-31T12:23:26.402Z",
+  "updatedAt": "2026-08-03T13:22:15.264Z",
   "posts": [
+    {
+      "title": "GitHub Actions para iniciantes: CI/CD na prática",
+      "link": "https://rookieops.dev/posts/github-actions-para-iniciantes-ci-cd-gh-200/",
+      "publishedAt": "2026-08-02T00:00:00.000Z",
+      "description": "Aprenda GitHub Actions na prática: crie uma pipeline segura de CI/CD com testes, matriz, artefatos e deploy no GitHub Pages para a certificação GH-200."
+    },
     {
       "title": "Do reconhecimento ao hardening no Microsoft Entra ID",
       "link": "https://rookieops.dev/posts/do-reconhecimento-ao-hardening-no-microsoft-entra-id/",
