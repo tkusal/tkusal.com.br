@@ -488,6 +488,10 @@ section {
   line-height: 1.45;
 }
 
+.profession:empty::before {
+  content: "\00a0";
+}
+
 .hero-copy {
   max-width: 680px;
   margin: 1.25rem 0 0;
