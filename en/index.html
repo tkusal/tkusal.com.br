@@ -7,7 +7,7 @@
     <meta name="title" content="Thiago Kusal | Infrastructure, Identity & Cloud">
     <meta name="description" content="Thiago Kusal is an infrastructure, identity, Microsoft 365, Azure, and automation specialist focused on security, governance, and continuity.">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#181818">
+    <meta name="theme-color" content="#050806">
 
     <meta property="og:type" content="profile">
     <meta property="og:title" content="Thiago Kusal | Infrastructure, Identity & Cloud">
@@ -34,12 +34,15 @@
     <title>Thiago Kusal | Infrastructure, Identity & Cloud</title>
     <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
     <link rel="preload" href="../assets/fonts/noto-sans-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../assets/fonts/ibm-plex-mono-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../assets/fonts/ibm-plex-mono-latin-600.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../assets/fonts/ibm-plex-mono-latin-700.woff2" as="font" type="font/woff2" crossorigin>
     <link
         rel="preload"
         as="image"
         type="image/avif"
         imagesrcset="../assets/img/profile/thiago-kusal-220.avif 220w, ../assets/img/profile/thiago-kusal-380.avif 380w, ../assets/img/profile/thiago-kusal-440.avif 440w, ../assets/img/profile/thiago-kusal-760.avif 760w"
-        imagesizes="(max-width: 768px) 220px, 380px"
+        imagesizes="(max-width: 560px) calc(100vw - 7.3rem), (max-width: 820px) 415px, 380px"
         fetchpriority="high">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="canonical" href="https://tkusal.com.br/en/">
@@ -65,7 +68,7 @@
                 "url": "https://tkusal.com.br/en/",
                 "name": "Thiago Kusal | Infrastructure, Identity & Cloud",
                 "description": "Professional profile of Thiago Kusal, an infrastructure, identity, cloud, security, and automation specialist.",
-                "dateModified": "2026-07-27T00:00:00-03:00",
+                "dateModified": "2026-08-06T00:00:00-03:00",
                 "inLanguage": "en",
                 "isPartOf": {
                     "@id": "https://tkusal.com.br/#website"
@@ -162,7 +165,6 @@
 
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <div id="tsparticles" aria-hidden="true"></div>
 
     <header>
         <nav aria-label="Main navigation">
@@ -170,9 +172,9 @@
                 <img src="../assets/img/logo.svg" alt="TKusal" width="110" height="55">
             </a>
             <ul class="links" id="primary-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#sobre">About</a></li>
-                <li><a href="#blog">Blog</a></li>
+                <li><a href="#home">~/home</a></li>
+                <li><a href="#sobre">~/about</a></li>
+                <li><a href="#blog">~/blog</a></li>
             </ul>
             <div class="nav-actions">
                 <a href="../index.html" class="lang-btn" lang="pt-BR" hreflang="pt-BR" aria-label="Ver esta página em português" title="Versão em português">PT</a>
@@ -187,54 +189,93 @@
 
     <main id="main-content" tabindex="-1">
         <section id="home">
-            <picture class="profile-picture">
-                <source
-                    type="image/avif"
-                    srcset="../assets/img/profile/thiago-kusal-220.avif 220w, ../assets/img/profile/thiago-kusal-380.avif 380w, ../assets/img/profile/thiago-kusal-440.avif 440w, ../assets/img/profile/thiago-kusal-760.avif 760w"
-                    sizes="(max-width: 768px) 220px, 380px">
-                <source
-                    type="image/webp"
-                    srcset="../assets/img/profile/thiago-kusal-220.webp 220w, ../assets/img/profile/thiago-kusal-380.webp 380w, ../assets/img/profile/thiago-kusal-440.webp 440w, ../assets/img/profile/thiago-kusal-760.webp 760w"
-                    sizes="(max-width: 768px) 220px, 380px">
-                <img
-                    class="profile-image"
-                    src="../assets/img/profile/thiago-kusal-380.png"
-                    alt="Thiago Kusal, infrastructure, identity, and cloud specialist"
-                    width="380"
-                    height="380"
-                    fetchpriority="high"
-                    decoding="async"
-                    data-tilt
-                    data-tilt-max="8"
-                    data-tilt-speed="400">
-            </picture>
-
-            <div class="info-box">
-                <h1><span class="accent">Thiago Kusal</span></h1>
-                <h2 class="profession" id="profissao">Infrastructure, Identity & Cloud</h2>
-                <p>Transforming complex infrastructures into secure, predictable, and automated operations, connecting hybrid environments, IAM, governance, and business continuity.</p>
-
-                <div class="btn-box" aria-label="Professional networks">
-                    <a href="https://www.linkedin.com/in/tkusal/" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                        <img src="../assets/vendor/boxicons/bxl-linkedin.svg" alt="" width="30" height="30" aria-hidden="true">
-                    </a>
-                    <a href="https://github.com/tkusal" class="social-btn" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-                        <img src="../assets/vendor/boxicons/bxl-github.svg" alt="" width="30" height="30" aria-hidden="true">
-                    </a>
-                    <a href="https://www.youtube.com/@thiagokusal" class="social-btn" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
-                        <img src="../assets/vendor/boxicons/bxl-youtube.svg" alt="" width="30" height="30" aria-hidden="true">
-                    </a>
+            <div class="terminal-window">
+                <div class="terminal-titlebar" aria-hidden="true">
+                    <div class="window-controls"><span></span><span></span><span></span></div>
+                    <span class="terminal-title">thiago@tkusal: ~/portfolio</span>
+                    <span class="terminal-state">secure session</span>
                 </div>
 
-                <div class="hero-actions">
-                    <a href="https://rookieops.dev" class="cta-btn" target="_blank" rel="noopener noreferrer">
-                        Explore RookieOps
-                        <img src="../assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="24" height="24" aria-hidden="true">
-                    </a>
-                    <a href="https://www.linkedin.com/in/tkusal/" class="cta-btn secondary compact" target="_blank" rel="noopener noreferrer">
-                        Contact me on LinkedIn
-                        <img src="../assets/vendor/boxicons/bx-link-external.svg" alt="" width="20" height="20" aria-hidden="true">
-                    </a>
+                <div class="terminal-body">
+                    <div class="info-box">
+                        <p class="shell-line"><span>visitor@tkusal</span>:<strong>~</strong>$ whoami</p>
+                        <h1>Thiago <span class="accent">Kusal</span></h1>
+                        <div class="profession-line">
+                            <span aria-hidden="true">&gt;</span>
+                            <h2 class="profession" id="profissao">Infrastructure, Identity & Cloud</h2>
+                        </div>
+                        <p class="hero-copy">Transforming complex infrastructures into secure, predictable, and automated operations, connecting hybrid environments, IAM, governance, and business continuity.</p>
+
+                        <dl class="system-status" aria-label="Professional summary">
+                            <div><dt>UPTIME</dt><dd>15+ years</dd></div>
+                            <div><dt>FOCUS</dt><dd>Coffee &amp; Automation</dd></div>
+                            <div><dt>STATUS</dt><dd><span class="status-led" aria-hidden="true"></span>Online</dd></div>
+                        </dl>
+
+                        <div class="btn-box" aria-label="Professional networks">
+                            <a href="https://www.linkedin.com/in/tkusal/" class="social-btn" target="_blank" rel="noopener noreferrer">
+                                <img src="../assets/vendor/boxicons/bxl-linkedin.svg" alt="" width="22" height="22" aria-hidden="true">LinkedIn
+                            </a>
+                            <a href="https://github.com/tkusal" class="social-btn" target="_blank" rel="noopener noreferrer">
+                                <img src="../assets/vendor/boxicons/bxl-github.svg" alt="" width="22" height="22" aria-hidden="true">GitHub
+                            </a>
+                            <a href="https://www.youtube.com/@thiagokusal" class="social-btn" target="_blank" rel="noopener noreferrer">
+                                <img src="../assets/vendor/boxicons/bxl-youtube.svg" alt="" width="22" height="22" aria-hidden="true">YouTube
+                            </a>
+                            <a href="https://rookieops.dev" class="social-btn" target="_blank" rel="noopener noreferrer">
+                                <img src="../assets/vendor/boxicons/bx-book-open.svg" alt="" width="22" height="22" aria-hidden="true">Blog
+                            </a>
+                        </div>
+
+                        <div class="hero-actions">
+                            <a href="https://rookieops.dev" class="cta-btn" target="_blank" rel="noopener noreferrer">
+                                ./explore-rookieops
+                                <img src="../assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="24" height="24" aria-hidden="true">
+                            </a>
+                            <a href="https://www.linkedin.com/in/tkusal/" class="cta-btn secondary compact" target="_blank" rel="noopener noreferrer">
+                                ./start-conversation
+                                <img src="../assets/vendor/boxicons/bx-link-external.svg" alt="" width="20" height="20" aria-hidden="true">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="identity-panel">
+                        <div class="profile-label"><span>./profile.webp</span><span>VERIFIED</span></div>
+                        <picture class="profile-picture">
+                            <source
+                                type="image/avif"
+                                srcset="../assets/img/profile/thiago-kusal-220.avif 220w, ../assets/img/profile/thiago-kusal-380.avif 380w, ../assets/img/profile/thiago-kusal-440.avif 440w, ../assets/img/profile/thiago-kusal-760.avif 760w"
+                                sizes="(max-width: 560px) calc(100vw - 7.3rem), (max-width: 820px) 415px, 380px">
+                            <source
+                                type="image/webp"
+                                srcset="../assets/img/profile/thiago-kusal-220.webp 220w, ../assets/img/profile/thiago-kusal-380.webp 380w, ../assets/img/profile/thiago-kusal-440.webp 440w, ../assets/img/profile/thiago-kusal-760.webp 760w"
+                                sizes="(max-width: 560px) calc(100vw - 7.3rem), (max-width: 820px) 415px, 380px">
+                            <img
+                                class="profile-image"
+                                src="../assets/img/profile/thiago-kusal-380.png"
+                                alt="Thiago Kusal, infrastructure, identity, and cloud specialist"
+                                width="380"
+                                height="380"
+                                fetchpriority="high"
+                                decoding="async"
+                                data-tilt
+                                data-tilt-max="5"
+                                data-tilt-speed="500">
+                        </picture>
+                        <div class="profile-meta">
+                            <span>ROLE</span><strong>Senior Infrastructure Analyst</strong>
+                            <span>NODE</span><strong>Rio de Janeiro, BR</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="command-prompt" id="commandPrompt">
+                    <label for="commandInput"><span>visitor@tkusal</span>:<strong>~</strong>$</label>
+                    <input id="commandInput" name="command" type="text" autocomplete="off" spellcheck="false" placeholder="type 'help' and press Enter" aria-describedby="commandOutput">
+                    <button type="submit">RUN</button>
+                </form>
+                <div class="command-output" id="commandOutput" role="status" aria-live="polite">
+                    <span>commands: help · about · skills · blog · contact · clear</span>
                 </div>
             </div>
         </section>
@@ -310,7 +351,7 @@
 
             <div class="carousel-container">
                 <div class="carousel" id="rss-carousel" aria-label="Latest RookieOps articles">
-                    <!-- POSTS_START -->
+                    <template data-posts-boundary="start"></template>
                     <article class="post-card">
                         <div>
                             <p class="post-date">Aug 02, 2026</p>
@@ -366,7 +407,7 @@
                             <img src="../assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="20" height="20" aria-hidden="true">
                         </a>
                     </article>
-                    <!-- POSTS_END -->
+                    <template data-posts-boundary="end"></template>
                 </div>
             </div>
 
@@ -387,7 +428,6 @@
     </footer>
 
     <script src="../assets/js/vanilla-tilt.min.js"></script>
-    <script src="../assets/js/tsparticles.bundle.min.js"></script>
     <script src="../assets/js/script.js"></script>
 </body>
 

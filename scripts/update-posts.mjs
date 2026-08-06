@@ -142,7 +142,7 @@ function formatPostCard(post, locale, linkLabel, assetPrefix) {
 
 async function updatePage(page, posts) {
     const html = await readFile(page.path, "utf8");
-    const postsPattern = /\s*<!-- POSTS_START -->[\s\S]*?<!-- POSTS_END -->/;
+    const postsPattern = /\s*<template data-posts-boundary="start"><\/template>[\s\S]*?<template data-posts-boundary="end"><\/template>/;
 
     if (!postsPattern.test(html)) {
         throw new Error(`Post markers were not found in ${page.path}`);
@@ -152,9 +152,9 @@ async function updatePage(page, posts) {
         .map((post) => formatPostCard(post, page.locale, page.linkLabel, page.assetPrefix))
         .join("\n");
     const replacement = [
-        "                    <!-- POSTS_START -->",
+        "                    <template data-posts-boundary=\"start\"></template>",
         cards,
-        "                    <!-- POSTS_END -->"
+        "                    <template data-posts-boundary=\"end\"></template>"
     ].join("\n");
     const updatedHtml = html.replace(postsPattern, `\n${replacement}`);
 

@@ -12,10 +12,11 @@ estática no Cloudflare Pages.
 ## Principais recursos
 
 - Layout responsivo para desktop, tablet e celular.
+- Interface inspirada em shell, com prompt interativo e histórico de comandos.
 - Conteúdo em português (`pt-BR`) e inglês.
 - Open Graph, Twitter Cards e dados estruturados JSON-LD.
 - Imagens AVIF e WebP responsivas com fallback em PNG otimizado.
-- Fonte variável Noto Sans armazenada localmente.
+- Fontes Noto Sans e IBM Plex Mono armazenadas localmente.
 - Navegação acessível por teclado.
 - Suporte a `prefers-reduced-motion`.
 - Ícones do Boxicons armazenados localmente.
@@ -32,7 +33,6 @@ estática no Cloudflare Pages.
 - GitHub Actions
 - Cloudflare Pages
 - Vanilla Tilt
-- tsParticles
 - Boxicons
 
 Não há etapa de compilação nem dependências obrigatórias para executar o
@@ -48,7 +48,7 @@ hospedagem estática.
 ├── assets/
 │   ├── css/                 # Estilos
 │   ├── data/                # Dados estáticos dos posts
-│   ├── fonts/               # Fonte local e respectiva licença
+│   ├── fonts/               # Fontes locais e respectivas licenças
 │   ├── img/                 # Logos, fotografias e imagens responsivas
 │   ├── js/                  # Scripts do site
 │   └── vendor/boxicons/     # Ícones de terceiros armazenados localmente
@@ -132,8 +132,8 @@ para reutilização.
 
 Bibliotecas, fontes e ícones de terceiros continuam sujeitos às licenças de
 seus respectivos autores. A licença do Boxicons incluído localmente está em
-`assets/vendor/boxicons/LICENSE`, e a licença da Noto Sans está em
-`assets/fonts/OFL.txt`.
+`assets/vendor/boxicons/LICENSE`. As licenças da Noto Sans e da IBM Plex Mono
+estão em `assets/fonts/OFL.txt` e `assets/fonts/IBM-PLEX-MONO-OFL.txt`.
 
 ## Licença
 

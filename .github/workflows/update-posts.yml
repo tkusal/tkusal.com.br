@@ -74,7 +74,7 @@ jobs:
         uses: actions/github-script@v8
         with:
           script: |
-            const marker = "<!-- update-rookieops-workflow-alert -->";
+            const marker = "update-rookieops-workflow-alert";
             const issueTitle = "[Alert] RookieOps post update failed";
             const result = "${{ needs.update.result }}";
             const runUrl =

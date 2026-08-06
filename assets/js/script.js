@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const nav = document.querySelector(".links");
     const navLinks = document.querySelectorAll(".links a");
     const menuBackdrop = document.getElementById("menuBackdrop");
-    const backgroundElements = document.querySelectorAll("#tsparticles, .logo, .lang-btn, main, footer");
+    const backgroundElements = document.querySelectorAll(".logo, .lang-btn, main, footer");
     let focusBeforeMenu = null;
 
     const setBackgroundInert = (isInert) => {
@@ -210,45 +210,113 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    if (!reducedMotion && window.tsParticles) {
-        const isMobileViewport = window.innerWidth < 768;
-        const particleCount = isMobileViewport
-            ? 36
-            : window.innerWidth >= 1920
-                ? 80
-                : window.innerWidth >= 1440
-                    ? 68
-                    : 56;
+    const commandForm = document.getElementById("commandPrompt");
+    const commandInput = document.getElementById("commandInput");
+    const commandOutput = document.getElementById("commandOutput");
 
-        window.tsParticles.load("tsparticles", {
-            background: { color: { value: "transparent" } },
-            particles: {
-                color: { value: ["#34ffc9", "#1a8cff"] },
-                links: {
-                    color: "#3cbce6",
-                    distance: isMobileViewport ? 180 : 160,
-                    enable: true,
-                    opacity: isMobileViewport ? 0.32 : 0.24,
-                    width: 1
-                },
-                move: { enable: true, speed: 0.75 },
-                number: {
-                    density: { enable: false },
-                    value: particleCount
-                },
-                opacity: { value: 0.7 },
-                size: { value: 2.5 }
-            },
-            interactivity: {
-                events: {
-                    onHover: { enable: true, mode: "repulse" }
-                },
-                modes: {
-                    repulse: { distance: 90, duration: 0.4 }
-                }
+    if (commandForm && commandInput && commandOutput) {
+        const commandText = isPortuguese
+            ? {
+                help: "comandos disponíveis: help, whoami, about, skills, blog, contact, rookieops, clear",
+                whoami: "Thiago Kusal | Infraestrutura, Identidade e Cloud | 15+ anos em produção",
+                about: "abrindo ./about.md",
+                skills: "listando ./stack e ./certifications",
+                blog: "lendo os logs mais recentes do RookieOps",
+                contact: "abrindo canal seguro no LinkedIn",
+                rookieops: "conectando a rookieops.dev",
+                cleared: "",
+                invalid: "comando não encontrado. Digite 'help' para ver as opções."
             }
-        }).catch((error) => {
-            console.warn("Particle background could not be initialized.", error);
+            : {
+                help: "available commands: help, whoami, about, skills, blog, contact, rookieops, clear",
+                whoami: "Thiago Kusal | Infrastructure, Identity & Cloud | 15+ years in production",
+                about: "opening ./about.md",
+                skills: "listing ./stack and ./certifications",
+                blog: "reading the latest RookieOps logs",
+                contact: "opening a secure LinkedIn channel",
+                rookieops: "connecting to rookieops.dev",
+                cleared: "",
+                invalid: "command not found. Type 'help' to see the options."
+            };
+        const history = [];
+        let historyIndex = 0;
+
+        const showCommandResult = (message, isError = false) => {
+            commandOutput.textContent = message ? `> ${message}` : "";
+            commandOutput.classList.toggle("error", isError);
+            commandOutput.classList.toggle("success", Boolean(message) && !isError);
+        };
+
+        const scrollToTarget = (selector) => {
+            document.querySelector(selector)?.scrollIntoView({
+                behavior: reducedMotion ? "auto" : "smooth",
+                block: "start"
+            });
+        };
+
+        commandForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const command = commandInput.value.trim().toLowerCase();
+
+            if (!command) {
+                showCommandResult(commandText.help);
+                return;
+            }
+
+            history.push(command);
+            historyIndex = history.length;
+            commandInput.value = "";
+
+            switch (command) {
+                case "help":
+                    showCommandResult(commandText.help);
+                    break;
+                case "whoami":
+                    showCommandResult(commandText.whoami);
+                    break;
+                case "about":
+                case "sobre":
+                    showCommandResult(commandText.about);
+                    scrollToTarget("#sobre");
+                    break;
+                case "skills":
+                case "stack":
+                    showCommandResult(commandText.skills);
+                    scrollToTarget(".sobre-secoes");
+                    break;
+                case "blog":
+                case "logs":
+                    showCommandResult(commandText.blog);
+                    scrollToTarget("#blog");
+                    break;
+                case "contact":
+                case "contato":
+                    showCommandResult(commandText.contact);
+                    window.open("https://www.linkedin.com/in/tkusal/", "_blank", "noopener,noreferrer");
+                    break;
+                case "rookieops":
+                    showCommandResult(commandText.rookieops);
+                    window.open("https://rookieops.dev", "_blank", "noopener,noreferrer");
+                    break;
+                case "clear":
+                case "cls":
+                    showCommandResult(commandText.cleared);
+                    break;
+                default:
+                    showCommandResult(commandText.invalid, true);
+            }
+        });
+
+        commandInput.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowUp" && historyIndex > 0) {
+                event.preventDefault();
+                historyIndex -= 1;
+                commandInput.value = history[historyIndex];
+            } else if (event.key === "ArrowDown") {
+                event.preventDefault();
+                historyIndex = Math.min(historyIndex + 1, history.length);
+                commandInput.value = history[historyIndex] || "";
+            }
         });
     }
 
