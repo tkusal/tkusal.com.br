@@ -1782,6 +1782,10 @@ html[lang^="pt"] .command-shortcuts::before {
   .terminal-page .terminal-body {
     padding: 1.4rem;
   }
+
+  .terminal-page .command-prompt input {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 520px) {
