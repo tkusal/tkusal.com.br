@@ -1,7 +1,13 @@
 {
   "source": "https://rookieops.dev/rss.xml",
-  "updatedAt": "2026-08-03T13:22:15.264Z",
+  "updatedAt": "2026-08-06T12:23:14.327Z",
   "posts": [
+    {
+      "title": "Redes no Azure para iniciantes: VNet, subnet, NSG e rotas sem confusão",
+      "link": "https://rookieops.dev/posts/redes-no-azure-para-iniciantes-vnet-subnet-nsg-rotas/",
+      "publishedAt": "2026-08-05T00:00:00.000Z",
+      "description": "Entenda como VNet, subnet, NSG e rotas trabalham juntas no Azure e crie um laboratório seguro com Azure CLI."
+    },
     {
       "title": "GitHub Actions para iniciantes: CI/CD na prática",
       "link": "https://rookieops.dev/posts/github-actions-para-iniciantes-ci-cd-gh-200/",
