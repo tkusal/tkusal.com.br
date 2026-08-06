@@ -7,9 +7,9 @@
     <meta name="robots" content="noindex, follow">
     <meta name="theme-color" content="#050806">
     <title>Página não encontrada | TKusal</title>
-    <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-    <link rel="preload" href="/assets/fonts/noto-sans-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="preload" href="assets/fonts/noto-sans-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="assets/css/style.css?v=20260806-terminal10" onerror="this.onerror=null;this.href='/assets/css/style.css?v=20260806-terminal10'">
 </head>
 
 <body class="error-page">
@@ -19,16 +19,21 @@
         <h1>Página não encontrada</h1>
         <p>O endereço pode ter mudado ou não existir. The page you requested may have moved or does not exist.</p>
         <div class="hero-actions">
-            <a href="/" class="cta-btn">
+            <a href="/" class="cta-btn" data-local-home>
                 Voltar ao início
-                <img src="/assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="22" height="22" aria-hidden="true">
+                <img src="assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="22" height="22" aria-hidden="true" onerror="this.onerror=null;this.src='/assets/vendor/boxicons/bx-right-arrow-alt.svg'">
             </a>
-            <a href="https://rookieops.dev" class="cta-btn secondary compact" target="_blank" rel="noopener noreferrer">
+            <a href="https://rookieops.dev" class="cta-btn secondary" target="_blank" rel="noopener noreferrer">
                 Acessar o RookieOps
-                <img src="/assets/vendor/boxicons/bx-link-external.svg" alt="" width="20" height="20" aria-hidden="true">
+                <img src="assets/vendor/boxicons/bx-link-external.svg" alt="" width="20" height="20" aria-hidden="true" onerror="this.onerror=null;this.src='/assets/vendor/boxicons/bx-link-external.svg'">
             </a>
         </div>
     </main>
+    <script>
+        if (window.location.protocol === "file:") {
+            document.querySelector("[data-local-home]").href = "index.html";
+        }
+    </script>
 </body>
 
 </html>

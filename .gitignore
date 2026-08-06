@@ -1,5 +1,14 @@
 .vscode/
+.idea/
+.wrangler/
 bkp/
 tmp/
+node_modules/
+.dev.vars
+.env
+.env.*
+!.env.example
+*.log
 desktop.ini
+Thumbs.db
 .DS_Store

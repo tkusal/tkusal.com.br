@@ -44,7 +44,7 @@
         imagesrcset="assets/img/profile/thiago-kusal-220.avif 220w, assets/img/profile/thiago-kusal-380.avif 380w, assets/img/profile/thiago-kusal-440.avif 440w, assets/img/profile/thiago-kusal-760.avif 760w"
         imagesizes="(max-width: 560px) calc(100vw - 7.3rem), (max-width: 820px) 415px, 380px"
         fetchpriority="high">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260806-terminal10">
     <link rel="canonical" href="https://tkusal.com.br/">
     <link rel="alternate" hreflang="pt-BR" href="https://tkusal.com.br/">
     <link rel="alternate" hreflang="en" href="https://tkusal.com.br/en/">
@@ -163,42 +163,51 @@
     </script>
 </head>
 
-<body>
+<body class="terminal-page">
     <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
 
-    <header>
-        <nav aria-label="Navegação principal">
-            <a href="#home" class="logo" aria-label="TKusal - início">
-                <img src="assets/img/logo.svg" alt="TKusal" width="110" height="55">
-            </a>
-            <ul class="links" id="primary-links">
-                <li><a href="#home">~/início</a></li>
-                <li><a href="#sobre">~/sobre</a></li>
-                <li><a href="#blog">~/blog</a></li>
-            </ul>
-            <div class="nav-actions">
-                <a href="en/index.html" class="lang-btn" lang="en" hreflang="en" aria-label="View this page in English" title="English version">EN</a>
-                <button type="button" class="menu-btn" id="menu" aria-label="Abrir menu" aria-expanded="false" aria-controls="primary-links">
-                    <img src="assets/vendor/boxicons/bx-menu-alt-right.svg" alt="" width="40" height="40" aria-hidden="true">
-                </button>
-            </div>
-        </nav>
-    </header>
-
-    <div class="menu-backdrop" id="menuBackdrop" hidden aria-hidden="true"></div>
-
     <main id="main-content" tabindex="-1">
-        <section id="home">
-            <div class="terminal-window">
-                <div class="terminal-titlebar" aria-hidden="true">
-                    <div class="window-controls"><span></span><span></span><span></span></div>
-                    <span class="terminal-title">thiago@tkusal: ~/portfolio</span>
+        <div class="terminal-window">
+            <div class="terminal-titlebar">
+                <div class="window-controls" aria-hidden="true"><span></span><span></span><span></span></div>
+                <span class="terminal-title">thiago@tkusal: ~/portfolio</span>
+                <div class="terminal-meta">
                     <span class="terminal-state">sessão segura</span>
+                    <a href="en/index.html" class="terminal-lang" lang="en" hreflang="en" aria-label="View this page in English">EN</a>
                 </div>
+            </div>
 
-                <div class="terminal-body">
+            <div class="terminal-commandbar">
+                <nav class="command-shortcuts" aria-label="Comandos rápidos">
+                    <a href="#home" data-terminal-command="whoami" aria-current="page">whoami</a>
+                    <a href="#sobre" data-terminal-command="about">about</a>
+                    <a href="#skills" data-terminal-command="skills">skills</a>
+                    <a href="#blog" data-terminal-command="blog">blog</a>
+                </nav>
+                <div class="command-output" id="commandOutput" role="status" aria-live="polite">
+                    <span>&gt; carregando ./profile</span>
+                </div>
+            </div>
+
+            <form class="command-prompt" id="commandPrompt" aria-label="Navegar pelo terminal">
+                <label for="commandInput"><span>visitor@tkusal</span>:<strong>~</strong>$</label>
+                <div class="command-input-wrap">
+                    <input id="commandInput" name="command" type="text" role="combobox" autocomplete="off" spellcheck="false" placeholder="digite um dos comandos acima para navegar na página. Exemplo: about" aria-label="Digite um dos comandos acima para navegar na página. Exemplo: about" aria-describedby="commandOutput" aria-controls="commandSuggestions terminalViewport" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="command-hint" aria-hidden="true">
+                        <span class="command-cursor"></span>
+                        <span class="command-hint-full">digite um dos comandos acima para navegar na página. Exemplo: about</span>
+                        <span class="command-hint-compact">digite. Exemplo: about</span>
+                    </span>
+                    <ul class="command-suggestions" id="commandSuggestions" role="listbox" aria-label="Sugestões de comandos" hidden></ul>
+                </div>
+                <button type="submit">RUN</button>
+            </form>
+
+            <div class="terminal-viewport" id="terminalViewport" role="region" aria-label="Conteúdo do terminal" tabindex="0">
+                <section id="home" class="terminal-panel" data-terminal-view="home">
+                    <div class="terminal-body">
                     <div class="info-box">
-                        <p class="shell-line"><span>visitor@tkusal</span>:<strong>~</strong>$ whoami</p>
+                        <p class="shell-line section-command"><span>visitor@tkusal</span>:<strong>~</strong>$ whoami</p>
                         <h1>Thiago <span class="accent">Kusal</span></h1>
                         <div class="profession-line">
                             <span aria-hidden="true">&gt;</span>
@@ -232,7 +241,7 @@
                                 ./explorar-rookieops
                                 <img src="assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="24" height="24" aria-hidden="true">
                             </a>
-                            <a href="https://www.linkedin.com/in/tkusal/" class="cta-btn secondary compact" target="_blank" rel="noopener noreferrer">
+                            <a href="https://www.linkedin.com/in/tkusal/" class="cta-btn secondary" target="_blank" rel="noopener noreferrer">
                                 ./iniciar-conversa
                                 <img src="assets/vendor/boxicons/bx-link-external.svg" alt="" width="20" height="20" aria-hidden="true">
                             </a>
@@ -267,21 +276,12 @@
                             <span>NODE</span><strong>Rio de Janeiro, BR</strong>
                         </div>
                     </div>
-                </div>
+                    </div>
+                </section>
 
-                <form class="command-prompt" id="commandPrompt">
-                    <label for="commandInput"><span>visitor@tkusal</span>:<strong>~</strong>$</label>
-                    <input id="commandInput" name="command" type="text" autocomplete="off" spellcheck="false" placeholder="digite 'help' e pressione Enter" aria-describedby="commandOutput">
-                    <button type="submit">RUN</button>
-                </form>
-                <div class="command-output" id="commandOutput" role="status" aria-live="polite">
-                    <span>comandos: help · about · skills · blog · contact · clear</span>
-                </div>
-            </div>
-        </section>
-
-        <section id="sobre">
+                <section id="sobre" class="terminal-panel" data-terminal-view="about" hidden>
             <div class="sobre-content">
+                <p class="shell-line section-command"><span>visitor@tkusal</span>:<strong>~</strong>$ cat ./about.md</p>
                 <h2>Sobre <span class="accent">Mim</span></h2>
                 <p class="sobre-texto highlight">Mais do que manter a infraestrutura funcionando, meu foco é construir ambientes seguros, automatizados e preparados para sustentar o crescimento e a continuidade do seu negócio.</p>
                 <p class="sobre-texto">Há mais de 15 anos atuo em infraestrutura de TI, da administração de servidores à liderança de equipes e projetos em ambientes híbridos e cloud. Essa trajetória me permite conectar necessidades de negócio a decisões de arquitetura, segurança e alta disponibilidade.</p>
@@ -306,12 +306,16 @@
                 </div>
 
                 <p class="sobre-texto community-note">Acredito que o conhecimento ganha força quando é compartilhado. Por isso, divido minhas experiências, desafios e aprendizados no RookieOps e em meus outros canais. Essa contribuição para a comunidade é o que conecta toda a minha bagagem prática à minha jornada para me tornar Microsoft MVP.</p>
+            </div>
+        </section>
 
+                <section id="skills" class="terminal-panel" data-terminal-view="skills" hidden>
                 <div class="sobre-secoes">
-                    <h3 class="section-heading">
+                    <p class="shell-line section-command"><span>visitor@tkusal</span>:<strong>~</strong>$ ls -la ./skills/</p>
+                    <h2 class="section-heading">
                         <img src="assets/vendor/boxicons/bx-certification.svg" alt="" width="28" height="28" aria-hidden="true">
                         Certificações Ativas
-                    </h3>
+                    </h2>
                     <div class="cards-grid certifications-grid">
                         <div class="mini-card">Microsoft 365 Fundamentals (MS-900)</div>
                         <div class="mini-card">Identity and Access Administrator (SC-300)</div>
@@ -321,10 +325,10 @@
                         <div class="mini-card">ITIL 4 Foundation</div>
                     </div>
 
-                    <h3 class="section-heading">
+                    <h2 class="section-heading">
                         <img src="assets/vendor/boxicons/bx-layer.svg" alt="" width="28" height="28" aria-hidden="true">
                         Tecnologias e Ferramentas
-                    </h3>
+                    </h2>
                     <div class="cards-grid tech-grid">
                         <div class="mini-card tech"><img src="assets/vendor/boxicons/bxl-windows.svg" alt="" aria-hidden="true">Windows Server</div>
                         <div class="mini-card tech"><img src="assets/vendor/boxicons/bx-terminal.svg" alt="" aria-hidden="true">Linux</div>
@@ -340,11 +344,11 @@
                         <div class="mini-card tech"><img src="assets/vendor/boxicons/bx-lock-alt.svg" alt="" aria-hidden="true">Microsoft Entra ID</div>
                     </div>
                 </div>
-            </div>
-        </section>
+                </section>
 
-        <section id="blog">
+                <section id="blog" class="terminal-panel" data-terminal-view="blog" hidden>
             <div class="blog-header">
+                <p class="shell-line section-command"><span>visitor@tkusal</span>:<strong>~</strong>$ tail -n 4 ./rookieops.log</p>
                 <h2>Últimas do <span class="accent">RookieOps</span></h2>
                 <p>Conteúdo sobre infraestrutura, identidade, cloud, segurança, automação e carreira em tecnologia.</p>
             </div>
@@ -426,20 +430,19 @@
                 Acessar o Blog Completo
                 <img src="assets/vendor/boxicons/bx-link-external.svg" alt="" width="20" height="20" aria-hidden="true">
             </a>
-        </section>
+                </section>
+            </div>
 
-        <a href="#home" class="back-to-top" id="backToTop" aria-label="Voltar ao início">
-            <img src="assets/vendor/boxicons/bx-up-arrow-alt.svg" alt="" width="26" height="26" aria-hidden="true">
-        </a>
+            <div class="terminal-statusbar" aria-hidden="true">
+                <span>portfolio.session</span>
+                <span>UTF-8</span>
+                <span>ONLINE</span>
+            </div>
+        </div>
     </main>
 
-    <footer>
-        <p>&copy; <span id="currentYear">2026</span> Thiago Kusal. Conteúdo e tecnologia com propósito.</p>
-        <a href="https://www.linkedin.com/in/tkusal/" target="_blank" rel="noopener noreferrer">Contato profissional</a>
-    </footer>
-
     <script src="assets/js/vanilla-tilt.min.js"></script>
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/script.js?v=20260806-terminal8"></script>
 </body>
 
 </html>

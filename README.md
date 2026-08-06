@@ -11,8 +11,11 @@ estática no Cloudflare Pages.
 
 ## Principais recursos
 
-- Layout responsivo para desktop, tablet e celular.
-- Interface inspirada em shell, com prompt interativo e histórico de comandos.
+- Interface de terminal em uma única janela, adaptada para desktop, tablet e celular.
+- Navegação entre início, sobre, competências e blog por comandos, atalhos ou teclado.
+- Prompt interativo com histórico, sugestões e autocompletar comandos usando `Tab`.
+- Transições progressivas entre os painéis, com fallback e respeito a `prefers-reduced-motion`.
+- Rolagem interna no desktop e carrossel com encaixe dos cards em dispositivos de toque.
 - Conteúdo em português (`pt-BR`) e inglês.
 - Open Graph, Twitter Cards e dados estruturados JSON-LD.
 - Imagens AVIF e WebP responsivas com fallback em PNG otimizado.
@@ -21,7 +24,7 @@ estática no Cloudflare Pages.
 - Suporte a `prefers-reduced-motion`.
 - Ícones do Boxicons armazenados localmente.
 - Página 404 personalizada.
-- Cabeçalhos de segurança e cache para Cloudflare Pages.
+- Cabeçalhos de segurança para Cloudflare Pages.
 - Canal de reporte de vulnerabilidades publicado em `security.txt`.
 - Atualização estática dos artigos do RookieOps por GitHub Actions.
 
@@ -39,6 +42,18 @@ Não há etapa de compilação nem dependências obrigatórias para executar o
 site. Os arquivos podem ser publicados diretamente por qualquer serviço de
 hospedagem estática.
 
+## Execução local
+
+Sirva o diretório raiz com um servidor HTTP estático. Um exemplo usando
+Python é:
+
+```shell
+python -m http.server 4173
+```
+
+Depois, acesse `http://localhost:4173`. Abrir os arquivos diretamente pelo
+navegador não reproduz com fidelidade o comportamento de uma hospedagem web.
+
 ## Estrutura
 
 ```text
@@ -49,14 +64,15 @@ hospedagem estática.
 │   ├── css/                 # Estilos
 │   ├── data/                # Dados estáticos dos posts
 │   ├── fonts/               # Fontes locais e respectivas licenças
-│   ├── img/                 # Logos, fotografias e imagens responsivas
+│   ├── img/                 # Fotografias e imagens do site
 │   ├── js/                  # Scripts do site
 │   └── vendor/boxicons/     # Ícones de terceiros armazenados localmente
 ├── en/                      # Versão em inglês
 ├── scripts/                 # Gerador estático dos posts
 ├── 404.html                 # Página de erro
-├── _headers                 # Segurança e cache no Cloudflare Pages
+├── _headers                 # Segurança no Cloudflare Pages
 ├── index.html               # Página principal em português
+├── LICENSE                  # Termos de reutilização do código
 ├── robots.txt
 └── sitemap.xml
 ```
@@ -124,9 +140,8 @@ Antes de reutilizar este projeto, remova ou substitua:
 O crédito exigido pela licença deve permanecer. A menção ao nome de Thiago
 Kusal usada exclusivamente para fornecer esse crédito é permitida.
 
-A fotografia, o logotipo e o banner `assets/img/og-banner-1200x630.png`
-fazem parte da identidade pessoal de Thiago Kusal e não estão licenciados
-para reutilização.
+A fotografia e o banner `assets/img/og-banner-1200x630.png` fazem parte da
+identidade pessoal de Thiago Kusal e não estão licenciados para reutilização.
 
 ## Componentes de terceiros
 
