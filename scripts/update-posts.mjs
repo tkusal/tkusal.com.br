@@ -12,12 +12,14 @@ const pages = [
         path: path.join(rootDirectory, "index.html"),
         locale: "pt-BR",
         linkLabel: "Ler artigo",
+        postLanguage: null,
         assetPrefix: "assets"
     },
     {
         path: path.join(rootDirectory, "en", "index.html"),
         locale: "en-US",
         linkLabel: "Read article",
+        postLanguage: "pt-BR",
         assetPrefix: "../assets"
     }
 ];
@@ -117,22 +119,24 @@ function escapeHtml(value) {
         .replaceAll("'", "&#039;");
 }
 
-function formatPostCard(post, locale, linkLabel, assetPrefix) {
+function formatPostCard(post, locale, linkLabel, postLanguage, assetPrefix) {
     const formattedDate = new Intl.DateTimeFormat(locale, {
         day: "2-digit",
         month: "short",
         year: "numeric",
         timeZone: "UTC"
     }).format(new Date(post.publishedAt));
+    const linkAccessibleLabel = `${linkLabel}: ${post.title}`;
+    const languageAttribute = postLanguage ? ` lang="${escapeHtml(postLanguage)}"` : "";
 
     return [
         "                    <article class=\"post-card\">",
         "                        <div>",
         `                            <p class="post-date">${escapeHtml(formattedDate)}</p>`,
-        `                            <h3 class="post-title">${escapeHtml(post.title)}</h3>`,
-        `                            <p class="post-desc">${escapeHtml(post.description)}</p>`,
+        `                            <h3 class="post-title"${languageAttribute}>${escapeHtml(post.title)}</h3>`,
+        `                            <p class="post-desc"${languageAttribute}>${escapeHtml(post.description)}</p>`,
         "                        </div>",
-        `                        <a href="${escapeHtml(post.link)}" class="post-link" target="_blank" rel="noopener noreferrer">`,
+        `                        <a href="${escapeHtml(post.link)}" class="post-link" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(linkAccessibleLabel)}">`,
         `                            ${escapeHtml(linkLabel)}`,
         `                            <img src="${assetPrefix}/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="20" height="20" aria-hidden="true">`,
         "                        </a>",
@@ -149,7 +153,7 @@ async function updatePage(page, posts) {
     }
 
     const cards = posts
-        .map((post) => formatPostCard(post, page.locale, page.linkLabel, page.assetPrefix))
+        .map((post) => formatPostCard(post, page.locale, page.linkLabel, page.postLanguage, page.assetPrefix))
         .join("\n");
     const replacement = [
         "                    <template data-posts-boundary=\"start\"></template>",

@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const isPortuguese = document.documentElement.lang.toLowerCase().startsWith("pt");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const usesCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    const compactTerminalQuery = window.matchMedia("(max-width: 520px)");
     const supportsViewTransitions = typeof document.startViewTransition === "function" && !reducedMotion;
     const copy = isPortuguese
         ? {
@@ -116,6 +117,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const commandInput = document.getElementById("commandInput");
     const commandOutput = document.getElementById("commandOutput");
     const commandSuggestions = document.getElementById("commandSuggestions");
+    const commandPromptToggle = document.getElementById("commandPromptToggle");
+    const commandPromptToggleLabel = commandPromptToggle?.querySelector("[data-command-prompt-toggle-label]");
     const terminalViewport = document.getElementById("terminalViewport");
     const terminalPanels = [...document.querySelectorAll("[data-terminal-view]")];
     const commandShortcuts = [...document.querySelectorAll("[data-terminal-command]")];
@@ -124,24 +127,27 @@ document.addEventListener("DOMContentLoaded", () => {
         const commandText = isPortuguese
             ? {
                 help: "comandos disponíveis: help, whoami, about, skills, blog, rookieops, clear",
-                whoami: "carregando ./profile",
-                about: "abrindo ./about.md",
-                skills: "listando ./stack e ./certifications",
-                blog: "lendo os logs mais recentes do RookieOps",
+                whoami: "seção início aberta: perfil profissional",
+                about: "seção sobre aberta: trajetória profissional",
+                skills: "seção competências aberta: stack e certificações",
+                blog: "seção artigos aberta: publicações do RookieOps",
                 rookieops: "conectando a rookieops.dev",
                 cleared: "saída limpa. Digite help para continuar.",
                 invalid: "comando não encontrado. Digite 'help' para ver as opções."
             }
             : {
                 help: "available commands: help, whoami, about, skills, blog, rookieops, clear",
-                whoami: "loading ./profile",
-                about: "opening ./about.md",
-                skills: "listing ./stack and ./certifications",
-                blog: "reading the latest RookieOps logs",
+                whoami: "home section opened: professional profile",
+                about: "about section opened: professional journey",
+                skills: "skills section opened: stack and certifications",
+                blog: "articles section opened: RookieOps posts",
                 rookieops: "connecting to rookieops.dev",
                 cleared: "output cleared. Type help to continue.",
                 invalid: "command not found. Type 'help' to see the options."
             };
+        const promptToggleText = isPortuguese
+            ? { open: "Navegar pelo site", close: "Fechar navegação" }
+            : { open: "Navigate the site", close: "Close navigation" };
         const commandOptions = isPortuguese
             ? [
                 { command: "whoami", description: "abrir o perfil profissional" },
@@ -176,6 +182,41 @@ document.addEventListener("DOMContentLoaded", () => {
         let visibleSuggestions = [];
         let suggestionIndex = 0;
         let activeViewTransition;
+        let compactPromptExpanded = false;
+
+        const synchronizeCompactPrompt = ({ focusInput = false } = {}) => {
+            if (!commandPromptToggle) return;
+
+            const isCompact = compactTerminalQuery.matches;
+            commandPromptToggle.hidden = !isCompact;
+            commandForm.hidden = isCompact && !compactPromptExpanded;
+            commandPromptToggle.setAttribute("aria-expanded", String(isCompact && compactPromptExpanded));
+
+            if (commandPromptToggleLabel) {
+                commandPromptToggleLabel.textContent = compactPromptExpanded
+                    ? promptToggleText.close
+                    : promptToggleText.open;
+            }
+
+            if (focusInput && isCompact && compactPromptExpanded) {
+                window.requestAnimationFrame(() => commandInput.focus());
+            }
+        };
+
+        commandPromptToggle?.addEventListener("click", () => {
+            compactPromptExpanded = !compactPromptExpanded;
+            synchronizeCompactPrompt({ focusInput: compactPromptExpanded });
+        });
+
+        compactTerminalQuery.addEventListener("change", (event) => {
+            if (event.matches) {
+                compactPromptExpanded = false;
+            }
+
+            synchronizeCompactPrompt();
+        });
+
+        synchronizeCompactPrompt();
 
         const closeCommandSuggestions = () => {
             visibleSuggestions = [];
@@ -275,7 +316,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         };
 
-        const activateView = (view, activeCommand, hash, targetSelector, updateHash = true, animate = true) => {
+        const activateView = (view, activeCommand, hash, targetSelector, updateHash = true, animate = true, focusHeading = false) => {
             const activePanel = terminalPanels.find((panel) => panel.dataset.terminalView === view);
             if (!activePanel) return;
 
@@ -298,14 +339,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 viewChangeAnnounced = true;
 
                 window.requestAnimationFrame(() => {
-                    if (targetSelector) {
+                    const panelHeading = activePanel.querySelector("h1, h2");
+
+                    if (focusHeading && panelHeading) {
+                        panelHeading.setAttribute("tabindex", "-1");
+                        panelHeading.focus({ preventScroll: true });
+                        panelHeading.scrollIntoView({
+                            behavior: reducedMotion ? "auto" : "smooth",
+                            block: "start"
+                        });
+                    } else if (targetSelector) {
                         activePanel.querySelector(targetSelector)?.scrollIntoView({
                             behavior: reducedMotion ? "auto" : "smooth",
                             block: "start"
                         });
                     }
 
-                    window.dispatchEvent(new CustomEvent("terminal:viewchange", { detail: { view, activeCommand } }));
+                    window.dispatchEvent(new CustomEvent("terminal:viewchange", {
+                        detail: { view, activeCommand, heading: panelHeading?.textContent.trim() || "" }
+                    }));
                 });
             };
 
@@ -338,7 +390,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         };
 
-        const runCommand = (rawCommand, { updateHash = true, showOutput = true, animate = true } = {}) => {
+        const runCommand = (rawCommand, { updateHash = true, showOutput = true, animate = true, focusHeading = false } = {}) => {
             const command = rawCommand.trim().toLowerCase();
 
             switch (command) {
@@ -349,23 +401,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 case "home":
                 case "inicio":
                     if (showOutput) showCommandResult(commandText.whoami);
-                    activateView("home", "whoami", "home", null, updateHash, animate);
-                    break;
+                    activateView("home", "whoami", "home", null, updateHash, animate, focusHeading);
+                    return true;
                 case "about":
                 case "sobre":
                     if (showOutput) showCommandResult(commandText.about);
-                    activateView("about", "about", "sobre", null, updateHash, animate);
-                    break;
+                    activateView("about", "about", "sobre", null, updateHash, animate, focusHeading);
+                    return true;
                 case "skills":
                 case "stack":
                     if (showOutput) showCommandResult(commandText.skills);
-                    activateView("skills", "skills", "skills", null, updateHash, animate);
-                    break;
+                    activateView("skills", "skills", "skills", null, updateHash, animate, focusHeading);
+                    return true;
                 case "blog":
                 case "logs":
                     if (showOutput) showCommandResult(commandText.blog);
-                    activateView("blog", "blog", "blog", null, updateHash, animate);
-                    break;
+                    activateView("blog", "blog", "blog", null, updateHash, animate, focusHeading);
+                    return true;
                 case "rookieops":
                     if (showOutput) showCommandResult(commandText.rookieops);
                     window.open("https://rookieops.dev", "_blank", "noopener,noreferrer");
@@ -377,6 +429,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 default:
                     if (showOutput) showCommandResult(commandText.invalid, true);
             }
+
+            return false;
         };
 
         commandForm.addEventListener("submit", (event) => {
@@ -393,7 +447,12 @@ document.addEventListener("DOMContentLoaded", () => {
             historyIndex = history.length;
             commandInput.value = "";
             closeCommandSuggestions();
-            runCommand(command);
+            const viewChanged = runCommand(command, { focusHeading: true });
+
+            if (viewChanged && compactTerminalQuery.matches) {
+                compactPromptExpanded = false;
+                synchronizeCompactPrompt();
+            }
         });
 
         commandShortcuts.forEach((shortcut) => {
@@ -469,8 +528,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const carousel = document.getElementById("rss-carousel");
-    if (carousel && !reducedMotion && !usesCoarsePointer) {
+    if (carousel) {
+        const carouselContainer = carousel.closest(".carousel-container");
+        const interactionSurface = carouselContainer || carousel;
         const cards = [...carousel.querySelectorAll(".post-card")];
+        const controls = [...(carouselContainer?.querySelectorAll("[data-carousel-direction]") || [])];
+        const autoplayEnabled = !reducedMotion && !usesCoarsePointer;
         const pixelsPerSecond = 60;
         let animationFrame;
         let carouselInitialized = false;
@@ -484,11 +547,20 @@ document.addEventListener("DOMContentLoaded", () => {
             previousTimestamp = undefined;
         };
 
-        const advanceCarousel = (timestamp) => {
+        const getCycleWidth = () => {
             const firstClone = carousel.querySelector(".carousel-clone");
-            const cycleWidth = firstClone
-                ? firstClone.offsetLeft - cards[0].offsetLeft
-                : 0;
+            return firstClone ? firstClone.offsetLeft - cards[0].offsetLeft : 0;
+        };
+
+        const updateControlVisibility = () => {
+            const canNavigate = !carousel.closest("[hidden]") && carousel.scrollWidth > carousel.clientWidth + 1;
+            controls.forEach((control) => {
+                control.hidden = !canNavigate;
+            });
+        };
+
+        const advanceCarousel = (timestamp) => {
+            const cycleWidth = getCycleWidth();
 
             if (previousTimestamp !== undefined && cycleWidth > 0) {
                 const elapsedSeconds = Math.min(timestamp - previousTimestamp, 100) / 1000;
@@ -504,32 +576,74 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         const startAutoplay = () => {
-            if (!carouselInitialized || cards.length < 2 || animationFrame || document.hidden || focusPaused || pointerPaused || carousel.closest("[hidden]")) return;
+            if (!autoplayEnabled || !carouselInitialized || cards.length < 2 || animationFrame || document.hidden || focusPaused || pointerPaused || carousel.closest("[hidden]")) return;
             animationFrame = window.requestAnimationFrame(advanceCarousel);
         };
 
+        const moveCarousel = (direction) => {
+            if (!cards.length || carousel.scrollWidth <= carousel.clientWidth + 1) return;
+
+            stopAutoplay();
+
+            const carouselStyles = window.getComputedStyle(carousel);
+            const gap = Number.parseFloat(carouselStyles.columnGap || carouselStyles.gap) || 0;
+            const distance = cards[0].getBoundingClientRect().width + gap;
+            const cycleWidth = getCycleWidth();
+            const maximumScroll = carousel.scrollWidth - carousel.clientWidth;
+            const behavior = reducedMotion ? "auto" : "smooth";
+
+            if (direction < 0 && carousel.scrollLeft <= 1) {
+                carousel.scrollLeft = cycleWidth > 0 ? cycleWidth : maximumScroll;
+            } else if (direction > 0 && cycleWidth === 0 && carousel.scrollLeft >= maximumScroll - 1) {
+                carousel.scrollTo({ left: 0, behavior });
+                return;
+            }
+
+            carousel.scrollBy({ left: direction * distance, behavior });
+            window.setTimeout(startAutoplay, reducedMotion ? 0 : 350);
+        };
+
+        controls.forEach((control) => {
+            control.addEventListener("click", () => {
+                moveCarousel(Number(control.dataset.carouselDirection));
+            });
+        });
+
         const initializeCarousel = () => {
             if (carouselInitialized || cards.length < 2 || carousel.closest("[hidden]")) return;
-            if (carousel.scrollWidth <= carousel.clientWidth + 1) return;
-
-            cards.forEach((card) => {
-                const clone = card.cloneNode(true);
-                clone.classList.add("carousel-clone");
-                clone.setAttribute("aria-hidden", "true");
-                clone.querySelectorAll("a, button, [tabindex]").forEach((element) => {
-                    element.setAttribute("tabindex", "-1");
-                });
-                carousel.append(clone);
-            });
+            if (carousel.scrollWidth <= carousel.clientWidth + 1) {
+                updateControlVisibility();
+                return;
+            }
 
             carouselInitialized = true;
-            carousel.classList.add("is-autoplaying");
+
+            if (autoplayEnabled) {
+                cards.forEach((card) => {
+                    const clone = card.cloneNode(true);
+                    clone.classList.add("carousel-clone");
+                    clone.setAttribute("aria-hidden", "true");
+                    clone.querySelectorAll("a, button, [tabindex]").forEach((element) => {
+                        element.setAttribute("tabindex", "-1");
+                    });
+                    carousel.append(clone);
+                });
+
+                carousel.classList.add("is-autoplaying");
+            }
+
+            updateControlVisibility();
             startAutoplay();
         };
 
         const synchronizeCarousel = () => {
-            if (carousel.closest("[hidden]")) return;
+            if (carousel.closest("[hidden]")) {
+                updateControlVisibility();
+                return;
+            }
+
             initializeCarousel();
+            updateControlVisibility();
             startAutoplay();
         };
 
@@ -539,20 +653,20 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         };
 
-        carousel.addEventListener("pointerenter", () => {
+        interactionSurface.addEventListener("pointerenter", () => {
             pointerPaused = true;
             stopAutoplay();
         });
-        carousel.addEventListener("pointerleave", () => {
+        interactionSurface.addEventListener("pointerleave", () => {
             pointerPaused = false;
             startAutoplay();
         });
-        carousel.addEventListener("focusin", () => {
+        interactionSurface.addEventListener("focusin", () => {
             focusPaused = true;
             stopAutoplay();
         });
-        carousel.addEventListener("focusout", (event) => {
-            if (!carousel.contains(event.relatedTarget)) {
+        interactionSurface.addEventListener("focusout", (event) => {
+            if (!interactionSurface.contains(event.relatedTarget)) {
                 focusPaused = false;
                 startAutoplay();
             }
@@ -569,6 +683,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener("terminal:viewchange", (event) => {
             if (event.detail?.view !== "blog") {
                 stopAutoplay();
+                updateControlVisibility();
                 return;
             }
 

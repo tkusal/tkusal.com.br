@@ -44,7 +44,8 @@
         imagesrcset="../assets/img/profile/thiago-kusal-220.avif 220w, ../assets/img/profile/thiago-kusal-380.avif 380w, ../assets/img/profile/thiago-kusal-440.avif 440w, ../assets/img/profile/thiago-kusal-760.avif 760w"
         imagesizes="(max-width: 560px) calc(100vw - 7.3rem), (max-width: 820px) 415px, 380px"
         fetchpriority="high">
-    <link rel="stylesheet" href="../assets/css/style.css?v=20260806-terminal11">
+    <script src="../assets/js/theme.js?v=20260809-theme1"></script>
+    <link rel="stylesheet" href="../assets/css/style.css?v=20260809-theme3">
     <link rel="canonical" href="https://tkusal.com.br/en/">
     <link rel="alternate" hreflang="en" href="https://tkusal.com.br/en/">
     <link rel="alternate" hreflang="pt-BR" href="https://tkusal.com.br/">
@@ -187,6 +188,10 @@
                 <div class="command-output" id="commandOutput" role="status" aria-live="polite">
                     <span>&gt; loading ./profile</span>
                 </div>
+                <button class="command-prompt-toggle" id="commandPromptToggle" type="button" aria-expanded="false" aria-controls="commandPrompt" hidden>
+                    <img src="../assets/vendor/boxicons/bx-terminal.svg" alt="" width="20" height="20" aria-hidden="true">
+                    <span data-command-prompt-toggle-label>Navigate the site</span>
+                </button>
             </div>
 
             <form class="command-prompt" id="commandPrompt" aria-label="Navigate the terminal">
@@ -200,7 +205,7 @@
                     </span>
                     <ul class="command-suggestions" id="commandSuggestions" role="listbox" aria-label="Command suggestions" hidden></ul>
                 </div>
-                <button type="submit">RUN</button>
+                <button type="submit" aria-label="Run command">RUN</button>
             </form>
 
             <div class="terminal-viewport" id="terminalViewport" role="region" aria-label="Terminal content" tabindex="0">
@@ -238,12 +243,8 @@
 
                         <div class="hero-actions">
                             <a href="https://rookieops.dev" class="cta-btn" target="_blank" rel="noopener noreferrer">
-                                ./explore-rookieops
+                                Explore articles on RookieOps
                                 <img src="../assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="24" height="24" aria-hidden="true">
-                            </a>
-                            <a href="https://www.linkedin.com/in/tkusal/" class="cta-btn secondary" target="_blank" rel="noopener noreferrer">
-                                ./start-conversation
-                                <img src="../assets/vendor/boxicons/bx-link-external.svg" alt="" width="20" height="20" aria-hidden="true">
                             </a>
                         </div>
                     </div>
@@ -283,9 +284,11 @@
             <div class="sobre-content">
                 <p class="shell-line section-command"><span>visitor@tkusal</span>:<strong>~</strong>$ cat ./about.md</p>
                 <h2>About <span class="accent">Me</span></h2>
-                <p class="sobre-texto highlight">More than just keeping the infrastructure running, my focus is on building secure, automated environments designed to support your business growth and continuity.</p>
-                <p class="sobre-texto">I have worked in IT infrastructure for more than 15 years, from server administration to leading teams and projects across hybrid and cloud environments. This experience helps me connect business needs with architecture, security, and high-availability decisions.</p>
-                <p class="sobre-texto">Today I modernize legacy environments with DevOps, Infrastructure as Code, and automation, reducing manual work and making changes more predictable and traceable. Identity and security are the foundation: I connect IAM, servers, networks, cloud, and governance in one integrated view.</p>
+                <p class="sobre-texto highlight"><span>More than just keeping the infrastructure running, my focus is on building secure, automated environments designed to support your business growth and continuity.</span></p>
+                <div class="about-narrative">
+                    <p class="sobre-texto">I have worked in IT infrastructure for more than 15 years, from server administration to leading teams and projects across hybrid and cloud environments. This experience helps me connect business needs with architecture, security, and high-availability decisions.</p>
+                    <p class="sobre-texto">Today I modernize legacy environments with DevOps, Infrastructure as Code, and automation, reducing manual work and making changes more predictable and traceable. Identity and security are the foundation: I connect IAM, servers, networks, cloud, and governance in one integrated view.</p>
+                </div>
 
                 <div class="about-pillars">
                     <article class="pillar-card">
@@ -305,7 +308,7 @@
                     </article>
                 </div>
 
-                <p class="sobre-texto community-note">I believe knowledge grows stronger when shared. That's why I share my experiences, challenges, and lessons learned on RookieOps and my other channels. Contributing to the community is what connects my hands-on experience to my journey toward becoming a Microsoft MVP.</p>
+                <p class="sobre-texto community-note"><span>I believe knowledge grows stronger when shared. That's why I share my experiences, challenges, and lessons learned on RookieOps and my other channels. Contributing to the community is what connects my hands-on experience to my journey toward becoming a Microsoft MVP.</span></p>
             </div>
         </section>
 
@@ -350,19 +353,23 @@
             <div class="blog-header">
                 <p class="shell-line section-command"><span>visitor@tkusal</span>:<strong>~</strong>$ tail -n 4 ./rookieops.log</p>
                 <h2>Latest from <span class="accent">RookieOps</span></h2>
-                <p>Content about infrastructure, identity, cloud, security, automation, and technology careers.</p>
+                <p class="blog-intro">Content about infrastructure, identity, cloud, security, automation, and technology careers.</p>
+                <p class="content-language-note">Articles are currently available only in Brazilian Portuguese.</p>
             </div>
 
             <div class="carousel-container">
+                <button class="carousel-control carousel-control-previous" type="button" data-carousel-direction="-1" aria-label="View previous article" aria-controls="rss-carousel" hidden>
+                    <img src="../assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="24" height="24" aria-hidden="true">
+                </button>
                 <div class="carousel" id="rss-carousel" aria-label="Latest RookieOps articles">
                     <template data-posts-boundary="start"></template>
                     <article class="post-card">
                         <div>
                             <p class="post-date">Aug 05, 2026</p>
-                            <h3 class="post-title">Redes no Azure para iniciantes: VNet, subnet, NSG e rotas sem confusão</h3>
-                            <p class="post-desc">Entenda como VNet, subnet, NSG e rotas trabalham juntas no Azure e crie um laboratório seguro com Azure CLI.</p>
+                            <h3 class="post-title" lang="pt-BR">Redes no Azure para iniciantes: VNet, subnet, NSG e rotas sem confusão</h3>
+                            <p class="post-desc" lang="pt-BR">Entenda como VNet, subnet, NSG e rotas trabalham juntas no Azure e crie um laboratório seguro com Azure CLI.</p>
                         </div>
-                        <a href="https://rookieops.dev/posts/redes-no-azure-para-iniciantes-vnet-subnet-nsg-rotas/" class="post-link" target="_blank" rel="noopener noreferrer">
+                        <a href="https://rookieops.dev/posts/redes-no-azure-para-iniciantes-vnet-subnet-nsg-rotas/" class="post-link" target="_blank" rel="noopener noreferrer" aria-label="Read article: Redes no Azure para iniciantes: VNet, subnet, NSG e rotas sem confusão">
                             Read article
                             <img src="../assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="20" height="20" aria-hidden="true">
                         </a>
@@ -370,10 +377,10 @@
                     <article class="post-card">
                         <div>
                             <p class="post-date">Aug 02, 2026</p>
-                            <h3 class="post-title">GitHub Actions para iniciantes: CI/CD na prática</h3>
-                            <p class="post-desc">Aprenda GitHub Actions na prática: crie uma pipeline segura de CI/CD com testes, matriz, artefatos e deploy no GitHub Pages para a certificação GH-200.</p>
+                            <h3 class="post-title" lang="pt-BR">GitHub Actions para iniciantes: CI/CD na prática</h3>
+                            <p class="post-desc" lang="pt-BR">Aprenda GitHub Actions na prática: crie uma pipeline segura de CI/CD com testes, matriz, artefatos e deploy no GitHub Pages para a certificação GH-200.</p>
                         </div>
-                        <a href="https://rookieops.dev/posts/github-actions-para-iniciantes-ci-cd-gh-200/" class="post-link" target="_blank" rel="noopener noreferrer">
+                        <a href="https://rookieops.dev/posts/github-actions-para-iniciantes-ci-cd-gh-200/" class="post-link" target="_blank" rel="noopener noreferrer" aria-label="Read article: GitHub Actions para iniciantes: CI/CD na prática">
                             Read article
                             <img src="../assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="20" height="20" aria-hidden="true">
                         </a>
@@ -381,10 +388,10 @@
                     <article class="post-card">
                         <div>
                             <p class="post-date">Jul 30, 2026</p>
-                            <h3 class="post-title">Do reconhecimento ao hardening no Microsoft Entra ID</h3>
-                            <p class="post-desc">Transforme o reconhecimento do Microsoft Entra ID em um plano de proteção com menor privilégio, PIM e Acesso Condicional.</p>
+                            <h3 class="post-title" lang="pt-BR">Do reconhecimento ao hardening no Microsoft Entra ID</h3>
+                            <p class="post-desc" lang="pt-BR">Transforme o reconhecimento do Microsoft Entra ID em um plano de proteção com menor privilégio, PIM e Acesso Condicional.</p>
                         </div>
-                        <a href="https://rookieops.dev/posts/do-reconhecimento-ao-hardening-no-microsoft-entra-id/" class="post-link" target="_blank" rel="noopener noreferrer">
+                        <a href="https://rookieops.dev/posts/do-reconhecimento-ao-hardening-no-microsoft-entra-id/" class="post-link" target="_blank" rel="noopener noreferrer" aria-label="Read article: Do reconhecimento ao hardening no Microsoft Entra ID">
                             Read article
                             <img src="../assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="20" height="20" aria-hidden="true">
                         </a>
@@ -392,10 +399,10 @@
                     <article class="post-card">
                         <div>
                             <p class="post-date">Jul 29, 2026</p>
-                            <h3 class="post-title">Git para quem está começando em DevOps</h3>
-                            <p class="post-desc">Aprenda o fluxo essencial do Git para versionar automações, colaborar com segurança e recuperar mudanças sem medo no dia a dia de DevOps.</p>
+                            <h3 class="post-title" lang="pt-BR">Git para quem está começando em DevOps</h3>
+                            <p class="post-desc" lang="pt-BR">Aprenda o fluxo essencial do Git para versionar automações, colaborar com segurança e recuperar mudanças sem medo no dia a dia de DevOps.</p>
                         </div>
-                        <a href="https://rookieops.dev/posts/git-para-quem-esta-comecando-em-devops/" class="post-link" target="_blank" rel="noopener noreferrer">
+                        <a href="https://rookieops.dev/posts/git-para-quem-esta-comecando-em-devops/" class="post-link" target="_blank" rel="noopener noreferrer" aria-label="Read article: Git para quem está começando em DevOps">
                             Read article
                             <img src="../assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="20" height="20" aria-hidden="true">
                         </a>
@@ -403,10 +410,10 @@
                     <article class="post-card">
                         <div>
                             <p class="post-date">Jul 28, 2026</p>
-                            <h3 class="post-title">Identidade na nuvem: Microsoft Entra ID para iniciantes</h3>
-                            <p class="post-desc">Entenda locatário, autenticação, autorização e tokens e faça um reconhecimento seguro do Microsoft Entra ID.</p>
+                            <h3 class="post-title" lang="pt-BR">Identidade na nuvem: Microsoft Entra ID para iniciantes</h3>
+                            <p class="post-desc" lang="pt-BR">Entenda locatário, autenticação, autorização e tokens e faça um reconhecimento seguro do Microsoft Entra ID.</p>
                         </div>
-                        <a href="https://rookieops.dev/posts/identidade-na-nuvem-microsoft-entra-id-para-iniciantes/" class="post-link" target="_blank" rel="noopener noreferrer">
+                        <a href="https://rookieops.dev/posts/identidade-na-nuvem-microsoft-entra-id-para-iniciantes/" class="post-link" target="_blank" rel="noopener noreferrer" aria-label="Read article: Identidade na nuvem: Microsoft Entra ID para iniciantes">
                             Read article
                             <img src="../assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="20" height="20" aria-hidden="true">
                         </a>
@@ -414,35 +421,42 @@
                     <article class="post-card">
                         <div>
                             <p class="post-date">Jul 27, 2026</p>
-                            <h3 class="post-title">Tenant, assinatura e grupo de recursos no Azure: quem é quem</h3>
-                            <p class="post-desc">Entenda como tenant, assinatura e grupo de recursos se relacionam e use cada limite para organizar identidade, custos e operações.</p>
+                            <h3 class="post-title" lang="pt-BR">Tenant, assinatura e grupo de recursos no Azure: quem é quem</h3>
+                            <p class="post-desc" lang="pt-BR">Entenda como tenant, assinatura e grupo de recursos se relacionam e use cada limite para organizar identidade, custos e operações.</p>
                         </div>
-                        <a href="https://rookieops.dev/posts/tenant-assinatura-grupo-de-recursos/" class="post-link" target="_blank" rel="noopener noreferrer">
+                        <a href="https://rookieops.dev/posts/tenant-assinatura-grupo-de-recursos/" class="post-link" target="_blank" rel="noopener noreferrer" aria-label="Read article: Tenant, assinatura e grupo de recursos no Azure: quem é quem">
                             Read article
                             <img src="../assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="20" height="20" aria-hidden="true">
                         </a>
                     </article>
                     <template data-posts-boundary="end"></template>
                 </div>
+                <button class="carousel-control carousel-control-next" type="button" data-carousel-direction="1" aria-label="View next article" aria-controls="rss-carousel" hidden>
+                    <img src="../assets/vendor/boxicons/bx-right-arrow-alt.svg" alt="" width="24" height="24" aria-hidden="true">
+                </button>
             </div>
 
             <a href="https://rookieops.dev" target="_blank" rel="noopener noreferrer" class="cta-btn secondary">
-                Visit the Full Blog
+                View all articles on RookieOps
                 <img src="../assets/vendor/boxicons/bx-link-external.svg" alt="" width="20" height="20" aria-hidden="true">
             </a>
                 </section>
             </div>
 
-            <div class="terminal-statusbar" aria-hidden="true">
-                <span>portfolio.session</span>
-                <span>UTF-8</span>
-                <span>ONLINE</span>
+            <div class="terminal-statusbar">
+                <span aria-hidden="true">portfolio.session</span>
+                <span aria-hidden="true">UTF-8</span>
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Light mode" aria-pressed="false" data-enable-label="Enable light mode" data-disable-label="Disable light mode">
+                    <span class="theme-toggle-icon" aria-hidden="true">☀</span>
+                    <span aria-hidden="true">LIGHT</span>
+                </button>
+                <span aria-hidden="true">ONLINE</span>
             </div>
         </div>
     </main>
 
     <script src="../assets/js/vanilla-tilt.min.js"></script>
-    <script src="../assets/js/script.js?v=20260806-terminal8"></script>
+    <script src="../assets/js/script.js?v=20260809-ux2"></script>
 </body>
 
 </html>
