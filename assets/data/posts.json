@@ -1,7 +1,13 @@
 {
   "source": "https://rookieops.dev/rss.xml",
-  "updatedAt": "2026-08-06T12:23:14.327Z",
+  "updatedAt": "2026-08-10T11:28:56.604Z",
   "posts": [
+    {
+      "title": "Rede hub and spoke no Azure com Terraform, parte 1: base, IPAM e peerings",
+      "link": "https://rookieops.dev/posts/rede-hub-and-spoke-azure-terraform-parte-1/",
+      "publishedAt": "2026-08-09T00:00:00.000Z",
+      "description": "Monte uma rede hub and spoke no Azure com Terraform, IPAM sem sobreposição, módulos reutilizáveis e peerings prontos para validar."
+    },
     {
       "title": "Redes no Azure para iniciantes: VNet, subnet, NSG e rotas sem confusão",
       "link": "https://rookieops.dev/posts/redes-no-azure-para-iniciantes-vnet-subnet-nsg-rotas/",
@@ -31,12 +37,6 @@
       "link": "https://rookieops.dev/posts/identidade-na-nuvem-microsoft-entra-id-para-iniciantes/",
       "publishedAt": "2026-07-28T00:00:00.000Z",
       "description": "Entenda locatário, autenticação, autorização e tokens e faça um reconhecimento seguro do Microsoft Entra ID."
-    },
-    {
-      "title": "Tenant, assinatura e grupo de recursos no Azure: quem é quem",
-      "link": "https://rookieops.dev/posts/tenant-assinatura-grupo-de-recursos/",
-      "publishedAt": "2026-07-27T00:00:00.000Z",
-      "description": "Entenda como tenant, assinatura e grupo de recursos se relacionam e use cada limite para organizar identidade, custos e operações."
     }
   ]
 }
