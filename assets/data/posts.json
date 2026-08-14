@@ -1,7 +1,13 @@
 {
   "source": "https://rookieops.dev/rss.xml",
-  "updatedAt": "2026-08-10T11:28:56.604Z",
+  "updatedAt": "2026-08-14T11:12:30.523Z",
   "posts": [
+    {
+      "title": "Rede hub and spoke no Azure com Terraform, parte 2: NSGs e regras de segurança",
+      "link": "https://rookieops.dev/posts/rede-hub-and-spoke-azure-terraform-parte-2/",
+      "publishedAt": "2026-08-13T00:00:00.000Z",
+      "description": "Proteja subnets de uma rede hub and spoke no Azure com NSGs modulares, regras explícitas e associações gerenciadas pelo Terraform."
+    },
     {
       "title": "Rede hub and spoke no Azure com Terraform, parte 1: base, IPAM e peerings",
       "link": "https://rookieops.dev/posts/rede-hub-and-spoke-azure-terraform-parte-1/",
@@ -31,12 +37,6 @@
       "link": "https://rookieops.dev/posts/git-para-quem-esta-comecando-em-devops/",
       "publishedAt": "2026-07-29T00:00:00.000Z",
       "description": "Aprenda o fluxo essencial do Git para versionar automações, colaborar com segurança e recuperar mudanças sem medo no dia a dia de DevOps."
-    },
-    {
-      "title": "Identidade na nuvem: Microsoft Entra ID para iniciantes",
-      "link": "https://rookieops.dev/posts/identidade-na-nuvem-microsoft-entra-id-para-iniciantes/",
-      "publishedAt": "2026-07-28T00:00:00.000Z",
-      "description": "Entenda locatário, autenticação, autorização e tokens e faça um reconhecimento seguro do Microsoft Entra ID."
     }
   ]
 }
