@@ -35,6 +35,12 @@
         const toggle = document.getElementById("themeToggle");
         if (toggle) {
             toggle.setAttribute("aria-pressed", String(isLight));
+            const status = toggle.querySelector(".theme-toggle-state-text");
+            if (status) {
+                status.textContent = isLight
+                    ? toggle.dataset.onLabel || "ON"
+                    : toggle.dataset.offLabel || "OFF";
+            }
             toggle.title = isLight
                 ? toggle.dataset.disableLabel || "Disable light mode"
                 : toggle.dataset.enableLabel || "Enable light mode";
