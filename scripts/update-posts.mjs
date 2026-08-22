@@ -3,7 +3,6 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 
 const rootDirectory = fileURLToPath(new URL("../", import.meta.url));
-const feedUrl = "https://rookieops.dev/rss.xml";
 const maximumPosts = 6;
 const jsonPath = path.join(rootDirectory, "assets", "data", "posts.json");
 const sitemapPath = path.join(rootDirectory, "sitemap.xml");
@@ -13,13 +12,19 @@ const pages = [
         locale: "pt-BR",
         linkLabel: "Ler artigo",
         postLanguage: null,
+        feedUrl: "https://rookieops.dev/rss.xml",
+        jsonKey: "pt",
+        fallbackDescription: "Leia o artigo completo no RookieOps.",
         assetPrefix: "assets"
     },
     {
         path: path.join(rootDirectory, "en", "index.html"),
         locale: "en-US",
         linkLabel: "Read article",
-        postLanguage: "pt-BR",
+        postLanguage: null,
+        feedUrl: "https://rookieops.dev/rss_en.xml",
+        jsonKey: "en",
+        fallbackDescription: "Read the full article on RookieOps.",
         assetPrefix: "../assets"
     }
 ];
@@ -76,7 +81,7 @@ function truncate(value, maximumLength = 180) {
     return `${value.slice(0, maximumLength).replace(/\s+\S*$/, "")}…`;
 }
 
-function parseFeed(xml) {
+function parseFeed(xml, fallbackDescription) {
     const rssItems = xml.match(/<item\b[\s\S]*?<\/item>/gi);
     const atomEntries = xml.match(/<entry\b[\s\S]*?<\/entry>/gi);
     const entries = rssItems ?? atomEntries ?? [];
@@ -102,7 +107,7 @@ function parseFeed(xml) {
                 title,
                 link,
                 publishedAt: parsedDate.toISOString(),
-                description: truncate(stripHtml(descriptionValue) || "Leia o artigo completo no RookieOps.")
+                description: truncate(stripHtml(descriptionValue) || fallbackDescription)
             };
         })
         .filter(Boolean)
@@ -179,8 +184,8 @@ async function updateSitemapLastModified(date) {
     }
 }
 
-async function main() {
-    const response = await fetch(feedUrl, {
+async function fetchFeed(url, fallbackDescription) {
+    const response = await fetch(url, {
         headers: {
             "User-Agent": "tkusal.com.br static feed updater"
         },
@@ -188,45 +193,59 @@ async function main() {
     });
 
     if (!response.ok) {
-        throw new Error(`Feed request failed with HTTP ${response.status}`);
+        throw new Error(`Feed request failed for ${url} with HTTP ${response.status}`);
     }
 
-    const posts = parseFeed(await response.text());
+    const posts = parseFeed(await response.text(), fallbackDescription);
     if (posts.length === 0) {
-        throw new Error("The feed did not contain valid posts.");
+        throw new Error(`The feed at ${url} did not contain valid posts.`);
     }
+    return posts;
+}
 
-    let existingPosts = [];
+async function main() {
+    let existingData = {};
     try {
-        const existingData = JSON.parse(await readFile(jsonPath, "utf8"));
-        existingPosts = existingData.posts ?? [];
+        existingData = JSON.parse(await readFile(jsonPath, "utf8"));
+        if (Array.isArray(existingData.posts)) {
+            existingData.posts = { pt: existingData.posts, en: [] };
+        }
     } catch {
-        existingPosts = [];
+        existingData = { posts: {} };
     }
 
-    const postsChanged = JSON.stringify(existingPosts) !== JSON.stringify(posts);
+    let anyPostsChanged = false;
     let pagesChanged = false;
+    let totalPostsUpdated = 0;
+    const newData = {
+        updatedAt: new Date().toISOString(),
+        posts: {}
+    };
 
     for (const page of pages) {
+        const posts = await fetchFeed(page.feedUrl, page.fallbackDescription);
+        const existingPosts = existingData.posts?.[page.jsonKey] ?? [];
+        
+        const postsChanged = JSON.stringify(existingPosts) !== JSON.stringify(posts);
+        if (postsChanged) {
+            anyPostsChanged = true;
+        }
+        
+        newData.posts[page.jsonKey] = posts;
+        totalPostsUpdated += posts.length;
+        
         pagesChanged = (await updatePage(page, posts)) || pagesChanged;
     }
 
-    if (postsChanged) {
-        const now = new Date();
-        const json = {
-            source: feedUrl,
-            updatedAt: now.toISOString(),
-            posts
-        };
-
-        await writeFile(jsonPath, `${JSON.stringify(json, null, 2)}\n`, "utf8");
-        await updateSitemapLastModified(now.toISOString().slice(0, 10));
-        console.log(`Updated ${posts.length} RookieOps posts.`);
+    if (anyPostsChanged) {
+        await writeFile(jsonPath, `${JSON.stringify(newData, null, 2)}\n`, "utf8");
+        await updateSitemapLastModified(newData.updatedAt.slice(0, 10));
+        console.log(`Updated ${totalPostsUpdated} RookieOps posts across feeds.`);
         return;
     }
 
     console.log(pagesChanged
-        ? `Repaired the static cards for ${posts.length} RookieOps posts.`
+        ? `Repaired the static cards for ${totalPostsUpdated} RookieOps posts.`
         : "RookieOps posts are already up to date.");
 }
 

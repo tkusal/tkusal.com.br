@@ -1,42 +1,81 @@
 {
-  "source": "https://rookieops.dev/rss.xml",
-  "updatedAt": "2026-08-21T10:53:26.707Z",
-  "posts": [
-    {
-      "title": "Microsoft Student Ambassador em 2026",
-      "link": "https://rookieops.dev/posts/microsoft-student-ambassador-2026/",
-      "publishedAt": "2026-08-21T00:00:00.000Z",
-      "description": "Entenda os requisitos, as trilhas e o processo atual para sair do cadastro e se tornar Microsoft Student Ambassador em 2026."
-    },
-    {
-      "title": "Rede hub and spoke no Azure com Terraform, parte 3: Azure Firewall e rotas customizadas",
-      "link": "https://rookieops.dev/posts/rede-hub-and-spoke-azure-terraform-parte-3/",
-      "publishedAt": "2026-08-20T00:00:00.000Z",
-      "description": "Centralize a inspeção de uma rede hub and spoke no Azure com Firewall Basic, Firewall Policy e UDRs gerenciadas pelo Terraform."
-    },
-    {
-      "title": "Rede hub and spoke no Azure com Terraform, parte 2: NSGs e regras de segurança",
-      "link": "https://rookieops.dev/posts/rede-hub-and-spoke-azure-terraform-parte-2/",
-      "publishedAt": "2026-08-13T00:00:00.000Z",
-      "description": "Proteja subnets de uma rede hub and spoke no Azure com NSGs modulares, regras explícitas e associações gerenciadas pelo Terraform."
-    },
-    {
-      "title": "Rede hub and spoke no Azure com Terraform, parte 1: base, IPAM e peerings",
-      "link": "https://rookieops.dev/posts/rede-hub-and-spoke-azure-terraform-parte-1/",
-      "publishedAt": "2026-08-09T00:00:00.000Z",
-      "description": "Monte uma rede hub and spoke no Azure com Terraform, IPAM sem sobreposição, módulos reutilizáveis e peerings prontos para validar."
-    },
-    {
-      "title": "Redes no Azure para iniciantes: VNet, subnet, NSG e rotas sem confusão",
-      "link": "https://rookieops.dev/posts/redes-no-azure-para-iniciantes-vnet-subnet-nsg-rotas/",
-      "publishedAt": "2026-08-05T00:00:00.000Z",
-      "description": "Entenda como VNet, subnet, NSG e rotas trabalham juntas no Azure e crie um laboratório seguro com Azure CLI."
-    },
-    {
-      "title": "GitHub Actions para iniciantes: CI/CD na prática",
-      "link": "https://rookieops.dev/posts/github-actions-para-iniciantes-ci-cd-gh-200/",
-      "publishedAt": "2026-08-02T00:00:00.000Z",
-      "description": "Aprenda GitHub Actions na prática: crie uma pipeline segura de CI/CD com testes, matriz, artefatos e deploy no GitHub Pages para a certificação GH-200."
-    }
-  ]
+  "updatedAt": "2026-08-22T03:44:04.543Z",
+  "posts": {
+    "pt": [
+      {
+        "title": "Como se tornar Microsoft Student Ambassador em 2026",
+        "link": "https://rookieops.dev/posts/microsoft-student-ambassador-2026/",
+        "publishedAt": "2026-08-21T00:00:00.000Z",
+        "description": "Entenda os requisitos, as trilhas e o processo atual para sair do cadastro e se tornar Microsoft Student Ambassador em 2026."
+      },
+      {
+        "title": "Rede hub and spoke no Azure com Terraform, parte 3: Azure Firewall e rotas customizadas",
+        "link": "https://rookieops.dev/posts/rede-hub-and-spoke-azure-terraform-parte-3/",
+        "publishedAt": "2026-08-20T00:00:00.000Z",
+        "description": "Centralize a inspeção de uma rede hub and spoke no Azure com Firewall Basic, Firewall Policy e UDRs gerenciadas pelo Terraform."
+      },
+      {
+        "title": "Rede hub and spoke no Azure com Terraform, parte 2: NSGs e regras de segurança",
+        "link": "https://rookieops.dev/posts/rede-hub-and-spoke-azure-terraform-parte-2/",
+        "publishedAt": "2026-08-13T00:00:00.000Z",
+        "description": "Proteja subnets de uma rede hub and spoke no Azure com NSGs modulares, regras explícitas e associações gerenciadas pelo Terraform."
+      },
+      {
+        "title": "Rede hub and spoke no Azure com Terraform, parte 1: base, IPAM e peerings",
+        "link": "https://rookieops.dev/posts/rede-hub-and-spoke-azure-terraform-parte-1/",
+        "publishedAt": "2026-08-09T00:00:00.000Z",
+        "description": "Monte uma rede hub and spoke no Azure com Terraform, IPAM sem sobreposição, módulos reutilizáveis e peerings prontos para validar."
+      },
+      {
+        "title": "Redes no Azure para iniciantes: VNet, subnet, NSG e rotas sem confusão",
+        "link": "https://rookieops.dev/posts/redes-no-azure-para-iniciantes-vnet-subnet-nsg-rotas/",
+        "publishedAt": "2026-08-05T00:00:00.000Z",
+        "description": "Entenda como VNet, subnet, NSG e rotas trabalham juntas no Azure e crie um laboratório seguro com Azure CLI."
+      },
+      {
+        "title": "GitHub Actions para iniciantes: CI/CD na prática",
+        "link": "https://rookieops.dev/posts/github-actions-para-iniciantes-ci-cd-gh-200/",
+        "publishedAt": "2026-08-02T00:00:00.000Z",
+        "description": "Aprenda GitHub Actions na prática: crie uma pipeline segura de CI/CD com testes, matriz, artefatos e deploy no GitHub Pages para a certificação GH-200."
+      }
+    ],
+    "en": [
+      {
+        "title": "How to become a Microsoft Student Ambassador in 2026",
+        "link": "https://rookieops.dev/en/posts/microsoft-student-ambassador-2026/",
+        "publishedAt": "2026-08-21T00:00:00.000Z",
+        "description": "Learn the current requirements, contribution paths, benefits, and onboarding process to become a Microsoft Student Ambassador in 2026."
+      },
+      {
+        "title": "Hub and spoke network in Azure with Terraform, part 3: Azure Firewall and custom routes",
+        "link": "https://rookieops.dev/en/posts/hub-and-spoke-network-azure-terraform-part-3/",
+        "publishedAt": "2026-08-20T00:00:00.000Z",
+        "description": "Centralize the inspection of a hub and spoke network in Azure with Firewall Basic, Firewall Policy, and Terraform-managed UDRs."
+      },
+      {
+        "title": "Hub and spoke network in Azure with Terraform, part 2: NSGs and security rules",
+        "link": "https://rookieops.dev/en/posts/hub-and-spoke-network-azure-terraform-part-2/",
+        "publishedAt": "2026-08-13T00:00:00.000Z",
+        "description": "Protect subnets in an Azure hub and spoke network with modular NSGs, explicit rules, and associations managed by Terraform."
+      },
+      {
+        "title": "Hub and spoke network in Azure with Terraform, part 1: foundation, IPAM, and peerings",
+        "link": "https://rookieops.dev/en/posts/hub-and-spoke-network-azure-terraform-part-1/",
+        "publishedAt": "2026-08-09T00:00:00.000Z",
+        "description": "Build a hub and spoke network in Azure with Terraform, non-overlapping IPAM, reusable modules, and ready-to-validate peerings."
+      },
+      {
+        "title": "Azure Networks for Beginners: VNet, Subnet, NSG, and Routes Without Confusion",
+        "link": "https://rookieops.dev/en/posts/azure-networks-for-beginners-vnet-subnet-nsg-routes/",
+        "publishedAt": "2026-08-05T00:00:00.000Z",
+        "description": "Understand how VNet, subnet, NSG, and routes work together in Azure and build a secure lab with Azure CLI."
+      },
+      {
+        "title": "GitHub Actions for beginners: hands-on CI/CD",
+        "link": "https://rookieops.dev/en/posts/github-actions-for-beginners-ci-cd-gh-200/",
+        "publishedAt": "2026-08-02T00:00:00.000Z",
+        "description": "Learn GitHub Actions hands-on: build a secure CI/CD pipeline with tests, matrix, artifacts, and GitHub Pages deployment for the GH-200 certification."
+      }
+    ]
+  }
 }
