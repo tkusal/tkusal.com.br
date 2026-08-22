@@ -1,4 +1,31 @@
 (() => {
+    // Language Negotiation
+    try {
+        const langKey = "tkusal-lang-pref";
+        
+        document.addEventListener("click", (event) => {
+            const langBtn = event.target.closest(".terminal-lang");
+            if (langBtn) {
+                window.localStorage.setItem(langKey, langBtn.getAttribute("lang") === "en" ? "en" : "pt");
+            }
+        }, { capture: true });
+
+        const currentPath = window.location.pathname;
+        const isRoot = currentPath === "/" || (currentPath.endsWith("/index.html") && !currentPath.includes("/en/"));
+
+        if (isRoot) {
+            const storedLang = window.localStorage.getItem(langKey);
+            if (storedLang === "en") {
+                window.location.replace("/en/");
+            } else if (!storedLang) {
+                const browserLang = navigator.language || navigator.userLanguage || "";
+                if (browserLang && !browserLang.toLowerCase().startsWith("pt")) {
+                    window.location.replace("/en/");
+                }
+            }
+        }
+    } catch (e) {}
+
     const storageKey = "tkusal-color-theme";
     const root = document.documentElement;
 
