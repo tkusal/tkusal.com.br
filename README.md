@@ -2,7 +2,7 @@
 
 <p align="center">
   <strong>Personal portfolio with a terminal-inspired interface.</strong><br>
-  Cloud, Infrastructure, DevOps, Cybersecurity and Open Source.
+  Cloud, Infrastructure, DevOps, Cybersecurity and Public Source Code.
 </p>
 
 <p align="center">
@@ -27,7 +27,7 @@ Source code for my personal website, [tkusal.com.br](https://tkusal.com.br).
 
 The project serves as my professional portfolio, bringing together my experience, areas of expertise, certifications, technologies, projects, and technical content published on [RookieOps](https://rookieops.dev).
 
-The interface is inspired by a terminal while remaining easy to navigate for visitors who are not familiar with command-line environments. The website is fully static, bilingual, and deployed on Cloudflare Pages.
+The interface is inspired by a terminal while remaining accessible to visitors who are not familiar with command-line environments. The website is fully static, bilingual, and deployed on Cloudflare Pages.
 
 ## Highlights
 
@@ -58,9 +58,9 @@ The interface is inspired by a terminal while remaining easy to navigate for vis
 | Vanilla Tilt     | Interaction effects                       |
 | Boxicons         | Icons                                     |
 
-The project does not require a framework, build process, or mandatory runtime dependencies.
+The project does not require a framework, package manager, or build step to run.
 
-Its files can be deployed directly to any static hosting provider.
+Runtime assets and third-party components required by the website are stored directly in the repository, allowing the site to be deployed as a static application.
 
 ## Running Locally
 
@@ -83,28 +83,28 @@ Then open:
 http://localhost:4173
 ```
 
-Opening the HTML files directly in a browser may not accurately reproduce the behavior of a hosted website.
+Opening the HTML files directly through the `file://` protocol may not accurately reproduce the behavior of a hosted website.
 
 ## Project Structure
 
 ```text
 .
 ├── .github/
+│   ├── FUNDING.yml          # Sponsorship configuration
 │   └── workflows/           # GitHub Actions automation
 ├── .well-known/
 │   └── security.txt         # Vulnerability reporting channel
 ├── assets/
 │   ├── css/                 # Stylesheets
 │   ├── data/                # Static article data
-│   ├── fonts/               # Local fonts and licenses
+│   ├── fonts/               # Local fonts and their licenses
 │   ├── img/                 # Photos and images
 │   ├── js/                  # Website scripts
-│   └── vendor/
-│       └── boxicons/        # Third-party icons
+│   └── vendor/              # Third-party assets
 ├── en/                      # English version
 ├── scripts/                 # Generation and update scripts
 ├── 404.html                 # Custom error page
-├── _headers                 # Cloudflare Pages headers
+├── _headers                 # Cloudflare Pages security headers
 ├── index.html               # Portuguese home page
 ├── LICENSE                  # Code reuse terms
 ├── robots.txt
@@ -113,17 +113,17 @@ Opening the HTML files directly in a browser may not accurately reproduce the be
 
 ## Deployment
 
-The repository was designed to be deployed as a static website using Cloudflare Pages.
+The repository is designed to be deployed as a static website using Cloudflare Pages.
 
 There is no build step. The repository root directly contains the files published to production.
 
-When the Cloudflare Pages integration is configured, changes pushed to the production branch can automatically trigger a new deployment.
+When the Cloudflare Pages production integration is configured, changes pushed to the production branch can automatically trigger a new deployment.
 
-The RookieOps article automation can also explicitly trigger a Cloudflare Pages Deploy Hook whenever content is updated.
+The RookieOps article synchronization workflow can also explicitly trigger a Cloudflare Pages Deploy Hook after content changes.
 
 ## RookieOps Integration
 
-Articles displayed on the portfolio are automatically synchronized with [RookieOps](https://rookieops.dev).
+Articles displayed in the portfolio are automatically synchronized with [RookieOps](https://rookieops.dev).
 
 The workflow:
 
@@ -141,22 +141,22 @@ scripts/update-posts.mjs
 
 is responsible for:
 
-1. fetching the RookieOps RSS feed;
-2. normalizing the six latest articles;
+1. fetching the Portuguese and English RookieOps RSS feeds;
+2. normalizing the six latest articles from each feed;
 3. updating `assets/data/posts.json`;
 4. updating article cards on both Portuguese and English pages;
-5. updating the sitemap `lastmod` value when necessary;
-6. detecting feed availability or blocking failures.
+5. updating the sitemap `lastmod` value when content changes;
+6. failing explicitly when a feed is unavailable or does not contain valid posts.
 
-When changes are detected, the workflow creates a commit and pushes the updated content to the repository.
+When changes are detected, the workflow creates a commit and pushes the updated generated files to the repository.
 
 The automation can also:
 
 * trigger a Cloudflare Pages Deploy Hook;
 * create or update an issue when synchronization fails;
-* automatically close the alert after normal operation is restored.
+* automatically close the failure alert after normal operation is restored.
 
-The workflow uses specific GitHub Actions permissions and the following repository secret:
+The workflow uses scoped GitHub Actions permissions and the following repository secret:
 
 ```text
 CLOUDFLARE_PAGES_DEPLOY_HOOK
@@ -164,27 +164,29 @@ CLOUDFLARE_PAGES_DEPLOY_HOOK
 
 ## Security
 
+The website includes security-related HTTP headers configured for Cloudflare Pages, including Content Security Policy, HSTS, anti-framing protections, content-type protections, referrer controls, and restrictive browser permissions.
+
 Responsible vulnerability reporting instructions are available at:
 
 ```text
 .well-known/security.txt
 ```
 
-The file contains the security contact channel, accepted languages, canonical URL, and policy expiration date.
+The file defines the security contact channel, accepted languages, canonical URL, and policy expiration date.
 
 ## Personal Content and Identity
 
 The source code in this repository may be reused according to the terms defined in [LICENSE](LICENSE).
 
-Personal information and visual identity contained in the website are not included in that permission.
+Personal information, branding, and visual identity contained in the website are not licensed for reuse.
 
-Before reusing the project, remove or replace:
+Before publicly distributing or deploying a derivative version of this project, remove or replace:
 
 * name, photograph, biography, and professional history;
-* certifications, education, and other personal information;
-* contact links and social profiles;
-* TKusal and RookieOps logos, branding, and visual materials;
-* text that could imply authorship, affiliation, or endorsement by Thiago Kusal.
+* certifications, education, skills, achievements, and other personal information;
+* contact information and social profiles;
+* TKusal and RookieOps names, logos, branding, artwork, and visual materials;
+* content that could imply authorship, affiliation, sponsorship, endorsement, or approval by Thiago Kusal.
 
 The attribution required by the license must be preserved.
 
@@ -194,28 +196,35 @@ The personal photograph and the following file:
 assets/img/og-banner-1200x630.png
 ```
 
-are part of the personal visual identity and are not licensed for reuse.
+are part of the personal identity and branding and are not licensed for reuse.
 
 ## Third-Party Components
 
-Third-party libraries, fonts, and icons remain subject to their respective authors' licenses.
+Third-party libraries, fonts, icons, images, and other materials remain subject to the licenses and rights of their respective authors or owners.
 
-These include:
+Examples currently included in the repository include:
 
 * Boxicons: `assets/vendor/boxicons/LICENSE`
 * Noto Sans: `assets/fonts/OFL.txt`
 * IBM Plex Mono: `assets/fonts/IBM-PLEX-MONO-OFL.txt`
+* Vanilla Tilt: third-party JavaScript component included with the website
+
+The TKusal Code Reuse License does not replace or override third-party licenses.
 
 ## License
 
-Original code in this repository is available under the **TKusal Code Reuse License 1.0**.
+Original code authored by Thiago Kusal and included in this repository is available under the **TKusal Code Reuse License 1.1**.
 
-It permits the use, modification, and distribution of the code provided that:
+The license permits commercial and non-commercial use, modification, adaptation, distribution, sublicensing, and incorporation of the Code into other works, subject to its conditions.
 
-* Thiago Kusal receives attribution;
-* the license is preserved;
-* personal information and visual identity are not reused;
-* third-party component licenses are respected.
+In particular:
+
+* attribution to Thiago Kusal must be preserved;
+* a complete copy of the license must accompany substantial distributions of the Code;
+* Personal Content is not licensed for public reuse;
+* TKusal and RookieOps Branding is not licensed for reuse;
+* no endorsement, sponsorship, maintenance, affiliation, or approval may be implied;
+* Third-Party Materials remain subject to their own licenses and rights.
 
 See [LICENSE](LICENSE) for the complete terms.
 
@@ -229,12 +238,12 @@ Código-fonte do meu site pessoal, [tkusal.com.br](https://tkusal.com.br).
 
 O projeto funciona como meu portfólio profissional e reúne experiência, áreas de atuação, certificações, tecnologias, projetos e conteúdos técnicos publicados no [RookieOps](https://rookieops.dev).
 
-A interface foi inspirada em um terminal, mas desenvolvida para continuar simples de navegar mesmo para quem não está acostumado com linha de comando. O site é totalmente estático, bilíngue e publicado no Cloudflare Pages.
+A interface foi inspirada em um terminal, mas desenvolvida para permanecer acessível mesmo para visitantes que não estejam familiarizados com ambientes de linha de comando. O site é totalmente estático, bilíngue e publicado no Cloudflare Pages.
 
 ## Destaques
 
 * Interface inspirada em terminal e adaptada para desktop, tablet e dispositivos móveis.
-* Navegação por comandos, atalhos, teclado ou elementos da própria interface.
+* Navegação por comandos, atalhos, teclado ou elementos convencionais da interface.
 * Prompt interativo com histórico, sugestões e autocompletar usando `Tab`.
 * Conteúdo disponível em português (`pt-BR`) e inglês.
 * Layout responsivo com comportamentos específicos para desktop e dispositivos de toque.
@@ -245,7 +254,7 @@ A interface foi inspirada em um terminal, mas desenvolvida para continuar simple
 * Fontes e ícones armazenados localmente.
 * Página 404 personalizada.
 * Cabeçalhos de segurança para Cloudflare Pages.
-* Canal de reporte de vulnerabilidades por `security.txt`.
+* Canal para reporte de vulnerabilidades por `security.txt`.
 * Sincronização automática dos artigos mais recentes do RookieOps usando GitHub Actions.
 
 ## Tecnologias
@@ -260,9 +269,9 @@ A interface foi inspirada em um terminal, mas desenvolvida para continuar simple
 | Vanilla Tilt     | Efeitos de interação                  |
 | Boxicons         | Ícones                                |
 
-O projeto não utiliza framework, processo de compilação ou dependências obrigatórias para execução.
+O projeto não exige framework, gerenciador de pacotes ou etapa de compilação para execução.
 
-Os arquivos podem ser publicados diretamente em qualquer serviço de hospedagem estática.
+Os assets de runtime e componentes de terceiros necessários ao site são armazenados diretamente no repositório, permitindo sua publicação como uma aplicação estática.
 
 ## Executando localmente
 
@@ -285,13 +294,14 @@ Depois acesse:
 http://localhost:4173
 ```
 
-Abrir os arquivos HTML diretamente pelo navegador pode não reproduzir com fidelidade o comportamento de uma hospedagem web.
+Abrir os arquivos HTML diretamente pelo protocolo `file://` pode não reproduzir com fidelidade o comportamento de uma hospedagem web.
 
 ## Estrutura do projeto
 
 ```text
 .
 ├── .github/
+│   ├── FUNDING.yml          # Configuração de patrocínio
 │   └── workflows/           # Automações do GitHub Actions
 ├── .well-known/
 │   └── security.txt         # Canal para reporte de vulnerabilidades
@@ -301,27 +311,26 @@ Abrir os arquivos HTML diretamente pelo navegador pode não reproduzir com fidel
 │   ├── fonts/               # Fontes locais e respectivas licenças
 │   ├── img/                 # Fotografias e imagens
 │   ├── js/                  # Scripts do site
-│   └── vendor/
-│       └── boxicons/        # Ícones de terceiros
+│   └── vendor/              # Assets de terceiros
 ├── en/                      # Versão em inglês
 ├── scripts/                 # Scripts de geração e atualização
 ├── 404.html                 # Página de erro personalizada
-├── _headers                 # Cabeçalhos para Cloudflare Pages
+├── _headers                 # Cabeçalhos de segurança do Cloudflare Pages
 ├── index.html               # Página principal em português
-├── LICENSE                  # Termos de reutilização
+├── LICENSE                  # Termos de reutilização do código
 ├── robots.txt
 └── sitemap.xml
 ```
 
 ## Deploy
 
-O repositório foi desenvolvido para publicação como site estático no Cloudflare Pages.
+O repositório foi desenvolvido para publicação como um site estático no Cloudflare Pages.
 
 Não existe etapa de build. O diretório raiz contém diretamente os arquivos publicados em produção.
 
-Quando a integração com o Cloudflare Pages está configurada, alterações enviadas para a branch de produção podem gerar automaticamente um novo deploy.
+Quando a integração de produção do Cloudflare Pages está configurada, alterações enviadas para a branch de produção podem gerar automaticamente um novo deploy.
 
-A automação responsável pelos artigos do RookieOps também pode acionar explicitamente um Cloudflare Pages Deploy Hook quando o conteúdo é atualizado.
+A automação responsável pela sincronização dos artigos do RookieOps também pode acionar explicitamente um Cloudflare Pages Deploy Hook depois de alterações no conteúdo.
 
 ## Integração com o RookieOps
 
@@ -343,22 +352,22 @@ scripts/update-posts.mjs
 
 é responsável por:
 
-1. consultar o feed RSS do RookieOps;
-2. normalizar os seis artigos mais recentes;
+1. consultar os feeds RSS em português e inglês do RookieOps;
+2. normalizar os seis artigos mais recentes de cada feed;
 3. atualizar `assets/data/posts.json`;
 4. atualizar os cards das páginas em português e inglês;
-5. atualizar o `lastmod` do sitemap quando necessário;
-6. detectar indisponibilidade ou bloqueio do feed.
+5. atualizar o `lastmod` do sitemap quando o conteúdo muda;
+6. encerrar com erro quando um feed está indisponível ou não contém artigos válidos.
 
-Quando existem alterações, o workflow cria um commit e envia as mudanças para o repositório.
+Quando existem alterações, o workflow cria um commit e envia os arquivos gerados atualizados para o repositório.
 
 A automação também pode:
 
-* acionar um Deploy Hook do Cloudflare Pages;
+* acionar um Cloudflare Pages Deploy Hook;
 * criar ou atualizar uma issue quando a sincronização falha;
 * encerrar automaticamente o alerta quando o funcionamento é restabelecido.
 
-Para isso, o repositório utiliza permissões específicas do GitHub Actions e o secret:
+O workflow utiliza permissões específicas do GitHub Actions e o seguinte secret do repositório:
 
 ```text
 CLOUDFLARE_PAGES_DEPLOY_HOOK
@@ -366,57 +375,66 @@ CLOUDFLARE_PAGES_DEPLOY_HOOK
 
 ## Segurança
 
+O site utiliza cabeçalhos HTTP de segurança configurados para o Cloudflare Pages, incluindo Content Security Policy, HSTS, proteção contra framing, proteção de content type, controle de referrer e restrições de permissões do navegador.
+
 As instruções para reporte responsável de vulnerabilidades estão disponíveis em:
 
 ```text
 .well-known/security.txt
 ```
 
-O arquivo contém o canal de contato de segurança, idiomas aceitos, URL canônica e período de validade da política.
+O arquivo define o canal de contato de segurança, idiomas aceitos, URL canônica e período de validade da política.
 
 ## Conteúdo pessoal e identidade
 
-O código deste projeto pode ser reutilizado de acordo com os termos definidos em [LICENSE](LICENSE).
+O código-fonte deste projeto pode ser reutilizado de acordo com os termos definidos em [LICENSE](LICENSE).
 
-As informações pessoais e a identidade visual presentes no site, entretanto, não fazem parte dessa autorização.
+Informações pessoais, branding e identidade visual presentes no site não estão licenciados para reutilização.
 
-Antes de reutilizar o projeto, remova ou substitua:
+Antes de distribuir ou publicar publicamente uma versão derivada deste projeto, remova ou substitua:
 
 * nome, fotografia, biografia e histórico profissional;
-* certificações, formação e demais informações pessoais;
-* links de contato e perfis sociais;
-* logotipos, marcas e materiais visuais de TKusal e RookieOps;
-* textos que possam sugerir autoria, vínculo ou endosso de Thiago Kusal.
+* certificações, formação, competências, conquistas e demais informações pessoais;
+* informações de contato e perfis sociais;
+* nomes, logotipos, branding, arte e materiais visuais de TKusal e RookieOps;
+* conteúdos que possam sugerir autoria, vínculo, patrocínio, endosso ou aprovação por Thiago Kusal.
 
 O crédito exigido pela licença deve ser preservado.
 
-A fotografia pessoal e o arquivo:
+A fotografia pessoal e o seguinte arquivo:
 
 ```text
 assets/img/og-banner-1200x630.png
 ```
 
-fazem parte da identidade visual pessoal e não estão licenciados para reutilização.
+fazem parte da identidade pessoal e do branding e não estão licenciados para reutilização.
 
 ## Componentes de terceiros
 
-Bibliotecas, fontes e ícones de terceiros continuam sujeitos às licenças de seus respectivos autores.
+Bibliotecas, fontes, ícones, imagens e outros materiais de terceiros continuam sujeitos às licenças e direitos de seus respectivos autores ou proprietários.
 
-Entre elas:
+Alguns dos componentes atualmente presentes no repositório incluem:
 
 * Boxicons: `assets/vendor/boxicons/LICENSE`
 * Noto Sans: `assets/fonts/OFL.txt`
 * IBM Plex Mono: `assets/fonts/IBM-PLEX-MONO-OFL.txt`
+* Vanilla Tilt: componente JavaScript de terceiros incluído no site
+
+A TKusal Code Reuse License não substitui nem prevalece sobre as licenças aplicáveis aos componentes de terceiros.
 
 ## Licença
 
-O código original deste repositório é disponibilizado sob a **TKusal Code Reuse License 1.0**.
+O código original de autoria de Thiago Kusal incluído neste repositório é disponibilizado sob a **TKusal Code Reuse License 1.1**.
 
-Ela permite usar, modificar e distribuir o código desde que:
+A licença permite uso comercial e não comercial, modificação, adaptação, distribuição, sublicenciamento e incorporação do código em outros trabalhos, respeitadas suas condições.
 
-* Thiago Kusal seja creditado;
-* a licença seja preservada;
-* informações pessoais e identidade visual não sejam reutilizadas;
-* as licenças dos componentes de terceiros sejam respeitadas.
+Em especial:
+
+* o crédito a Thiago Kusal deve ser preservado;
+* uma cópia completa da licença deve acompanhar distribuições substanciais do código;
+* Personal Content não está licenciado para reutilização pública;
+* o Branding de TKusal e RookieOps não está licenciado para reutilização;
+* não pode ser sugerido endosso, patrocínio, manutenção, vínculo ou aprovação;
+* materiais de terceiros continuam sujeitos às próprias licenças e direitos.
 
 Consulte [LICENSE](LICENSE) para os termos completos.
