@@ -1,7 +1,13 @@
 {
-  "updatedAt": "2026-08-24T10:58:33.177Z",
+  "updatedAt": "2026-08-27T20:36:43.347Z",
   "posts": {
     "pt": [
+      {
+        "title": "Kubernetes na prática com AKS: do container ao Pod, Service e Ingress",
+        "link": "https://rookieops.dev/posts/aks-para-iniciantes-container-pod-service-ingress/",
+        "publishedAt": "2026-08-27T00:00:00.000Z",
+        "description": "Aprenda Kubernetes na prática com AKS, do Dockerfile ao Pod, Deployment, Service e Ingress, com uma aplicação mínima real."
+      },
       {
         "title": "Governança de Identidades no Microsoft 365: Automatizando o ciclo de vida e PIM com Entra ID Governance",
         "link": "https://rookieops.dev/posts/governanca-identidades-m365-entra-id/",
@@ -31,15 +37,15 @@
         "link": "https://rookieops.dev/posts/rede-hub-and-spoke-azure-terraform-parte-1/",
         "publishedAt": "2026-08-09T00:00:00.000Z",
         "description": "Monte uma rede hub and spoke no Azure com Terraform, IPAM sem sobreposição, módulos reutilizáveis e peerings prontos para validar."
-      },
-      {
-        "title": "Redes no Azure para iniciantes: VNet, subnet, NSG e rotas sem confusão",
-        "link": "https://rookieops.dev/posts/redes-no-azure-para-iniciantes-vnet-subnet-nsg-rotas/",
-        "publishedAt": "2026-08-05T00:00:00.000Z",
-        "description": "Entenda como VNet, subnet, NSG e rotas trabalham juntas no Azure e crie um laboratório seguro com Azure CLI."
       }
     ],
     "en": [
+      {
+        "title": "Kubernetes in practice with AKS: from container to Pod, Service, and Ingress",
+        "link": "https://rookieops.dev/en/posts/kubernetes-in-practice-with-aks-container-pod-service-ingress/",
+        "publishedAt": "2026-08-27T00:00:00.000Z",
+        "description": "Learn Kubernetes with AKS, from Dockerfile to Pod, Deployment, Service, and Ingress, using a real minimal application."
+      },
       {
         "title": "Identity Governance in Microsoft 365: Automating the lifecycle and PIM with Entra ID Governance",
         "link": "https://rookieops.dev/en/posts/identity-governance-m365-entra-id/",
@@ -69,12 +75,6 @@
         "link": "https://rookieops.dev/en/posts/hub-and-spoke-network-azure-terraform-part-1/",
         "publishedAt": "2026-08-09T00:00:00.000Z",
         "description": "Build a hub and spoke network in Azure with Terraform, non-overlapping IPAM, reusable modules, and ready-to-validate peerings."
-      },
-      {
-        "title": "Azure Networks for Beginners: VNet, Subnet, NSG, and Routes Without Confusion",
-        "link": "https://rookieops.dev/en/posts/azure-networks-for-beginners-vnet-subnet-nsg-routes/",
-        "publishedAt": "2026-08-05T00:00:00.000Z",
-        "description": "Understand how VNet, subnet, NSG, and routes work together in Azure and build a secure lab with Azure CLI."
       }
     ]
   }
