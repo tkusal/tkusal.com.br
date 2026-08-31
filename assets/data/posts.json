@@ -1,7 +1,13 @@
 {
-  "updatedAt": "2026-08-27T20:36:43.347Z",
+  "updatedAt": "2026-08-31T17:39:15.490Z",
   "posts": {
     "pt": [
+      {
+        "title": "VM Linux no Azure com Terraform, cloud-init e Nginx",
+        "link": "https://rookieops.dev/posts/vm-linux-azure-terraform-cloud-init/",
+        "publishedAt": "2026-08-31T00:00:00.000Z",
+        "description": "Crie uma VM Ubuntu no Azure com Terraform, configure SSH e suba o Nginx automaticamente com cloud-init. Provisionamento reproduzível, do zero ao ar."
+      },
       {
         "title": "Kubernetes na prática com AKS: do container ao Pod, Service e Ingress",
         "link": "https://rookieops.dev/posts/aks-para-iniciantes-container-pod-service-ingress/",
@@ -31,15 +37,15 @@
         "link": "https://rookieops.dev/posts/rede-hub-and-spoke-azure-terraform-parte-2/",
         "publishedAt": "2026-08-13T00:00:00.000Z",
         "description": "Proteja subnets de uma rede hub and spoke no Azure com NSGs modulares, regras explícitas e associações gerenciadas pelo Terraform."
-      },
-      {
-        "title": "Rede hub and spoke no Azure com Terraform, parte 1: base, IPAM e peerings",
-        "link": "https://rookieops.dev/posts/rede-hub-and-spoke-azure-terraform-parte-1/",
-        "publishedAt": "2026-08-09T00:00:00.000Z",
-        "description": "Monte uma rede hub and spoke no Azure com Terraform, IPAM sem sobreposição, módulos reutilizáveis e peerings prontos para validar."
       }
     ],
     "en": [
+      {
+        "title": "Linux VM on Azure with Terraform, cloud-init and Nginx",
+        "link": "https://rookieops.dev/en/posts/linux-vm-azure-terraform-cloud-init/",
+        "publishedAt": "2026-08-31T00:00:00.000Z",
+        "description": "Spin up an Ubuntu VM on Azure with Terraform, wire up SSH key auth, and get Nginx running automatically via cloud-init. Fully reproducible, from zero to live."
+      },
       {
         "title": "Kubernetes in practice with AKS: from container to Pod, Service, and Ingress",
         "link": "https://rookieops.dev/en/posts/kubernetes-in-practice-with-aks-container-pod-service-ingress/",
@@ -69,12 +75,6 @@
         "link": "https://rookieops.dev/en/posts/hub-and-spoke-network-azure-terraform-part-2/",
         "publishedAt": "2026-08-13T00:00:00.000Z",
         "description": "Protect subnets in an Azure hub and spoke network with modular NSGs, explicit rules, and associations managed by Terraform."
-      },
-      {
-        "title": "Hub and spoke network in Azure with Terraform, part 1: foundation, IPAM, and peerings",
-        "link": "https://rookieops.dev/en/posts/hub-and-spoke-network-azure-terraform-part-1/",
-        "publishedAt": "2026-08-09T00:00:00.000Z",
-        "description": "Build a hub and spoke network in Azure with Terraform, non-overlapping IPAM, reusable modules, and ready-to-validate peerings."
       }
     ]
   }
